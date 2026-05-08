@@ -187,6 +187,16 @@ body.light-mode #lang-toggle{
 .s8 .caption{color:#3a3222;opacity:.9}
 .s8 .icon{filter:none;opacity:.85}
 
+/* ── Data date badge ────────────────────────────────────────────── */
+.data-date{
+  position:absolute;bottom:2.2vh;right:4vw;
+  font-family:var(--font-body);font-size:clamp(9px,1.8vw,11px);
+  font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  opacity:.38;pointer-events:none;z-index:5;
+  color:currentColor
+}
+.s8 .data-date{color:var(--text-dark)}
+
 /* ── Methodology ────────────────────────────────────────────────── */
 #metodologia{
   background:#0a0c12;color:#e6e8ee;
@@ -262,7 +272,7 @@ footer p{margin:0}
     <div class="grid">
       <div class="num" aria-hidden="true">15,731<span>km</span></div>
       <h2 class="headline" data-i18n="s1_headline">Elon Musk vive en órbita</h2>
-      <p class="caption" data-i18n="s1_caption">Menos de 1 de cada 10 millones · $636B–$839B</p>
+      <p class="caption" data-i18n="s1_caption">Menos de 1 de cada 10 millones · USD $636B–$839B</p>
       <div class="icon" aria-hidden="true">
         <!-- Satellite in orbit -->
         <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4">
@@ -272,6 +282,7 @@ footer p{margin:0}
         </svg>
       </div>
     </div>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024</span>
   </section>
 
   <!-- 2 · Billonario ─────────────────────────────────────────── -->
@@ -283,7 +294,7 @@ footer p{margin:0}
     <div class="grid">
       <div class="num" aria-hidden="true">18.75<span>km</span></div>
       <h2 class="headline" data-i18n="s2_headline">Un billonario toca la estratosfera</h2>
-      <p class="caption" data-i18n="s2_caption">3 de cada 10 millones · Más de $1,000 millones</p>
+      <p class="caption" data-i18n="s2_caption">3 de cada 10 millones · Más de USD $1,000 millones</p>
       <div class="icon" aria-hidden="true">
         <!-- Rocket shape -->
         <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4">
@@ -292,6 +303,7 @@ footer p{margin:0}
         </svg>
       </div>
     </div>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024</span>
   </section>
 
   <!-- 3 · Millonarios (edificio) ─────────────────────────────── -->
@@ -303,7 +315,7 @@ footer p{margin:0}
     <div class="grid">
       <div class="num" aria-hidden="true">70.8<span>m</span></div>
       <h2 class="headline" data-i18n="s3_headline">Los millonarios: un edificio de 20 pisos</h2>
-      <p class="caption" data-i18n="s3_caption">98 de cada 100 viven más abajo · Más de $1M (prom. $3.7M)</p>
+      <p class="caption" data-i18n="s3_caption">98 de cada 100 viven más abajo · Más de USD $1M (prom. $3.7M)</p>
       <div class="icon" aria-hidden="true">
         <!-- Building -->
         <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4">
@@ -312,6 +324,7 @@ footer p{margin:0}
         </svg>
       </div>
     </div>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024</span>
   </section>
 
   <!-- 4 · Umbral millonario (escalera) ───────────────────────── -->
@@ -323,7 +336,7 @@ footer p{margin:0}
     <div class="grid">
       <div class="num" aria-hidden="true">18.75<span>m</span></div>
       <h2 class="headline" data-i18n="s4_headline">Para ser millonario: 125 escalones</h2>
-      <p class="caption" data-i18n="s4_caption">Solo el 1.6% del mundo · Umbral $1M</p>
+      <p class="caption" data-i18n="s4_caption">Solo el 1.6% del mundo · Umbral USD $1M</p>
       <div class="icon" aria-hidden="true">
         <!-- Staircase -->
         <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="square">
@@ -336,6 +349,7 @@ footer p{margin:0}
         </svg>
       </div>
     </div>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024</span>
   </section>
 
   <!-- 5 · Clase media alta (casa) ────────────────────────────── -->
@@ -347,7 +361,7 @@ footer p{margin:0}
     <div class="grid">
       <div class="num" aria-hidden="true">5.5<span>m</span></div>
       <h2 class="headline" data-i18n="s5_headline">16.4%: a la altura de dos pisos</h2>
-      <p class="caption" data-i18n="s5_caption">82 de cada 100 viven más abajo · $293k promedio</p>
+      <p class="caption" data-i18n="s5_caption">82 de cada 100 viven más abajo · USD $293k promedio</p>
       <div class="icon" aria-hidden="true">
         <!-- House -->
         <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4">
@@ -356,6 +370,7 @@ footer p{margin:0}
         </svg>
       </div>
     </div>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024</span>
   </section>
 
   <!-- 6 · Silla de bar (antes: rodilla) ──────────────────────── -->
@@ -367,7 +382,7 @@ footer p{margin:0}
     <div class="grid">
       <div class="num" aria-hidden="true">68<span>cm</span></div>
       <h2 class="headline" data-i18n="s6_headline">41.3% no llega a la silla de bar</h2>
-      <p class="caption" data-i18n="s6_caption">41 de cada 100 viven aquí o más abajo · $36k promedio</p>
+      <p class="caption" data-i18n="s6_caption">41 de cada 100 viven aquí o más abajo · USD $36k promedio</p>
       <div class="icon" aria-hidden="true">
         <!-- Bar stool -->
         <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
@@ -385,6 +400,7 @@ footer p{margin:0}
         </svg>
       </div>
     </div>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024</span>
   </section>
 
   <!-- 7 · Mediana (escalón) ───────────────────────────────────── -->
@@ -396,7 +412,7 @@ footer p{margin:0}
     <div class="grid">
       <div class="num" aria-hidden="true">17<span>cm</span></div>
       <h2 class="headline" data-i18n="s7_headline">La mitad del planeta: un solo escalón</h2>
-      <p class="caption" data-i18n="s7_caption">50 de cada 100 no superan este escalón · Mediana $8,654–$9,167</p>
+      <p class="caption" data-i18n="s7_caption">50 de cada 100 no superan este escalón · Mediana USD $8,654–$9,167</p>
       <div class="icon" aria-hidden="true">
         <!-- Step -->
         <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="5">
@@ -405,6 +421,7 @@ footer p{margin:0}
         </svg>
       </div>
     </div>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024</span>
   </section>
 
   <!-- 8 · Roca (antes: moneda) ───────────────────────────────── -->
@@ -416,7 +433,7 @@ footer p{margin:0}
     <div class="grid">
       <div class="num" aria-hidden="true">3.3<span>cm</span></div>
       <h2 class="headline" data-i18n="s8_headline">40.7% del mundo: una roca en el suelo</h2>
-      <p class="caption" data-i18n="s8_caption">41 de cada 100 viven aquí o menos · $1,748 promedio</p>
+      <p class="caption" data-i18n="s8_caption">41 de cada 100 viven aquí o menos · USD $1,748 promedio</p>
       <div class="icon" aria-hidden="true">
         <!-- Rock / pebble -->
         <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3.5">
@@ -426,6 +443,7 @@ footer p{margin:0}
         </svg>
       </div>
     </div>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024</span>
   </section>
 
 </main>
@@ -477,21 +495,21 @@ const STRINGS = {
     intro_h1:       '¿A qué altura vives?',
     intro_sub:      'La distancia real entre ricos y pobres es de 15.731 kilómetros',
     s1_headline:    'Elon Musk vive en órbita',
-    s1_caption:     'Menos de 1 de cada 10 millones · $636B–$839B',
+    s1_caption:     'Menos de 1 de cada 10 millones · USD $636B–$839B',
     s2_headline:    'Un billonario toca la estratosfera',
-    s2_caption:     '3 de cada 10 millones · Más de $1,000 millones',
+    s2_caption:     '3 de cada 10 millones · Más de USD $1,000 millones',
     s3_headline:    'Los millonarios: un edificio de 20 pisos',
-    s3_caption:     '98 de cada 100 viven más abajo · Más de $1M (prom. $3.7M)',
+    s3_caption:     '98 de cada 100 viven más abajo · Más de USD $1M (prom. $3.7M)',
     s4_headline:    'Para ser millonario: 125 escalones',
-    s4_caption:     'Solo el 1.6% del mundo · Umbral $1M',
+    s4_caption:     'Solo el 1.6% del mundo · Umbral USD $1M',
     s5_headline:    '16.4%: a la altura de dos pisos',
-    s5_caption:     '82 de cada 100 viven más abajo · $293k promedio',
+    s5_caption:     '82 de cada 100 viven más abajo · USD $293k promedio',
     s6_headline:    '41.3% no llega a la silla de bar',
-    s6_caption:     '41 de cada 100 viven aquí o más abajo · $36k promedio',
+    s6_caption:     '41 de cada 100 viven aquí o más abajo · USD $36k promedio',
     s7_headline:    'La mitad del planeta: un solo escalón',
-    s7_caption:     '50 de cada 100 no superan este escalón · Mediana $8,654–$9,167',
+    s7_caption:     '50 de cada 100 no superan este escalón · Mediana USD $8,654–$9,167',
     s8_headline:    '40.7% del mundo: una roca en el suelo',
-    s8_caption:     '41 de cada 100 viven aquí o menos · $1,748 promedio',
+    s8_caption:     '41 de cada 100 viven aquí o menos · USD $1,748 promedio',
     metod_title:    'Ficha técnica',
     metod_lead:     'Convertimos patrimonio neto en altura física. Así de literal es la desigualdad.',
     metod_sum1:     'Fuentes',
@@ -507,28 +525,29 @@ const STRINGS = {
     footer_author:  '© 2026 William Camilo Artunduaga Viana ·',
     footer_license: 'CC BY 4.0',
     lang_btn:       'EN',
-    lang_aria:      'Switch to English'
+    lang_aria:      'Switch to English',
+    data_date:      'UBS · dic 2024'
   },
   en: {
     skip_text:      'Skip to main content',
     intro_h1:       'How high do you stand?',
     intro_sub:      'The real distance between rich and poor is 15,731 kilometers',
     s1_headline:    'Elon Musk lives in orbit',
-    s1_caption:     'Fewer than 1 in 10 million · $636B–$839B',
+    s1_caption:     'Fewer than 1 in 10 million · USD $636B–$839B',
     s2_headline:    'A billionaire touches the stratosphere',
-    s2_caption:     '3 in 10 million · More than $1,000 million',
+    s2_caption:     '3 in 10 million · More than USD $1,000 million',
     s3_headline:    'Millionaires: a 20-story building',
-    s3_caption:     '98 in 100 live below · More than $1M (avg. $3.7M)',
+    s3_caption:     '98 in 100 live below · More than USD $1M (avg. $3.7M)',
     s4_headline:    'To become a millionaire: 125 steps',
-    s4_caption:     'Only 1.6% of the world · Threshold $1M',
+    s4_caption:     'Only 1.6% of the world · Threshold USD $1M',
     s5_headline:    '16.4%: at two-story height',
-    s5_caption:     '82 in 100 live below · $293k average',
+    s5_caption:     '82 in 100 live below · USD $293k average',
     s6_headline:    "41.3% don't reach the bar stool",
-    s6_caption:     '41 in 100 live here or below · $36k average',
+    s6_caption:     '41 in 100 live here or below · USD $36k average',
     s7_headline:    'Half the planet: one single step',
-    s7_caption:     '50 in 100 do not surpass this step · Median $8,654–$9,167',
+    s7_caption:     '50 in 100 do not surpass this step · Median USD $8,654–$9,167',
     s8_headline:    '40.7% of the world: a pebble on the ground',
-    s8_caption:     '41 in 100 live here or below · $1,748 average',
+    s8_caption:     '41 in 100 live here or below · USD $1,748 average',
     metod_title:    'Technical notes',
     metod_lead:     'We convert net worth into physical height. That is how literal inequality is.',
     metod_sum1:     'Sources',
@@ -544,7 +563,8 @@ const STRINGS = {
     footer_author:  '© 2026 William Camilo Artunduaga Viana ·',
     footer_license: 'CC BY 4.0',
     lang_btn:       'ES',
-    lang_aria:      'Cambiar a español'
+    lang_aria:      'Cambiar a español',
+    data_date:      'UBS · Dec 2024'
   }
 };
 
@@ -669,8 +689,10 @@ function updateScroll() {
     // 3. Parallax: solo dentro del área snap y con factor reducido
     if (scrollY <= snapScrollMax) {
       starsEl.style.transform = `translateY(${scrollY * 0.05}px)`;
+    } else {
+      // Fuera del área snap (metodología, footer): congelar y ocultar completamente
+      starsEl.style.transform = 'none';
     }
-    // Si scrollY > snapScrollMax, no se aplica ningún translateY adicional
   }
 }
 
