@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¿A qué altura vives? La distancia real entre ricos y pobres es de 15.731 kilómetros</title>
+<meta name="description" content="Un viaje visual por la desigualdad de riqueza mundial. Si $8,000 equivalen a un escalón de 15 cm, ¿a qué altura llegas tú? La brecha entre el más rico y el más pobre mide 15.731 km.">
+<meta property="og:title" content="¿A qué altura vives? La distancia real entre ricos y pobres es de 15.731 kilómetros">
+<meta property="og:description" content="Un viaje visual por la desigualdad de riqueza mundial. La brecha entre el más rico y el más pobre mide 15.731 km.">
+<meta name="author" content="William Camilo Artunduaga Viana">
+<meta name="license" content="CC BY 4.0 https://creativecommons.org/licenses/by/4.0/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet">
+<style>
+/* ── Design tokens ──────────────────────────────────────────────── */
+:root{
+  /* Parallax journey: space → upper sky → lower sky → horizon → green earth → ground */
+  --bg1:#000000;   /* deep space */
+  --bg2:#081428;   /* near space */
+  --bg3:#0f1e3a;   /* stratosphere */
+  --bg4:#1a365d;   /* upper atmosphere */
+  --bg5:#2f476b;   /* lower atmosphere */
+  --bg6:#64748b;   /* horizon / slate sky */
+  --bg7:#a68b63;   /* earth / warm ground */
+  --bg8:#e7dcc3;   /* surface / sand */
+  --text:#ffffff; --text-dark:#14100a; --max:1200px;
+  --font-display:'Fraunces','Georgia',serif;
+  --font-body:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%}
+html{scroll-snap-type:y mandatory;overflow-x:hidden;scrollbar-width:none}
+body{
+  font-family:var(--font-body);background:#000;color:var(--text);
+  line-height:1.5;-webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;overflow-x:hidden;
+  font-size:clamp(18px,4.2vw,20px)
+}
+::-webkit-scrollbar{display:none}
+
+/* ── Accessibility ──────────────────────────────────────────────── */
+.skip-link{
+  position:absolute;left:-9999px;top:8px;z-index:9999;
+  background:#fff;color:#000;padding:10px 18px;border-radius:6px;
+  font-weight:700;font-size:16px;text-decoration:none;
+}
+.skip-link:focus{left:8px}
+:focus-visible{outline:2px solid rgba(255,255,255,.9);outline-offset:3px}
+body.light-mode :focus-visible{outline-color:rgba(0,0,0,.7)}
+
+/* ── Progress bar ───────────────────────────────────────────────── */
+#progress{
+  position:fixed;top:0;left:0;height:3px;
+  background:rgba(255,255,255,.75);width:0%;z-index:200;
+  transition:width .08s linear;pointer-events:none;
+}
+body.light-mode #progress{background:rgba(20,16,10,.5)}
+
+/* ── Language toggle ────────────────────────────────────────────── */
+#lang-toggle{
+  position:fixed;top:11px;right:14px;z-index:201;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
+  color:#fff;font-family:var(--font-body);font-size:11px;font-weight:700;
+  letter-spacing:.12em;padding:5px 12px;border-radius:20px;
+  cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:background .2s,color .2s,border-color .2s;
+}
+#lang-toggle:hover{background:rgba(255,255,255,.22)}
+body.light-mode #lang-toggle{
+  background:rgba(0,0,0,.1);border-color:rgba(0,0,0,.2);color:#1a1408;
+}
+
+/* ── Stars ──────────────────────────────────────────────────────── */
+#stars{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.star{
+  position:absolute;width:2px;height:2px;background:#fff;
+  border-radius:50%;opacity:.8;animation:twinkle 3.5s infinite ease-in-out
+}
+@keyframes twinkle{0%,100%{opacity:.15}50%{opacity:1}}
+
+/* ── Sections ───────────────────────────────────────────────────── */
+.snap{
+  position:relative;height:100vh;height:100dvh;
+  scroll-snap-align:start;scroll-snap-stop:always;
+  display:flex;align-items:center;justify-content:center;
+  padding:5vh 0;overflow:hidden;isolation:isolate
+}
+/* Parallax: space (s1) → stratosphere (s2-s3) → atmosphere (s4-s5) → horizon (s6) → earth (s7-s8) */
+.s1{background:radial-gradient(1200px 800px at 50% -10%,#1a1a3a 0%,#000 55%,#000 100%);z-index:3}
+.s2{background:linear-gradient(180deg,#000 0%,var(--bg2) 100%)}
+.s3{background:linear-gradient(180deg,var(--bg2) 0%,var(--bg3) 100%)}
+.s4{background:linear-gradient(180deg,var(--bg3) 0%,var(--bg4) 100%)}
+.s5{background:linear-gradient(180deg,var(--bg4) 0%,var(--bg5) 100%)}
+.s6{background:linear-gradient(180deg,var(--bg5) 0%,var(--bg6) 100%)}
+.s7{background:linear-gradient(180deg,var(--bg6) 0%,var(--bg7) 100%)}
+.s8{background:linear-gradient(180deg,var(--bg7) 0%,var(--bg8) 100%);color:var(--text-dark)}
+
+/* ── Intro overlay (s1) ─────────────────────────────────────────── */
+.intro{
+  position:absolute;top:4.5vh;left:50%;transform:translateX(-50%);
+  width:min(92vw,820px);text-align:center;z-index:4;pointer-events:none
+}
+.intro h1{
+  margin:0 0 .45rem;
+  font-family:var(--font-display);
+  font-size:clamp(14px,3.8vw,22px);
+  letter-spacing:-.01em;font-weight:900;opacity:.9;
+  line-height:1.22;text-wrap:balance
+}
+.intro p{
+  margin:0;font-size:clamp(11px,2.8vw,15px);font-weight:600;
+  opacity:.7;letter-spacing:.06em;text-transform:uppercase
+}
+
+/* ── Content grid ───────────────────────────────────────────────── */
+.grid{
+  width:100%;max-width:var(--max);height:100%;padding:5vh 5vw;
+  display:grid;
+  grid-template-rows:auto 1fr auto auto;
+  grid-template-areas:"num" "headline" "caption" "icon";
+  gap:1.8vh;align-content:space-between
+}
+.s1 .grid{padding-top:20vh}
+
+.num{
+  grid-area:num;
+  font-family:var(--font-display);
+  font-size:clamp(36px,13vw,110px);font-weight:900;
+  line-height:.85;letter-spacing:-.02em;
+  text-shadow:0 4px 24px rgba(0,0,0,.5)
+}
+.num span{
+  font-family:var(--font-body);
+  font-size:.45em;opacity:.85;font-weight:700;margin-left:.08em
+}
+.headline{
+  grid-area:headline;
+  font-family:var(--font-display);
+  font-size:clamp(20px,5.5vw,48px);font-weight:900;
+  line-height:1.05;text-wrap:balance;max-width:14ch
+}
+.caption{
+  grid-area:caption;
+  font-size:clamp(13px,3.2vw,17px);line-height:1.35;opacity:.9;align-self:end
+}
+.icon{
+  grid-area:icon;
+  width:clamp(72px,22vw,140px);height:clamp(72px,22vw,140px);
+  color:currentColor;opacity:0;transform:translateY(18px);
+  transition:opacity .7s ease,transform .7s ease;
+  justify-self:start;filter:drop-shadow(0 8px 20px rgba(0,0,0,.35))
+}
+.snap.active .icon{opacity:.92;transform:translateY(0)}
+
+/* ── Tiny phones (≤380px) ───────────────────────────────────────── */
+@media (max-width:380px){
+  .num{font-size:clamp(30px,11vw,60px)}
+  .headline{font-size:clamp(18px,5vw,28px)}
+  .s1 .grid{padding-top:22vh}
+  .intro h1{font-size:clamp(13px,4vw,18px)}
+}
+
+/* ── Desktop layout ─────────────────────────────────────────────── */
+@media (min-width:860px){
+  .grid{
+    grid-template-columns:1.1fr 1.6fr .9fr;grid-template-rows:1fr;
+    grid-template-areas:"num headline caption";
+    align-items:center;gap:3.5vw;padding:5vh 4vw
+  }
+  .headline{max-width:18ch}
+  .caption{text-align:right;align-self:center}
+  .icon{
+    position:absolute;left:50%;bottom:12vh;
+    transform:translateX(-50%) translateY(20px);justify-self:center
+  }
+  .snap.active .icon{transform:translateX(-50%) translateY(0)}
+  .s1 .grid{padding-top:5vh}
+}
+
+/* ── Light mode overrides (s8) ──────────────────────────────────── */
+.s8 .num,.s8 .headline{color:#1a1408;text-shadow:none}
+.s8 .caption{color:#3a3222;opacity:.9}
+.s8 .icon{filter:none;opacity:.85}
+
+/* ── Methodology ────────────────────────────────────────────────── */
+#metodologia{
+  background:#0a0c12;color:#e6e8ee;
+  padding:12vh 6vw 8vh;scroll-snap-align:none
+}
+.meta-inner{max-width:900px;margin:0 auto}
+#metodologia h2{
+  font-family:var(--font-display);
+  font-size:clamp(28px,5.5vw,44px);margin:0 0 .6rem;
+  color:#fff;letter-spacing:-.01em
+}
+#metodologia p.lead{
+  font-size:clamp(18px,4vw,22px);color:#c7d0de;
+  margin:0 0 2.2rem;line-height:1.55
+}
+details{
+  background:#111624;border:1px solid #1e2738;
+  border-radius:14px;padding:1.1rem 1.3rem;margin:0 0 1rem
+}
+details summary{
+  cursor:pointer;font-weight:750;font-size:clamp(17px,3.8vw,20px);
+  list-style:none;display:flex;align-items:center;gap:.6rem
+}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"＋";margin-left:auto;font-weight:400;opacity:.7;transition:transform .2s}
+details[open] summary::after{content:"—"}
+details[open] summary{margin-bottom:.6rem}
+details p,details li{margin:.55rem 0;color:#d3d9e5;font-size:17px;line-height:1.65}
+details ul{padding-left:1.1rem}
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+footer{
+  background:#05070b;color:#9aa4b2;text-align:center;
+  padding:2.8rem 5vw;font-size:14px;
+  border-top:1px solid #1a2233;scroll-snap-align:none
+}
+footer p{margin:0}
+
+/* ── Reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- Accessibility: skip link -->
+<a href="#main-content" class="skip-link" data-i18n="skip_text">Saltar al contenido principal</a>
+
+<!-- Progress bar -->
+<div id="progress" role="progressbar" aria-hidden="true" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+
+<!-- Language toggle -->
+<button id="lang-toggle" aria-label="Switch to English">EN</button>
+
+<!-- Stars background -->
+<div id="stars" aria-hidden="true"></div>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<main id="main-content">
+
+  <!-- 1 · Elon Musk ───────────────────────────────────────────── -->
+  <section
+    class="snap s1 active" id="s1"
+    data-alt="15731000" data-label="15,731 km"
+    aria-label="Elon Musk en órbita: 15,731 km"
+  >
+    <div class="intro">
+      <h1 data-i18n="intro_h1">¿A qué altura vives?</h1>
+      <p data-i18n="intro_sub">La distancia real entre ricos y pobres es de 15.731 kilómetros</p>
+    </div>
+    <div class="grid">
+      <div class="num" aria-hidden="true">15,731<span>km</span></div>
+      <h2 class="headline" data-i18n="s1_headline">Elon Musk vive en órbita</h2>
+      <p class="caption" data-i18n="s1_caption">Menos de 1 de cada 10 millones · $636B–$839B</p>
+      <div class="icon" aria-hidden="true">
+        <!-- Satellite in orbit -->
+        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4">
+          <circle cx="60" cy="60" r="42" stroke-dasharray="5 7" opacity=".6"/>
+          <circle cx="60" cy="22" r="7" fill="currentColor" stroke="none"/>
+          <path d="M60 29 v18 M42 60 h36" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Billonario ─────────────────────────────────────────── -->
+  <section
+    class="snap s2" id="s2"
+    data-alt="18750" data-label="18.75 km"
+    aria-label="Billonarios: 18.75 km"
+  >
+    <div class="grid">
+      <div class="num" aria-hidden="true">18.75<span>km</span></div>
+      <h2 class="headline" data-i18n="s2_headline">Un billonario toca la estratosfera</h2>
+      <p class="caption" data-i18n="s2_caption">3 de cada 10 millones · Más de $1,000 millones</p>
+      <div class="icon" aria-hidden="true">
+        <!-- Rocket shape -->
+        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4">
+          <ellipse cx="60" cy="42" rx="20" ry="26" fill="currentColor" opacity=".95" stroke="none"/>
+          <path d="M60 68 v26 M50 94 h20" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · Millonarios (edificio) ─────────────────────────────── -->
+  <section
+    class="snap s3" id="s3"
+    data-alt="70.8" data-label="70.8 m"
+    aria-label="Millonarios: 70.8 metros"
+  >
+    <div class="grid">
+      <div class="num" aria-hidden="true">70.8<span>m</span></div>
+      <h2 class="headline" data-i18n="s3_headline">Los millonarios: un edificio de 20 pisos</h2>
+      <p class="caption" data-i18n="s3_caption">98 de cada 100 viven más abajo · Más de $1M (prom. $3.7M)</p>
+      <div class="icon" aria-hidden="true">
+        <!-- Building -->
+        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4">
+          <rect x="36" y="18" width="48" height="84" fill="currentColor" opacity=".18"/>
+          <path d="M36 18 h48 v84 H36 Z M46 32 h10 M64 32 h10 M46 46 h10 M64 46 h10 M46 60 h10 M64 60 h10 M46 74 h10 M64 74 h10 M46 88 h10 M64 88 h10"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · Umbral millonario (escalera) ───────────────────────── -->
+  <section
+    class="snap s4" id="s4"
+    data-alt="18.75" data-label="18.75 m"
+    aria-label="Umbral millonario: 18.75 metros, 125 escalones"
+  >
+    <div class="grid">
+      <div class="num" aria-hidden="true">18.75<span>m</span></div>
+      <h2 class="headline" data-i18n="s4_headline">Para ser millonario: 125 escalones</h2>
+      <p class="caption" data-i18n="s4_caption">Solo el 1.6% del mundo · Umbral $1M</p>
+      <div class="icon" aria-hidden="true">
+        <!-- Staircase -->
+        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="square">
+          <path d="M18 96 h18 v-14 h18 v-14 h18 v-14 h18 v-14 h12" fill="none"/>
+          <rect x="18" y="96" width="18" height="7" fill="currentColor" stroke="none"/>
+          <rect x="36" y="82" width="18" height="7" fill="currentColor"/>
+          <rect x="54" y="68" width="18" height="7" fill="currentColor"/>
+          <rect x="72" y="54" width="18" height="7" fill="currentColor"/>
+          <rect x="90" y="40" width="12" height="7" fill="currentColor"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · Clase media alta (casa) ────────────────────────────── -->
+  <section
+    class="snap s5" id="s5"
+    data-alt="5.5" data-label="5.5 m"
+    aria-label="Clase media alta: 5.5 metros"
+  >
+    <div class="grid">
+      <div class="num" aria-hidden="true">5.5<span>m</span></div>
+      <h2 class="headline" data-i18n="s5_headline">16.4%: a la altura de dos pisos</h2>
+      <p class="caption" data-i18n="s5_caption">82 de cada 100 viven más abajo · $293k promedio</p>
+      <div class="icon" aria-hidden="true">
+        <!-- House -->
+        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4">
+          <path d="M28 72 v32 h64 V72 L60 42 Z" fill="currentColor" opacity=".18"/>
+          <path d="M28 72 L60 42 L92 72 M28 104 h64 M28 72 v32 M92 72 v32 M60 72 v32 M46 86 h12 v18 H46z"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · Silla de bar (antes: rodilla) ──────────────────────── -->
+  <section
+    class="snap s6" id="s6"
+    data-alt="0.68" data-label="68 cm"
+    aria-label="La mayoría: 68 centímetros, silla alta de bar"
+  >
+    <div class="grid">
+      <div class="num" aria-hidden="true">68<span>cm</span></div>
+      <h2 class="headline" data-i18n="s6_headline">41.3% no llega a la silla de bar</h2>
+      <p class="caption" data-i18n="s6_caption">41 de cada 100 viven aquí o más abajo · $36k promedio</p>
+      <div class="icon" aria-hidden="true">
+        <!-- Bar stool -->
+        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
+          <!-- Seat -->
+          <ellipse cx="60" cy="38" rx="30" ry="9" fill="currentColor" opacity=".85" stroke="none"/>
+          <ellipse cx="60" cy="38" rx="30" ry="9" opacity=".5"/>
+          <!-- Backrest -->
+          <path d="M40 32 v-16 M80 32 v-16" stroke-width="3.5"/>
+          <path d="M36 16 h48 M36 24 h48" stroke-width="3"/>
+          <!-- Central post -->
+          <line x1="60" y1="47" x2="60" y2="86" stroke-width="5"/>
+          <!-- Base -->
+          <path d="M36 92 h48" stroke-width="4"/>
+          <path d="M36 92 L28 106 M84 92 L92 106" stroke-width="3.5"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · Mediana (escalón) ───────────────────────────────────── -->
+  <section
+    class="snap s7" id="s7"
+    data-alt="0.17" data-label="17 cm"
+    aria-label="Mediana mundial: 17 centímetros, un escalón"
+  >
+    <div class="grid">
+      <div class="num" aria-hidden="true">17<span>cm</span></div>
+      <h2 class="headline" data-i18n="s7_headline">La mitad del planeta: un solo escalón</h2>
+      <p class="caption" data-i18n="s7_caption">50 de cada 100 no superan este escalón · Mediana $8,654–$9,167</p>
+      <div class="icon" aria-hidden="true">
+        <!-- Step -->
+        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="5">
+          <rect x="26" y="74" width="68" height="16" rx="3" fill="currentColor" opacity=".92"/>
+          <path d="M22 100 h76" opacity=".5"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · Roca (antes: moneda) ───────────────────────────────── -->
+  <section
+    class="snap s8" id="s8"
+    data-alt="0.033" data-label="3.3 cm"
+    aria-label="Base: 3.3 centímetros, una roca"
+  >
+    <div class="grid">
+      <div class="num" aria-hidden="true">3.3<span>cm</span></div>
+      <h2 class="headline" data-i18n="s8_headline">40.7% del mundo: una roca en el suelo</h2>
+      <p class="caption" data-i18n="s8_caption">41 de cada 100 viven aquí o menos · $1,748 promedio</p>
+      <div class="icon" aria-hidden="true">
+        <!-- Rock / pebble -->
+        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3.5">
+          <path d="M28 82 L38 54 L57 44 L80 48 L96 66 L90 82 Z" fill="currentColor" opacity=".82"/>
+          <path d="M38 54 L52 62 L57 44 M52 62 L80 48" opacity=".42" stroke-linecap="round"/>
+          <path d="M18 88 h84" stroke-linecap="round" opacity=".32"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+</main>
+<!-- ─────────────────────────────────────────────────────────────── -->
+
+<!-- Ficha técnica -->
+<section id="metodologia" aria-labelledby="metod-title">
+  <div class="meta-inner">
+    <h2 id="metod-title" data-i18n="metod_title">Ficha técnica</h2>
+    <p class="lead" data-i18n="metod_lead">Convertimos patrimonio neto en altura física. Así de literal es la desigualdad.</p>
+
+    <details open>
+      <summary data-i18n="metod_sum1">Fuentes</summary>
+      <p data-i18n="metod_p1">UBS Global Wealth Report 2024 (adultos, datos al 31 dic 2024). Forbes Real-Time Billionaires, mayo 2026: Elon Musk ($636B–$839B) y 2,891 billonarios confirmados. Población adulta mundial: 5,360 millones.</p>
+    </details>
+
+    <details>
+      <summary data-i18n="metod_sum2">Fórmula</summary>
+      <p data-i18n="metod_p2"><strong>1 escalón = $8,000 = 15 cm.</strong> Altura = (Patrimonio ÷ 8,000) × 0.15 m. Ejemplo: $1,000,000 → 125 escalones → 18.75 m. Mediana mundial $8,654–$9,167 → 1.08–1.15 escalones → ≈17 cm.</p>
+    </details>
+
+    <details>
+      <summary data-i18n="metod_sum3">Limitaciones</summary>
+      <ul>
+        <li data-i18n="metod_li1">Patrimonio ≠ ingreso ni efectivo disponible. Incluye vivienda, pensiones, deudas.</li>
+        <li data-i18n="metod_li2">Las fortunas de billonarios fluctúan diariamente.</li>
+        <li data-i18n="metod_li3">La escala es logarítmica: de centímetros a kilómetros en una sola pantalla.</li>
+        <li data-i18n="metod_li4">Esta visualización expone estructura sistémica, no juzga mérito individual.</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <p data-i18n="footer_text">Datos UBS 31 dic 2024 · Forbes mayo 2026 · Scrollytelling visual</p>
+  <p data-i18n="footer_author" style="margin-top:.6rem;opacity:.7">
+    © 2026 William Camilo Artunduaga Viana ·
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener"
+       style="color:inherit;text-decoration:underline" data-i18n="footer_license">CC BY 4.0</a>
+  </p>
+</footer>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<script>
+/* ── i18n dictionary ──────────────────────────────────────────── */
+const STRINGS = {
+  es: {
+    skip_text:      'Saltar al contenido principal',
+    intro_h1:       '¿A qué altura vives?',
+    intro_sub:      'La distancia real entre ricos y pobres es de 15.731 kilómetros',
+    s1_headline:    'Elon Musk vive en órbita',
+    s1_caption:     'Menos de 1 de cada 10 millones · $636B–$839B',
+    s2_headline:    'Un billonario toca la estratosfera',
+    s2_caption:     '3 de cada 10 millones · Más de $1,000 millones',
+    s3_headline:    'Los millonarios: un edificio de 20 pisos',
+    s3_caption:     '98 de cada 100 viven más abajo · Más de $1M (prom. $3.7M)',
+    s4_headline:    'Para ser millonario: 125 escalones',
+    s4_caption:     'Solo el 1.6% del mundo · Umbral $1M',
+    s5_headline:    '16.4%: a la altura de dos pisos',
+    s5_caption:     '82 de cada 100 viven más abajo · $293k promedio',
+    s6_headline:    '41.3% no llega a la silla de bar',
+    s6_caption:     '41 de cada 100 viven aquí o más abajo · $36k promedio',
+    s7_headline:    'La mitad del planeta: un solo escalón',
+    s7_caption:     '50 de cada 100 no superan este escalón · Mediana $8,654–$9,167',
+    s8_headline:    '40.7% del mundo: una roca en el suelo',
+    s8_caption:     '41 de cada 100 viven aquí o menos · $1,748 promedio',
+    metod_title:    'Ficha técnica',
+    metod_lead:     'Convertimos patrimonio neto en altura física. Así de literal es la desigualdad.',
+    metod_sum1:     'Fuentes',
+    metod_p1:       'UBS Global Wealth Report 2024 (adultos, datos al 31 dic 2024). Forbes Real-Time Billionaires, mayo 2026: Elon Musk ($636B–$839B) y 2,891 billonarios confirmados. Población adulta mundial: 5,360 millones.',
+    metod_sum2:     'Fórmula',
+    metod_p2:       '<strong>1 escalón = $8,000 = 15 cm.</strong> Altura = (Patrimonio ÷ 8,000) × 0.15 m. Ejemplo: $1,000,000 → 125 escalones → 18.75 m. Mediana mundial $8,654–$9,167 → 1.08–1.15 escalones → ≈17 cm.',
+    metod_sum3:     'Limitaciones',
+    metod_li1:      'Patrimonio ≠ ingreso ni efectivo disponible. Incluye vivienda, pensiones, deudas.',
+    metod_li2:      'Las fortunas de billonarios fluctúan diariamente.',
+    metod_li3:      'La escala es logarítmica: de centímetros a kilómetros en una sola pantalla.',
+    metod_li4:      'Esta visualización expone estructura sistémica, no juzga mérito individual.',
+    footer_text:    'Datos UBS 31 dic 2024 · Forbes mayo 2026 · Scrollytelling visual',
+    footer_author:  '© 2026 William Camilo Artunduaga Viana ·',
+    footer_license: 'CC BY 4.0',
+    lang_btn:       'EN',
+    lang_aria:      'Switch to English'
+  },
+  en: {
+    skip_text:      'Skip to main content',
+    intro_h1:       'How high do you stand?',
+    intro_sub:      'The real distance between rich and poor is 15,731 kilometers',
+    s1_headline:    'Elon Musk lives in orbit',
+    s1_caption:     'Fewer than 1 in 10 million · $636B–$839B',
+    s2_headline:    'A billionaire touches the stratosphere',
+    s2_caption:     '3 in 10 million · More than $1,000 million',
+    s3_headline:    'Millionaires: a 20-story building',
+    s3_caption:     '98 in 100 live below · More than $1M (avg. $3.7M)',
+    s4_headline:    'To become a millionaire: 125 steps',
+    s4_caption:     'Only 1.6% of the world · Threshold $1M',
+    s5_headline:    '16.4%: at two-story height',
+    s5_caption:     '82 in 100 live below · $293k average',
+    s6_headline:    "41.3% don't reach the bar stool",
+    s6_caption:     '41 in 100 live here or below · $36k average',
+    s7_headline:    'Half the planet: one single step',
+    s7_caption:     '50 in 100 do not surpass this step · Median $8,654–$9,167',
+    s8_headline:    '40.7% of the world: a pebble on the ground',
+    s8_caption:     '41 in 100 live here or below · $1,748 average',
+    metod_title:    'Technical notes',
+    metod_lead:     'We convert net worth into physical height. That is how literal inequality is.',
+    metod_sum1:     'Sources',
+    metod_p1:       'UBS Global Wealth Report 2024 (adults, data as of 31 Dec 2024). Forbes Real-Time Billionaires, May 2026: Elon Musk ($636B–$839B) and 2,891 confirmed billionaires. Global adult population: 5.36 billion.',
+    metod_sum2:     'Formula',
+    metod_p2:       '<strong>1 step = $8,000 = 15 cm.</strong> Height = (Net worth ÷ 8,000) × 0.15 m. Example: $1,000,000 → 125 steps → 18.75 m. World median $8,654–$9,167 → 1.08–1.15 steps → ≈17 cm.',
+    metod_sum3:     'Limitations',
+    metod_li1:      'Net worth ≠ income or liquid cash. Includes housing, pensions, debts.',
+    metod_li2:      'Billionaire fortunes fluctuate daily.',
+    metod_li3:      'The scale is logarithmic: from centimeters to kilometers on one screen.',
+    metod_li4:      'This visualization exposes systemic structure; it does not judge individual merit.',
+    footer_text:    'Data UBS 31 Dec 2024 · Forbes May 2026 · Visual scrollytelling',
+    footer_author:  '© 2026 William Camilo Artunduaga Viana ·',
+    footer_license: 'CC BY 4.0',
+    lang_btn:       'ES',
+    lang_aria:      'Cambiar a español'
+  }
+};
+
+/* ── i18n integrity check (runs once on load) ─────────────────── */
+(function validateI18n() {
+  const langs = Object.keys(STRINGS);
+  const allKeys = new Set(langs.flatMap(l => Object.keys(STRINGS[l])));
+  const missing = [];
+  allKeys.forEach(key => {
+    langs.forEach(lang => {
+      if (STRINGS[lang][key] === undefined) {
+        missing.push(`[i18n] Missing key "${key}" in lang "${lang}"`);
+      }
+    });
+  });
+  // Check every data-i18n element has a key in both langs
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    langs.forEach(lang => {
+      if (STRINGS[lang][key] === undefined) {
+        missing.push(`[i18n] DOM key "${key}" not found in STRINGS["${lang}"]`);
+      }
+    });
+  });
+  if (missing.length) {
+    console.warn('i18n validation issues:\n' + missing.join('\n'));
+  } else {
+    console.info('[i18n] All keys validated ✓');
+  }
+})();
+
+let currentLang = 'es';
+
+function applyLang(lang) {
+  const t = STRINGS[lang];
+  document.documentElement.lang = lang;
+  document.documentElement.dataset.lang = lang;
+  document.title = lang === 'es'
+    ? '¿A qué altura vives? La distancia real entre ricos y pobres es de 15.731 kilómetros'
+    : 'How high do you stand? The real distance between rich and poor is 15,731 kilometers';
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+
+  const btn = document.getElementById('lang-toggle');
+  btn.textContent = t.lang_btn;
+  btn.setAttribute('aria-label', t.lang_aria);
+
+  // Update section aria-labels
+  const ariaMap = {
+    s1: { es:'Elon Musk en órbita: 15,731 km',        en:'Elon Musk in orbit: 15,731 km' },
+    s2: { es:'Billonarios: 18.75 km',                  en:'Billionaires: 18.75 km' },
+    s3: { es:'Millonarios: 70.8 metros',               en:'Millionaires: 70.8 meters' },
+    s4: { es:'Umbral millonario: 18.75 metros',        en:'Millionaire threshold: 18.75 meters' },
+    s5: { es:'Clase media alta: 5.5 metros',           en:'Upper middle class: 5.5 meters' },
+    s6: { es:'La mayoría: 68 centímetros',             en:'The majority: 68 centimeters' },
+    s7: { es:'Mediana mundial: 17 centímetros',        en:'World median: 17 centimeters' },
+    s8: { es:'Base: 3.3 centímetros',                  en:'Base: 3.3 centimeters' }
+  };
+  Object.entries(ariaMap).forEach(([id, labels]) => {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('aria-label', labels[lang]);
+  });
+}
+
+document.getElementById('lang-toggle').addEventListener('click', () => {
+  currentLang = currentLang === 'es' ? 'en' : 'es';
+  applyLang(currentLang);
+});
+
+/* ── Stars ────────────────────────────────────────────────────── */
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 180; i++) {
+  const s = document.createElement('span');
+  s.className = 'star';
+  s.style.left   = Math.random() * 100 + '%';
+  s.style.top    = Math.random() * 200 + '%';
+  const size = 1 + Math.random() * 2.2;
+  s.style.width  = s.style.height = size + 'px';
+  s.style.animationDelay = (Math.random() * 3.5) + 's';
+  s.style.opacity = 0.3 + Math.random() * 0.7;
+  starsEl.appendChild(s);
+}
+
+/* ── Scroll / progress ────────────────────────────────────────── */
+const snaps       = Array.from(document.querySelectorAll('.snap'));
+const progressBar = document.getElementById('progress');
+const reduced     = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function updateScroll() {
+  const scrollY   = window.scrollY;
+  const vh        = window.innerHeight;
+  const total     = (snaps.length - 1) * vh;
+  const progress  = Math.min(Math.max(scrollY / total, 0), 1);
+  const pct       = Math.round(progress * 100);
+
+  progressBar.style.width = pct + '%';
+  progressBar.setAttribute('aria-valuenow', pct);
+
+  document.body.classList.toggle('light-mode', progress > 0.87);
+
+  if (!reduced) starsEl.style.transform = `translateY(${scrollY * 0.18}px)`;
+}
+
+window.addEventListener('scroll', updateScroll, { passive: true });
+window.addEventListener('resize', updateScroll);
+updateScroll();
+
+/* ── Icon reveal on enter ─────────────────────────────────────── */
+const io = new IntersectionObserver(
+  entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active') }),
+  { threshold: 0.55 }
+);
+snaps.forEach(s => io.observe(s));
+</script>
+</body>
+</html>
