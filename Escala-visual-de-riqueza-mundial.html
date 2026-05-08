@@ -648,7 +648,30 @@ function updateScroll() {
 
   document.body.classList.toggle('light-mode', progress > 0.87);
 
-  if (!reduced) starsEl.style.transform = `translateY(${scrollY * 0.18}px)`;
+  if (!reduced) {
+    // 1. Calcular índice de sección (base 0: s1=0, s2=1, s3=2 … s8=7)
+    const sectionIndex  = Math.floor(scrollY / vh);
+    const snapScrollMax = (snaps.length - 1) * vh;
+
+    // 2. Opacidad: plena en s1, reducida en s2, cero desde s3 en adelante
+    let starsOpacity;
+    if (sectionIndex === 0) {
+      starsOpacity = 1;
+    } else if (sectionIndex === 1) {
+      // Transición suave dentro de s2: de 1 a 0 según el progreso dentro de la sección
+      const progressInS2 = (scrollY - vh) / vh;          // 0 al entrar en s2, 1 al salir
+      starsOpacity = Math.max(0, 1 - progressInS2);
+    } else {
+      starsOpacity = 0;
+    }
+    starsEl.style.opacity = starsOpacity;
+
+    // 3. Parallax: solo dentro del área snap y con factor reducido
+    if (scrollY <= snapScrollMax) {
+      starsEl.style.transform = `translateY(${scrollY * 0.05}px)`;
+    }
+    // Si scrollY > snapScrollMax, no se aplica ningún translateY adicional
+  }
 }
 
 window.addEventListener('scroll', updateScroll, { passive: true });
