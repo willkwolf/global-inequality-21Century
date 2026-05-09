@@ -100,7 +100,7 @@ body.light-mode #lang-toggle{
 .s7{background:linear-gradient(180deg,var(--bg6) 0%,var(--bg7) 100%)}
 .s8{background:linear-gradient(180deg,var(--bg7) 0%,var(--bg8) 100%);color:var(--text-dark)}
 
-/* ── Intro overlay (s1) ─────────────────────────────────────────── */
+/* ── Intro overlay (s1) — desktop only ─────────────────────────── */
 .intro{
   position:absolute;top:4.5vh;left:50%;transform:translateX(-50%);
   width:min(92vw,820px);text-align:center;z-index:4;pointer-events:none
@@ -117,6 +117,78 @@ body.light-mode #lang-toggle{
   opacity:.65;letter-spacing:.04em
 }
 
+/* ── Mobile splash panel (s0) ───────────────────────────────────── */
+#s0{
+  display:none; /* hidden on desktop */
+}
+@media (max-width:859px){
+  /* Hide desktop intro overlay on mobile — s0 replaces it */
+  .intro{display:none}
+
+  #s0{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:radial-gradient(ellipse 120% 80% at 50% 30%,#1a1a3a 0%,#000 65%);
+    padding:8vh 8vw 6vh;
+    gap:0;
+  }
+
+  #s0 h1{
+    font-family:var(--font-display);
+    font-size:clamp(36px,11vw,58px);
+    font-weight:900;
+    line-height:1.05;
+    letter-spacing:-.02em;
+    text-wrap:balance;
+    margin:0 0 .6em;
+    opacity:1;
+    color:#fff;
+    text-shadow:0 4px 32px rgba(0,0,0,.6);
+  }
+
+  #s0 p{
+    font-family:var(--font-body);
+    font-size:clamp(16px,4.5vw,22px);
+    font-weight:500;
+    line-height:1.45;
+    opacity:.72;
+    color:#fff;
+    margin:0 0 auto;
+    text-wrap:balance;
+    max-width:28ch;
+    letter-spacing:.01em;
+  }
+
+  /* Scroll indicator */
+  #s0 .scroll-cue{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:.5em;
+    margin-top:auto;
+    padding-top:4vh;
+    opacity:.55;
+    animation:cue-pulse 2.2s ease-in-out infinite;
+  }
+  #s0 .scroll-cue span{
+    font-family:var(--font-body);
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#fff;
+  }
+  #s0 .scroll-cue svg{
+    width:24px;height:24px;color:#fff;
+    animation:cue-bounce .9s ease-in-out infinite alternate;
+  }
+  @keyframes cue-pulse{0%,100%{opacity:.35}50%{opacity:.7}}
+  @keyframes cue-bounce{from{transform:translateY(-3px)}to{transform:translateY(4px)}}
+}
+
 /* ── Content grid ───────────────────────────────────────────────── */
 .grid{
   width:100%;max-width:var(--max);height:100%;
@@ -127,6 +199,11 @@ body.light-mode #lang-toggle{
   gap:0;align-content:start
 }
 .s1 .grid{padding-top:20vh}
+
+/* On mobile, s1 is a data panel (s0 is the splash) — remove extra top padding */
+@media (max-width:859px){
+  .s1 .grid{padding-top:5vh}
+}
 
 .num{
   grid-area:num;
@@ -265,6 +342,21 @@ footer p{margin:0}
 
 <!-- ─────────────────────────────────────────────────────────────── -->
 <main id="main-content">
+
+  <!-- 0 · Mobile splash — título + subtítulo + scroll cue (hidden on desktop) -->
+  <section
+    class="snap" id="s0"
+    aria-label="Introducción"
+  >
+    <h1 data-i18n="intro_h1">¿A qué altura vives?</h1>
+    <p data-i18n="intro_sub">La distancia real entre ricos y pobres es de 15.731 kilómetros</p>
+    <div class="scroll-cue" aria-hidden="true">
+      <span data-i18n="scroll_cue">Desliza para comenzar</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </div>
+  </section>
 
   <!-- 1 · Elon Musk ───────────────────────────────────────────── -->
   <section
@@ -533,7 +625,8 @@ const STRINGS = {
     footer_license: 'CC BY 4.0',
     lang_btn:       'EN',
     lang_aria:      'Switch to English',
-    data_date:      'UBS · dic 2024'
+    data_date:      'UBS · dic 2024',
+    scroll_cue:     'Desliza para comenzar'
   },
   en: {
     skip_text:      'Skip to main content',
@@ -571,7 +664,8 @@ const STRINGS = {
     footer_license: 'CC BY 4.0',
     lang_btn:       'ES',
     lang_aria:      'Cambiar a español',
-    data_date:      'UBS · Dec 2024'
+    data_date:      'UBS · Dec 2024',
+    scroll_cue:     'Scroll to begin'
   }
 };
 
@@ -659,7 +753,11 @@ for (let i = 0; i < 180; i++) {
 }
 
 /* ── Scroll / progress ────────────────────────────────────────── */
-const snaps       = Array.from(document.querySelectorAll('.snap'));
+const snaps       = Array.from(document.querySelectorAll('.snap')).filter(el => {
+  // Exclude s0 (mobile splash) on desktop — it's display:none and not part of the scroll journey
+  if (el.id === 's0') return window.innerWidth < 860;
+  return true;
+});
 const progressBar = document.getElementById('progress');
 const reduced     = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Disable parallax on mobile/touch devices — avoids iOS Safari flicker and snap jumps
