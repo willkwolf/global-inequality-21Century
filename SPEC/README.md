@@ -23,8 +23,9 @@ El visualizador actual (versión 2026) se nutre de tres fuentes principales de d
     *   *Uso:* Define la riqueza de la mediana global ($8,654 – $9,167 USD), el promedio de la clase media alta, la mayoría global y la base de la pirámide, así como los porcentajes de adultos en cada estrato.
     *   *Punto de Mantenimiento:* El UBS publica su informe anualmente (generalmente en julio/agosto). Se deben buscar las tablas de distribución percentil global y el "Wealth Table" por adulto.
 2.  **Forbes Real-Time Billionaires List (Instantánea de Mayo 2026):**
-    *   *Uso:* Se utiliza para establecer el límite superior extremo (Elon Musk, $636B–$839B en patrimonio neto) y el recuento total de billonarios a nivel mundial (2,891 personas).
-    *   *Punto de Mantenimiento:* Forbes actualiza estas cifras en tiempo real. La IA debe tomar una instantánea o utilizar la última estimación publicada para el hombre más rico del planeta para recalcular la "cima" de la escala.
+    *   *Uso:* Se utiliza para establecer el límite superior extremo (en esta instantánea de compilación, Elon Musk con $636B–$839B en patrimonio neto) y el recuento total de billonarios a nivel mundial (2,891 personas).
+    *   *Neutralidad del Caso de Referencia:* La inclusión de Elon Musk en el estrato `s1` es una representación puramente objetiva e imparcial de la fuente de datos crudos del Forbes Real-Time en el momento de la compilación. No constituye ninguna postura de opinión personal, política o corporativa (a favor o en contra). La arquitectura del proyecto es 100% genérica: si el patrimonio más alto pasara a pertenecer a otra persona, una organización o una coalición colectiva, el compilador adaptará de forma automática toda la nomenclatura e iconografía visual a partir del SPEC.
+    *   *Punto de Mantenimiento:* Forbes actualiza estas cifras en tiempo real. Para el mantenimiento, simplemente se debe actualizar el objeto `metadata.top_wealth_holder` en el SPEC y volver a compilar.
 3.  **Población Adulta Mundial (Estimación en 5,360 millones de adultos):**
     *   *Uso:* Actúa como base de cálculo para afirmaciones relativas del tipo "3 de cada 10 millones" o "1 de cada 10 millones".
     *   *Punto de Mantenimiento:* Actualizable mediante bases de datos de la ONU o el mismo informe de UBS (que siempre reporta el total de adultos estimado para su muestra).

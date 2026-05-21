@@ -22,6 +22,24 @@ El recorrido va desde el suelo —donde el 40.7 % de la humanidad ocupa apenas 3
 
 ---
 
+## Dinámica a Prueba de Futuro y Neutralidad de Datos / Dynamic Future-Proof Architecture & Data Neutrality
+
+Este proyecto **no cuenta con datos acoplados estáticamente ("hardcoded")** ni está atado a un personaje o año específico. 
+
+* **Neutralidad en la Cúspide (Elon Musk)**: En la instantánea de datos recopilada (mayo de 2026), Elon Musk figura como el poseedor del patrimonio neto más alto del mundo según la lista *Forbes Real-Time Billionaires*. Se le ha incluido en la sección 1 (`s1`) por este único motivo fáctico de la fuente original, reflejando neutralidad y fidelidad a los datos crudos, sin inclinación personal, ideológica o corporativa a favor o en contra de su persona.
+* **Diseño e Iconografía Genérica**: Todo el visualizador interactivo está desacoplado del contenido mediante el **SPEC metodológico** (`SPEC/data.json`). Si en encuestas futuras de riqueza (ej. en 5 años) el patrimonio más alto del mundo pertenece a otra persona, a una organización, a una fundación o a un sindicato colectivo, bastará con actualizar los datos de `metadata.top_wealth_holder` y correr el compilador (`npm run apply-spec`).
+* **Soporte de SVGs Dinámicos**: Gracias a la propiedad `svg_icon` en cada estrato del SPEC, el visualizador adaptará dinámicamente tanto las analogías, el tipo de entidad (ej. "billonarios", "organizaciones"), las alturas físicas, como las representaciones gráficas SVG inyectadas automáticamente.
+
+---
+
+*This project **does not contain hardcoded data** nor is it permanently locked to any specific individual or year.*
+
+* **Data Neutrality at the Top (Elon Musk)**: In the May 2026 dataset compilation, Elon Musk was listed as the wealthiest individual on the *Forbes Real-Time Billionaires* index. He is included in section 1 (`s1`) purely based on this objective, factual data source at the time of compilation, and not due to any personal or corporate bias (for or against him).
+* **Generic SPEC-Driven Design**: The visualizer is completely decoupled from the data payload via the **Methodology SPEC** (`SPEC/data.json`). If in future wealth surveys (e.g., in 5 years) the highest wealth stratum belongs to another person, an organization, or a collective syndicate, one only needs to update `metadata.top_wealth_holder` and execute the compiler (`npm run apply-spec`).
+* **Dynamic SVG Support**: Through the `svg_icon` property in each stratum of the SPEC, the frontend automatically adapts all bilingual texts, the kinds of entities (e.g., "billionaires", "organizations"), physical heights, and the visual SVG icons.
+
+---
+
 ## Metodología de visualización / Visualization Methodology
 
 ### La fórmula / The Formula
