@@ -112,8 +112,43 @@ try {
 
     // D. Leer el HTML generado y procesar aserciones quirúrgicas
     const compiledHtml = fs.readFileSync(HTML_PATH, 'utf8');
-    const dom = new JSDOM(compiledHtml);
+    const dom = new JSDOM(compiledHtml, {
+      runScripts: "dangerously",
+      beforeParse(window) {
+        // Stub standard matchMedia
+        window.matchMedia = window.matchMedia || (() => ({
+          matches: false,
+          media: '',
+          onchange: null,
+          addListener: () => {},
+          removeListener: () => {},
+          addEventListener: () => {},
+          removeEventListener: () => {},
+          dispatchEvent: () => false
+        }));
+        // Stub IntersectionObserver
+        window.IntersectionObserver = class {
+          constructor() {}
+          observe() {}
+          unobserve() {}
+          disconnect() {}
+        };
+        // Stub localStorage
+        let store = {};
+        const localStorageMock = {
+          getItem: (key) => store[key] || null,
+          setItem: (key, value) => { store[key] = value.toString(); },
+          removeItem: (key) => { delete store[key]; },
+          clear: () => { store = {}; }
+        };
+        Object.defineProperty(window, 'localStorage', {
+          value: localStorageMock,
+          writable: true
+        });
+      }
+    });
     const { document } = dom.window;
+
 
     // 1. Validar integridad de las secciones snaps de estratos
     const snaps = document.querySelectorAll('section.snap');
@@ -272,6 +307,59 @@ try {
 
     const sizeButtons = a11yMenu.querySelectorAll('button[data-scale]');
     assert.equal(sizeButtons.length, 3, 'Deben existir exactamente 3 botones de escala de texto.');
+
+    // Aserción funcional 1: Comprobar escala por defecto (A = 1)
+    const scale1_Btn = Array.from(sizeButtons).find(btn => btn.getAttribute('data-scale') === '1');
+    const scale1_2_Btn = Array.from(sizeButtons).find(btn => btn.getAttribute('data-scale') === '1.2');
+    const scale1_4_Btn = Array.from(sizeButtons).find(btn => btn.getAttribute('data-scale') === '1.4');
+
+    assert.ok(scale1_Btn, 'Debe existir el botón de escala 1.0 (A)');
+    assert.ok(scale1_2_Btn, 'Debe existir el botón de escala 1.2 (A+)');
+    assert.ok(scale1_4_Btn, 'Debe existir el botón de escala 1.4 (A++)');
+
+    // Estado inicial: escala 1 activa por defecto
+    assert.equal(scale1_Btn.classList.contains('a11y-active'), true, 'El botón A (escala 1) debe tener la clase active.');
+    assert.equal(scale1_2_Btn.classList.contains('a11y-active'), false, 'El botón A+ (escala 1.2) no debe tener la clase active inicialmente.');
+
+    // Clic en A+ (1.2)
+    scale1_2_Btn.click();
+    assert.equal(dom.window.document.documentElement.style.getPropertyValue('--a11y-font-scale'), '1.2', 'El valor de --a11y-font-scale en el html debe ser 1.2 tras clic en A+.');
+    assert.equal(scale1_2_Btn.classList.contains('a11y-active'), true, 'El botón A+ debe tener la clase active.');
+    assert.equal(scale1_Btn.classList.contains('a11y-active'), false, 'El botón A ya no debe tener la clase active.');
+
+    // Clic en A++ (1.4)
+    scale1_4_Btn.click();
+    assert.equal(dom.window.document.documentElement.style.getPropertyValue('--a11y-font-scale'), '1.4', 'El valor de --a11y-font-scale en el html debe ser 1.4 tras clic en A++.');
+    assert.equal(scale1_4_Btn.classList.contains('a11y-active'), true, 'El botón A++ debe tener la clase active.');
+
+    // Aserción funcional 2: Alternar modo dislexia (Lectura)
+    assert.equal(dom.window.document.body.classList.contains('a11y-dyslexic'), false, 'El body no debe tener el modo dislexia por defecto.');
+    
+    btnDyslexic.click();
+    assert.equal(dom.window.document.body.classList.contains('a11y-dyslexic'), true, 'El body debe activar la clase a11y-dyslexic tras hacer clic.');
+    assert.equal(btnDyslexic.classList.contains('a11y-active'), true, 'El botón de dislexia debe tener la clase active.');
+
+    // Intercambiar escala mientras modo dislexia está activo
+    scale1_2_Btn.click();
+    assert.equal(dom.window.document.documentElement.style.getPropertyValue('--a11y-font-scale'), '1.2', 'El valor de --a11y-font-scale debe poder cambiarse a 1.2 bajo modo dislexia.');
+    assert.equal(dom.window.document.body.classList.contains('a11y-dyslexic'), true, 'La dislexia debe seguir activa tras cambiar la escala.');
+
+    // Desactivar modo dislexia
+    btnDyslexic.click();
+    assert.equal(dom.window.document.body.classList.contains('a11y-dyslexic'), false, 'El modo dislexia debe desactivarse tras clic secundario.');
+
+    // Aserción funcional 3: Alternar contraste
+    assert.equal(dom.window.document.body.classList.contains('a11y-high-contrast'), false, 'El body no debe tener el modo alto contraste por defecto.');
+    
+    btnHighContrast.click();
+    assert.equal(dom.window.document.body.classList.contains('a11y-high-contrast'), true, 'El body debe activar la clase a11y-high-contrast tras hacer clic.');
+
+    btnHighContrast.click();
+    assert.equal(dom.window.document.body.classList.contains('a11y-high-contrast'), false, 'El modo alto contraste debe desactivarse.');
+
+    // Volver a escala 1 para dejar el DOM limpio en la iteración
+    scale1_Btn.click();
+
 
     // 5. Verificar Ficha Técnica Dinámica y Híbrida
     const sourcesList = document.getElementById('sources-list');
