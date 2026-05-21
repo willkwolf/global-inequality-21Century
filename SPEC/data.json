@@ -1,0 +1,286 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "metadata": {
+    "title": "Desigualdad Global de Riqueza - Siglo XXI",
+    "description": "Datos centralizados para la visualización de la desigualdad global de riqueza basada en la metáfora de la altura física.",
+    "author": "William Camilo Artunduaga Viana",
+    "license": "CC BY 4.0",
+    "total_adults_world": 5360,
+    "total_billionaires": 2891,
+    "last_updated_sources": {
+      "ubs_report_date": "2024-12-31",
+      "forbes_billionaires_date": "2026-05-01"
+    }
+  },
+  "formula_constants": {
+    "step_usd_value": 8000,
+    "step_physical_height_meters": 0.15
+  },
+  "strata": [
+    {
+      "id": "s1",
+      "@type": "StatisticalPopulation",
+      "net_worth_range_usd": {
+        "min": 636000000000,
+        "max": 839000000000,
+        "average": 737500000000
+      },
+      "population_ratio": {
+        "percentage": 0.0000001,
+        "ratio_phrase": {
+          "es": "Menos de 1 de cada 10 millones",
+          "en": "Fewer than 1 in 10 million"
+        }
+      },
+      "physical_analogy": {
+        "name_es": "Satélite en órbita terrestre media",
+        "name_en": "Satellite in medium Earth orbit",
+        "height_meters": 15731000
+      },
+      "translations": {
+        "es": {
+          "headline": "Elon Musk vive en órbita",
+          "caption": "Menos de 1 de cada 10 millones · USD $636B–$839B",
+          "aria": "Elon Musk en órbita: 15,731 km"
+        },
+        "en": {
+          "headline": "Elon Musk lives in orbit",
+          "caption": "Fewer than 1 in 10 million · USD $636B–$839B",
+          "aria": "Elon Musk in orbit: 15,731 km"
+        }
+      }
+    },
+    {
+      "id": "s2",
+      "@type": "StatisticalPopulation",
+      "net_worth_range_usd": {
+        "min": 1000000000,
+        "max": null,
+        "average": null
+      },
+      "population_ratio": {
+        "percentage": 0.0000003,
+        "ratio_phrase": {
+          "es": "3 de cada 10 millones",
+          "en": "3 in 10 million"
+        }
+      },
+      "physical_analogy": {
+        "name_es": "Cohete en la estratosfera",
+        "name_en": "Rocket in the stratosphere",
+        "height_meters": 18750
+      },
+      "translations": {
+        "es": {
+          "headline": "Un billonario toca la estratosfera",
+          "caption": "3 de cada 10 millones · Más de USD $1,000 millones",
+          "aria": "Billonarios: 18.75 km"
+        },
+        "en": {
+          "headline": "A billionaire touches the stratosphere",
+          "caption": "3 in 10 million · More than USD $1,000 million",
+          "aria": "Billionaires: 18.75 km"
+        }
+      }
+    },
+    {
+      "id": "s3",
+      "@type": "StatisticalPopulation",
+      "net_worth_range_usd": {
+        "min": 1000000,
+        "max": 1000000000,
+        "average": 3700000
+      },
+      "population_ratio": {
+        "percentage": 2.0,
+        "ratio_phrase": {
+          "es": "98 de cada 100 viven más abajo",
+          "en": "98 in 100 live below"
+        }
+      },
+      "physical_analogy": {
+        "name_es": "Edificio de 20 pisos",
+        "name_en": "20-story building",
+        "height_meters": 70.8
+      },
+      "translations": {
+        "es": {
+          "headline": "Los millonarios: un edificio de 20 pisos",
+          "caption": "98 de cada 100 viven más abajo · Más de USD $1M (prom. $3.7M)",
+          "aria": "Millonarios: 70.8 metros"
+        },
+        "en": {
+          "headline": "Millionaires: a 20-story building",
+          "caption": "98 in 100 live below · More than USD $1M (avg. $3.7M)",
+          "aria": "Millionaires: 70.8 meters"
+        }
+      }
+    },
+    {
+      "id": "s4",
+      "@type": "StatisticalPopulation",
+      "net_worth_range_usd": {
+        "min": 1000000,
+        "max": 1000000,
+        "average": 1000000
+      },
+      "population_ratio": {
+        "percentage": 1.6,
+        "ratio_phrase": {
+          "es": "Solo el 1.6% del mundo",
+          "en": "Only 1.6% of the world"
+        }
+      },
+      "physical_analogy": {
+        "name_es": "Escalera de 125 escalones",
+        "name_en": "Staircase of 125 steps",
+        "height_meters": 18.75
+      },
+      "translations": {
+        "es": {
+          "headline": "Para ser millonario: 125 escalones",
+          "caption": "Solo el 1.6% del mundo · Umbral USD $1M",
+          "aria": "Umbral millonario: 18.75 metros"
+        },
+        "en": {
+          "headline": "To become a millionaire: 125 steps",
+          "caption": "Only 1.6% of the world · Threshold USD $1M",
+          "aria": "Millionaire threshold: 18.75 meters"
+        }
+      }
+    },
+    {
+      "id": "s5",
+      "@type": "StatisticalPopulation",
+      "net_worth_range_usd": {
+        "min": 100000,
+        "max": 1000000,
+        "average": 293000
+      },
+      "population_ratio": {
+        "percentage": 16.4,
+        "ratio_phrase": {
+          "es": "82 de cada 100 viven más abajo",
+          "en": "82 in 100 live below"
+        }
+      },
+      "physical_analogy": {
+        "name_es": "Casa residencial de dos pisos",
+        "name_en": "Two-story residential house",
+        "height_meters": 5.5
+      },
+      "translations": {
+        "es": {
+          "headline": "16.4%: a la altura de dos pisos",
+          "caption": "82 de cada 100 viven más abajo · USD $293k promedio",
+          "aria": "Clase media alta: 5.5 metros"
+        },
+        "en": {
+          "headline": "16.4%: at two-story height",
+          "caption": "82 in 100 live below · USD $293k average",
+          "aria": "Upper middle class: 5.5 meters"
+        }
+      }
+    },
+    {
+      "id": "s6",
+      "@type": "StatisticalPopulation",
+      "net_worth_range_usd": {
+        "min": 10000,
+        "max": 100000,
+        "average": 36000
+      },
+      "population_ratio": {
+        "percentage": 41.3,
+        "ratio_phrase": {
+          "es": "41 de cada 100 viven aquí o más abajo",
+          "en": "41 in 100 live here or below"
+        }
+      },
+      "physical_analogy": {
+        "name_es": "Silla alta de bar",
+        "name_en": "Bar stool",
+        "height_meters": 0.68
+      },
+      "translations": {
+        "es": {
+          "headline": "41.3% no llega a la silla de bar",
+          "caption": "41 de cada 100 viven aquí o más abajo · USD $36k promedio",
+          "aria": "La mayoría: 68 centímetros"
+        },
+        "en": {
+          "headline": "41.3% don't reach the bar stool",
+          "caption": "41 in 100 live here or below · USD $36k average",
+          "aria": "The majority: 68 centimeters"
+        }
+      }
+    },
+    {
+      "id": "s7",
+      "@type": "StatisticalPopulation",
+      "net_worth_range_usd": {
+        "min": 8654,
+        "max": 9167,
+        "average": 8910
+      },
+      "population_ratio": {
+        "percentage": 50.0,
+        "ratio_phrase": {
+          "es": "50 de cada 100 no superan este escalón",
+          "en": "50 in 100 do not surpass this step"
+        }
+      },
+      "physical_analogy": {
+        "name_es": "Un solo escalón de escalera",
+        "name_en": "A single stair step",
+        "height_meters": 0.17
+      },
+      "translations": {
+        "es": {
+          "headline": "La mitad del planeta: un solo escalón",
+          "caption": "50 de cada 100 no superan este escalón · Mediana USD $8,654–$9,167",
+          "aria": "Mediana mundial: 17 centímetros"
+        },
+        "en": {
+          "headline": "Half the planet: one single step",
+          "caption": "50 in 100 do not surpass this step · Median USD $8,654–$9,167",
+          "aria": "World median: 17 centimeters"
+        }
+      }
+    },
+    {
+      "id": "s8",
+      "@type": "StatisticalPopulation",
+      "net_worth_range_usd": {
+        "min": 0,
+        "max": 8654,
+        "average": 1748
+      },
+      "population_ratio": {
+        "percentage": 40.7,
+        "ratio_phrase": {
+          "es": "41 de cada 100 viven aquí o menos",
+          "en": "41 in 100 live here or below"
+        }
+      },
+      "physical_analogy": {
+        "name_es": "Una roca pequeña",
+        "name_en": "A small pebble",
+        "height_meters": 0.033
+      },
+      "translations": {
+        "es": {
+          "headline": "40.7% del mundo: una roca en el suelo",
+          "caption": "41 de cada 100 viven aquí o menos · USD $1,748 promedio",
+          "aria": "Base: 3.3 centímetros"
+        },
+        "en": {
+          "headline": "40.7% of the world: a pebble on the ground",
+          "caption": "41 in 100 live here or below · USD $1,748 average",
+          "aria": "Base: 3.3 centimeters"
+        }
+      }
+    }
+  ]
+}
