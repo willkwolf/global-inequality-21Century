@@ -254,6 +254,67 @@ try {
       assert.equal(p.querySelectorAll('div').length, 0, `¡ERROR CRÍTICO! Se inyectaron etiquetas <div> dentro de un <p class="caption">. Layout corrupto.`);
     });
 
+    // 4. Verificar Suite de Accesibilidad (A11y Panel)
+    const a11yToolbar = document.getElementById('a11y-toolbar');
+    assert.ok(a11yToolbar, 'El panel de accesibilidad #a11y-toolbar debe existir.');
+    
+    const a11yToggle = document.getElementById('a11y-toggle');
+    assert.ok(a11yToggle, 'El botón de alternancia #a11y-toggle debe existir.');
+    
+    const a11yMenu = document.getElementById('a11y-menu');
+    assert.ok(a11yMenu, 'El menú de opciones #a11y-menu debe existir.');
+
+    const btnHighContrast = document.getElementById('btn-high-contrast');
+    assert.ok(btnHighContrast, 'El botón #btn-high-contrast debe existir.');
+    
+    const btnDyslexic = document.getElementById('btn-dyslexic');
+    assert.ok(btnDyslexic, 'El botón #btn-dyslexic debe existir.');
+
+    const sizeButtons = a11yMenu.querySelectorAll('button[data-scale]');
+    assert.equal(sizeButtons.length, 3, 'Deben existir exactamente 3 botones de escala de texto.');
+
+    // 5. Verificar Ficha Técnica Dinámica y Híbrida
+    const sourcesList = document.getElementById('sources-list');
+    assert.ok(sourcesList, 'El contenedor #sources-list debe existir.');
+    const sourcesItems = sourcesList.querySelectorAll('li');
+    assert.equal(
+      sourcesItems.length,
+      syntheticData.metadata.sources ? syntheticData.metadata.sources.length : 0,
+      `El número de fuentes renderizadas (${sourcesItems.length}) no coincide con el SPEC (${syntheticData.metadata.sources ? syntheticData.metadata.sources.length : 0}).`
+    );
+
+    const limitationsList = document.getElementById('limitations-list');
+    assert.ok(limitationsList, 'El contenedor #limitations-list debe existir.');
+    const limitationsItems = limitationsList.querySelectorAll('li');
+    const expectedLimitationsCount = 4 + (syntheticData.metadata.additional_limitations ? syntheticData.metadata.additional_limitations.length : 0);
+    assert.equal(
+      limitationsItems.length,
+      expectedLimitationsCount,
+      `El número de limitaciones renderizadas (${limitationsItems.length}) no coincide con el esperado (${expectedLimitationsCount}).`
+    );
+
+    // 6. Verificar la ausencia absoluta del footer redundante
+    const footerTextElement = document.querySelector('[data-i18n="footer_text"]');
+    assert.ok(!footerTextElement, '¡ERROR CRÍTICO! Se encontró una firma de footer redundante ("footer_text") en el DOM.');
+    
+    assert.ok(!parsedStrings.es.footer_text, 'El diccionario "es" no debe contener "footer_text".');
+    assert.ok(!parsedStrings.en.footer_text, 'El diccionario "en" no debe contener "footer_text".');
+
+    // Verificar las claves dinámicas en el diccionario STRINGS
+    if (syntheticData.metadata.sources) {
+      syntheticData.metadata.sources.forEach((src, idx) => {
+        assert.equal(parsedStrings.es[`metod_source_${idx}`], src.name_es);
+        assert.equal(parsedStrings.en[`metod_source_${idx}`], src.name_en);
+      });
+    }
+
+    if (syntheticData.metadata.additional_limitations) {
+      syntheticData.metadata.additional_limitations.forEach((lim, idx) => {
+        assert.equal(parsedStrings.es[`metod_li_add_${idx}`], lim.es);
+        assert.equal(parsedStrings.en[`metod_li_add_${idx}`], lim.en);
+      });
+    }
+
     completedRuns++;
     logSuccess(`Iteración ${i} superada con éxito.`);
   }

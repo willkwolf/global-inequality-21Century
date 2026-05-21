@@ -377,7 +377,29 @@ export function generateSyntheticData() {
         ubs_report_date: ubsReportDate,
         forbes_billionaires_date: forbesBillionairesDate
       },
-      top_wealth_holder: topHolder
+      top_wealth_holder: topHolder,
+      additional_limitations: [
+        {
+          es: `Limitación sintética adicional A para el año ${surveyYear}`,
+          en: `Additional synthetic limitation A for the year ${surveyYear}`
+        },
+        {
+          es: `Limitación sintética adicional B para el año ${surveyYear}`,
+          en: `Additional synthetic limitation B for the year ${surveyYear}`
+        }
+      ],
+      sources: [
+        {
+          name_es: `Reporte Sintético UBS ${surveyYear}`,
+          name_en: `Synthetic UBS Report ${surveyYear}`,
+          url: `https://www.ubs.com/synthetic-${surveyYear}`
+        },
+        {
+          name_es: `Billonarios Forbes Sintético ${surveyYear}`,
+          name_en: `Synthetic Forbes Billionaires ${surveyYear}`,
+          url: `https://www.forbes.com/synthetic-${surveyYear}`
+        }
+      ]
     },
     formula_constants: {
       step_usd_value,

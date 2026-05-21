@@ -88,6 +88,39 @@ try {
     throw new Error('formula_constants.step_physical_height_meters debe ser un número positivo');
   }
 
+  // Validar additional_limitations si están presentes
+  if (data.metadata.additional_limitations !== undefined) {
+    if (!Array.isArray(data.metadata.additional_limitations)) {
+      throw new Error('metadata.additional_limitations debe ser un arreglo');
+    }
+    data.metadata.additional_limitations.forEach((lim, idx) => {
+      if (!lim.es || typeof lim.es !== 'string' || !lim.es.trim()) {
+        throw new Error(`Falta la traducción 'es' o es inválida en metadata.additional_limitations[${idx}]`);
+      }
+      if (!lim.en || typeof lim.en !== 'string' || !lim.en.trim()) {
+        throw new Error(`Falta la traducción 'en' o es inválida en metadata.additional_limitations[${idx}]`);
+      }
+    });
+  }
+
+  // Validar sources si están presentes
+  if (data.metadata.sources !== undefined) {
+    if (!Array.isArray(data.metadata.sources)) {
+      throw new Error('metadata.sources debe ser un arreglo');
+    }
+    data.metadata.sources.forEach((src, idx) => {
+      if (!src.name_es || typeof src.name_es !== 'string' || !src.name_es.trim()) {
+        throw new Error(`Falta el 'name_es' o es inválido en metadata.sources[${idx}]`);
+      }
+      if (!src.name_en || typeof src.name_en !== 'string' || !src.name_en.trim()) {
+        throw new Error(`Falta el 'name_en' o es inválido en metadata.sources[${idx}]`);
+      }
+      if (!src.url || typeof src.url !== 'string' || !src.url.trim() || !src.url.startsWith('http')) {
+        throw new Error(`La 'url' debe ser válida en metadata.sources[${idx}]`);
+      }
+    });
+  }
+
   logSuccess('Metadatos y constantes de fórmula iniciales validados.');
 
   // 3. Validar estratos

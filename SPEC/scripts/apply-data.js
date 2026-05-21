@@ -133,19 +133,27 @@ try {
       metod_sum1:     'Fuentes',
       metod_p1:       `UBS Global Wealth Report 2024 (adultos, datos al 31 dic 2024). Forbes Real-Time Billionaires, ${formatForbesDate(last_updated_sources.forbes_billionaires_date, 'es')}: ${nameES} (${rangeStr}) y ${formattedBillionairesES} ${typeWordES} confirmados. Población adulta mundial: ${formattedAdultsES}.`,
       metod_sum2:     'Fórmula',
-      metod_p2:       `<strong>1 escalón = $${step_usd_value.toLocaleString('es-ES')} = ${step_physical_height_meters * 100} cm.</strong> Altura = (Patrimonio ÷ ${step_usd_value}) × ${step_physical_height_meters} m. Ejemplo: $1,000,000 → ${1000000 / step_usd_value} escalones → ${formatHeight(s4.physical_analogy.height_meters).label}. Mediana mundial $8,654–$9,167 → 1.08–1.15 escalones → ≈${formatHeight(s7.physical_analogy.height_meters).label}.`,
+      metod_p2:       `<strong>1 escalón = $${step_usd_value.toLocaleString('es-ES')} = ${step_physical_height_meters * 100} cm.</strong> Cada peldaño representa $${step_usd_value.toLocaleString('es-ES')} USD de patrimonio neto. Para ver el desglose matemático detallado y participar en la discusión técnica del modelo, consulta el <a href="https://github.com/willkwolf/global-inequality-21Century" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:underline;">repositorio del proyecto en GitHub</a>.`,
       metod_sum3:     'Limitaciones',
       metod_li1:      'Patrimonio ≠ ingreso ni efectivo disponible. Incluye vivienda, pensiones, deudas.',
       metod_li2:      'Las fortunas de billonarios fluctúan diariamente.',
       metod_li3:      'La escala es logarítmica: de centímetros a kilómetros en una sola pantalla.',
       metod_li4:      'Esta visualización expone estructura sistémica, no juzga mérito individual.',
-      footer_text:    `Datos UBS 31 dic 2024 · Forbes ${formatForbesDate(last_updated_sources.forbes_billionaires_date, 'es')} · Scrollytelling visual`,
       footer_author:  '© 2026 William Camilo Artunduaga Viana ·',
       footer_license: 'CC BY 4.0',
       lang_btn:       'EN',
       lang_aria:      'Switch to English',
       data_date:      'UBS · dic 2024',
-      scroll_cue:     'Desliza para comenzar'
+      scroll_cue:     'Desliza para comenzar',
+      a11y_toolbar_label: 'Panel de accesibilidad',
+      a11y_btn_aria:      'Opciones de accesibilidad',
+      a11y_text_size:     'Tamaño',
+      a11y_size_normal:   'A',
+      a11y_size_large:    'A+',
+      a11y_size_xl:       'A++',
+      a11y_visuals:       'Ajustes',
+      a11y_contrast:      'Contraste',
+      a11y_dyslexia:      'Lectura'
     },
     en: {
       skip_text:      'Skip to main content',
@@ -156,21 +164,45 @@ try {
       metod_sum1:     'Sources',
       metod_p1:       `UBS Global Wealth Report 2024 (adults, data as of 31 Dec 2024). Forbes Real-Time Billionaires, ${formatForbesDate(last_updated_sources.forbes_billionaires_date, 'en')}: ${nameEN} (${rangeStr}) and ${formattedBillionairesEN} confirmed ${typeWordEN}. Global adult population: ${formattedAdultsEN}.`,
       metod_sum2:     'Formula',
-      metod_p2:       `<strong>1 step = $${step_usd_value.toLocaleString('en-US')} = ${step_physical_height_meters * 100} cm.</strong> Height = (Net worth ÷ ${step_usd_value}) × ${step_physical_height_meters} m. Example: $1,000,000 → ${1000000 / step_usd_value} steps → ${formatHeight(s4.physical_analogy.height_meters).label}. World median $8,654–$9,167 → 1.08–1.15 steps → ≈${formatHeight(s7.physical_analogy.height_meters).label}.`,
+      metod_p2:       `<strong>1 step = $${step_usd_value.toLocaleString('en-US')} = ${step_physical_height_meters * 100} cm.</strong> Each step represents $${step_usd_value.toLocaleString('en-US')} USD of net worth. For the complete mathematical breakdown and to join the technical discussion of the model, visit the <a href="https://github.com/willkwolf/global-inequality-21Century" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:underline;">project repository on GitHub</a>.`,
       metod_sum3:     'Limitations',
       metod_li1:      'Net worth ≠ income or liquid cash. Includes housing, pensions, debts.',
       metod_li2:      'Billionaire fortunes fluctuate daily.',
       metod_li3:      'The scale is logarithmic: from centimeters to kilometers on one screen.',
       metod_li4:      'This visualization exposes systemic structure; it does not judge individual merit.',
-      footer_text:    `Data UBS 31 Dec 2024 · Forbes ${formatForbesDate(last_updated_sources.forbes_billionaires_date, 'en')} · Visual scrollytelling`,
       footer_author:  '© 2026 William Camilo Artunduaga Viana ·',
       footer_license: 'CC BY 4.0',
       lang_btn:       'ES',
       lang_aria:      'Cambiar a español',
       data_date:      'UBS · Dec 2024',
-      scroll_cue:     'Scroll to begin'
+      scroll_cue:     'Scroll to begin',
+      a11y_toolbar_label: 'Accessibility panel',
+      a11y_btn_aria:      'Accessibility options',
+      a11y_text_size:     'Size',
+      a11y_size_normal:   'A',
+      a11y_size_large:    'A+',
+      a11y_size_xl:       'A++',
+      a11y_visuals:       'Settings',
+      a11y_contrast:      'Contrast',
+      a11y_dyslexia:      'Dyslexic'
     }
   };
+
+  // Agregar traducciones para limitaciones adicionales si están presentes en data.json
+  if (data.metadata.additional_limitations) {
+    data.metadata.additional_limitations.forEach((lim, idx) => {
+      stringsObj.es[`metod_li_add_${idx}`] = lim.es;
+      stringsObj.en[`metod_li_add_${idx}`] = lim.en;
+    });
+  }
+
+  // Agregar traducciones para fuentes si están presentes en data.json
+  if (data.metadata.sources) {
+    data.metadata.sources.forEach((src, idx) => {
+      stringsObj.es[`metod_source_${idx}`] = src.name_es;
+      stringsObj.en[`metod_source_${idx}`] = src.name_en;
+    });
+  }
 
   // Agregar traducciones específicas de los estratos (s1_headline, s1_caption, s1_aria, etc.)
   data.strata.forEach(s => {
@@ -271,6 +303,43 @@ try {
     
     logSuccess(`Estrato [${s.id}] actualizado: data-alt="${s.physical_analogy.height_meters}", data-label="${fHeight.label}", num="${fHeight.num}${fHeight.unit}"${s.svg_icon ? ' (Icono SVG dinámico inyectado)' : ''}`);
   });
+
+  // 4b. Reemplazar la lista de limitaciones en el HTML
+  let limitationsHtml = `\n        <li data-i18n="metod_li1">${stringsObj.es.metod_li1}</li>` +
+                        `\n        <li data-i18n="metod_li2">${stringsObj.es.metod_li2}</li>` +
+                        `\n        <li data-i18n="metod_li3">${stringsObj.es.metod_li3}</li>` +
+                        `\n        <li data-i18n="metod_li4">${stringsObj.es.metod_li4}</li>`;
+  if (data.metadata.additional_limitations && data.metadata.additional_limitations.length > 0) {
+    data.metadata.additional_limitations.forEach((lim, idx) => {
+      limitationsHtml += `\n        <li data-i18n="metod_li_add_${idx}">${lim.es}</li>`;
+    });
+  }
+  limitationsHtml += '\n      ';
+
+  const limitationsRegex = /(<ul id="limitations-list"[^>]*>)([\s\S]*?)(<\/ul>)/i;
+  if (html.match(limitationsRegex)) {
+    html = html.replace(limitationsRegex, `$1${limitationsHtml}$3`);
+    logSuccess('Lista de limitaciones híbridas inyectada en el HTML.');
+  } else {
+    console.log('⚠ No se encontró el contenedor <ul id="limitations-list"> en el HTML.');
+  }
+
+  // 4c. Reemplazar la lista de fuentes en el HTML
+  let sourcesHtml = '';
+  if (data.metadata.sources && data.metadata.sources.length > 0) {
+    data.metadata.sources.forEach((src, idx) => {
+      sourcesHtml += `\n          <li style="margin:.4rem 0;"><a href="${src.url}" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:underline;" data-i18n="metod_source_${idx}">${src.name_es}</a></li>`;
+    });
+  }
+  sourcesHtml += '\n        ';
+
+  const sourcesRegex = /(<ul id="sources-list"[^>]*>)([\s\S]*?)(<\/ul>)/i;
+  if (html.match(sourcesRegex)) {
+    html = html.replace(sourcesRegex, `$1${sourcesHtml}$3`);
+    logSuccess('Lista de fuentes dinámicas inyectada en el HTML.');
+  } else {
+    console.log('⚠ No se encontró el contenedor <ul id="sources-list"> en el HTML.');
+  }
 
   // 5. Guardar archivo compilado
   fs.writeFileSync(HTML_PATH, html, 'utf8');

@@ -39,7 +39,13 @@ body{
   font-family:var(--font-body);background:#000;color:var(--text);
   line-height:1.5;-webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;overflow-x:hidden;
-  font-size:clamp(18px,4.2vw,20px)
+  font-size:calc(clamp(18px,4.2vw,20px) * var(--a11y-font-scale, 1));
+}
+@media (min-width: 1200px){
+  body{
+    font-size:calc(22px * var(--a11y-font-scale, 1));
+    line-height:1.6;
+  }
 }
 ::-webkit-scrollbar{display:none}
 
@@ -108,7 +114,7 @@ body.light-mode #lang-toggle{
 .intro h1{
   margin:0 0 .5rem;
   font-family:var(--font-display);
-  font-size:clamp(22px,2.6vw,34px);
+  font-size:clamp(34px,4.8vw,72px);
   letter-spacing:-.01em;font-weight:900;opacity:.9;
   line-height:1.22;text-wrap:balance
 }
@@ -138,7 +144,7 @@ body.light-mode #lang-toggle{
 
   #s0 h1{
     font-family:var(--font-display);
-    font-size:clamp(36px,11vw,58px);
+    font-size:clamp(42px,12.5vw,82px);
     font-weight:900;
     line-height:1.05;
     letter-spacing:-.02em;
@@ -324,12 +330,171 @@ footer p{margin:0}
   html{scroll-behavior:auto}
   *{animation:none!important;transition:none!important}
 }
+
+/* ── Accessibility Premium Suite ────────────────────────────────── */
+.a11y-toolbar{
+  position:fixed;top:11px;left:14px;z-index:202;
+  font-family:var(--font-body);
+}
+.a11y-toggle-btn{
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
+  color:#fff;padding:6px;border-radius:50%;width:34px;height:34px;
+  cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s, border-color .2s, transform .2s;
+}
+.a11y-toggle-btn:hover{background:rgba(255,255,255,.22);transform:scale(1.05)}
+body.light-mode .a11y-toggle-btn{
+  background:rgba(0,0,0,.08);border-color:rgba(0,0,0,.15);color:#1a1408;
+}
+.a11y-menu{
+  position:absolute;top:42px;left:0;
+  background:rgba(10,12,18,.92);border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;padding:12px;width:240px;
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
+  display:none;flex-direction:column;gap:12px;
+  transform:translateY(-10px);opacity:0;
+  transition:transform .25s ease, opacity .25s ease;
+}
+.a11y-menu.show{
+  display:flex;transform:translateY(0);opacity:1;
+}
+body.light-mode .a11y-menu{
+  background:rgba(245,242,235,.95);border-color:rgba(0,0,0,.15);
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+}
+.a11y-group{
+  display:flex;flex-direction:column;gap:6px;
+}
+.a11y-group-title{
+  font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.08em;opacity:.6;
+  color:#fff;
+}
+body.light-mode .a11y-group-title{color:#1a1408}
+.a11y-btn-row{
+  display:flex;gap:6px;
+}
+.a11y-btn{
+  flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);
+  color:#fff;font-family:var(--font-body);font-size:12px;font-weight:600;
+  padding:6px 4px;border-radius:8px;cursor:pointer;
+  transition:background .2s, border-color .2s, color .2s;
+  text-align:center;
+}
+.a11y-btn:hover{background:rgba(255,255,255,.14)}
+.a11y-btn.a11y-active{
+  background:#fff;color:#000;border-color:#fff;font-weight:700;
+}
+body.light-mode .a11y-btn{
+  background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.1);color:#1a1408;
+}
+body.light-mode .a11y-btn.a11y-active{
+  background:#1a1408;color:#fff;border-color:#1a1408;
+}
+
+/* ── Accessibility Feature Classes ───────────────────────────────── */
+body.a11y-dyslexic{
+  --font-body:'Comic Sans MS',system-ui,sans-serif !important;
+  --font-display:'Comic Sans MS',system-ui,sans-serif !important;
+  letter-spacing:0.12em !important;
+  word-spacing:0.25em !important;
+}
+body.a11y-dyslexic p, body.a11y-dyslexic li, body.a11y-dyslexic h1, body.a11y-dyslexic h2, body.a11y-dyslexic div{
+  letter-spacing:0.08em !important;
+  line-height:1.75 !important;
+}
+
+body.a11y-high-contrast{
+  background:#000 !important;color:#fff !important;
+}
+body.a11y-high-contrast .snap{
+  background:#000 !important;
+  border-bottom:2px solid #fff;
+}
+body.a11y-high-contrast .grid{
+  border:2px solid #fff;
+  border-radius:12px;
+  background:#000 !important;
+  padding:15px !important;
+  margin:10px auto !important;
+}
+body.a11y-high-contrast .num{
+  color:#fff !important;text-shadow:none !important;
+}
+body.a11y-high-contrast .headline{
+  color:#ffff00 !important;text-shadow:none !important;
+}
+body.a11y-high-contrast .caption{
+  color:#fff !important;opacity:1 !important;
+}
+body.a11y-high-contrast .icon{
+  color:#ffff00 !important;opacity:1 !important;
+}
+body.a11y-high-contrast #lang-toggle, body.a11y-high-contrast .a11y-toggle-btn{
+  background:#000 !important;border:2px solid #fff !important;color:#fff !important;
+}
+body.a11y-high-contrast .a11y-menu{
+  background:#000 !important;border:2px solid #fff !important;
+}
+body.a11y-high-contrast .a11y-btn{
+  background:#000 !important;border:1px solid #fff !important;color:#fff !important;
+}
+body.a11y-high-contrast .a11y-btn.a11y-active{
+  background:#fff !important;color:#000 !important;
+}
+body.a11y-high-contrast #metodologia{
+  background:#000 !important;border-top:2px solid #fff;
+}
+body.a11y-high-contrast details{
+  background:#000 !important;border:2px solid #fff !important;
+}
+body.a11y-high-contrast details summary{
+  color:#ffff00 !important;
+}
+body.a11y-high-contrast details p, body.a11y-high-contrast details li{
+  color:#fff !important;
+}
+body.a11y-high-contrast footer{
+  background:#000 !important;border-top:2px solid #fff;color:#fff !important;
+}
+body.a11y-high-contrast footer a{
+  color:#ffff00 !important;
+}
 </style>
 </head>
 <body>
 
 <!-- Accessibility: skip link -->
 <a href="#main-content" class="skip-link" data-i18n="skip_text">Saltar al contenido principal</a>
+
+<!-- Accessibility Premium Suite Toolbar -->
+<div id="a11y-toolbar" class="a11y-toolbar" role="region" aria-label="Panel de accesibilidad" data-i18n-label="a11y_toolbar_label">
+  <button id="a11y-toggle" class="a11y-toggle-btn" aria-expanded="false" aria-controls="a11y-menu" aria-label="Opciones de accesibilidad" data-i18n-aria="a11y_btn_aria">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;display:block;">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 8v8M8 12h8"/>
+    </svg>
+  </button>
+  <div id="a11y-menu" class="a11y-menu" aria-hidden="true">
+    <div class="a11y-group">
+      <span class="a11y-group-title" data-i18n="a11y_text_size">Tamaño</span>
+      <div class="a11y-btn-row">
+        <button class="a11y-btn a11y-active" data-scale="1" aria-pressed="true" data-i18n="a11y_size_normal">A</button>
+        <button class="a11y-btn" data-scale="1.2" aria-pressed="false" data-i18n="a11y_size_large">A+</button>
+        <button class="a11y-btn" data-scale="1.4" aria-pressed="false" data-i18n="a11y_size_xl">A++</button>
+      </div>
+    </div>
+    <div class="a11y-group">
+      <span class="a11y-group-title" data-i18n="a11y_visuals">Ajustes</span>
+      <div class="a11y-btn-row">
+        <button id="btn-high-contrast" class="a11y-btn" aria-pressed="false" data-i18n="a11y_contrast">Contraste</button>
+        <button id="btn-dyslexic" class="a11y-btn" aria-pressed="false" data-i18n="a11y_dyslexia">Lectura</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Progress bar -->
 <div id="progress" role="progressbar" aria-hidden="true" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
@@ -545,6 +710,10 @@ footer p{margin:0}
     <details open>
       <summary data-i18n="metod_sum1">Fuentes</summary>
       <p data-i18n="metod_p1">UBS Global Wealth Report 2024 (adultos, datos al 31 dic 2024). Forbes Real-Time Billionaires, mayo 2026: Elon Musk ($636B–$839B) y 2,891 billonarios confirmados. Población adulta mundial: 5,360 millones.</p>
+      <ul id="sources-list" style="margin:.55rem 0;padding-left:1.1rem;">
+          <li style="margin:.4rem 0;"><a href="https://www.ubs.com/global/en/wealth-management/insights/global-wealth-report.html" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:underline;" data-i18n="metod_source_0">UBS Global Wealth Report 2024 (adultos, datos al 31 dic 2024)</a></li>
+          <li style="margin:.4rem 0;"><a href="https://www.forbes.com/real-time-billionaires/" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:underline;" data-i18n="metod_source_1">Forbes Real-Time Billionaires (mayo de 2026)</a></li>
+        </ul>
     </details>
 
     <details>
@@ -554,19 +723,20 @@ footer p{margin:0}
 
     <details>
       <summary data-i18n="metod_sum3">Limitaciones</summary>
-      <ul>
+      <ul id="limitations-list">
         <li data-i18n="metod_li1">Patrimonio ≠ ingreso ni efectivo disponible. Incluye vivienda, pensiones, deudas.</li>
         <li data-i18n="metod_li2">Las fortunas de billonarios fluctúan diariamente.</li>
         <li data-i18n="metod_li3">La escala es logarítmica: de centímetros a kilómetros en una sola pantalla.</li>
         <li data-i18n="metod_li4">Esta visualización expone estructura sistémica, no juzga mérito individual.</li>
+        <li data-i18n="metod_li_add_0">Los datos excluyen activos no declarados o riqueza en paraísos fiscales fuera del radar oficial.</li>
+        <li data-i18n="metod_li_add_1">Los tipos de cambio aplicados reflejan promedios anuales ajustados para la homogeneización multirregional.</li>
       </ul>
     </details>
   </div>
 </section>
 
 <footer>
-  <p data-i18n="footer_text">Datos UBS 31 dic 2024 · Forbes mayo 2026 · Scrollytelling visual</p>
-  <p data-i18n="footer_author" style="margin-top:.6rem;opacity:.7">
+  <p data-i18n="footer_author" style="margin-top:0;opacity:.7">
     © 2026 William Camilo Artunduaga Viana ·
     <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener"
        style="color:inherit;text-decoration:underline" data-i18n="footer_license">CC BY 4.0</a>
@@ -587,19 +757,31 @@ const STRINGS = {
     "metod_sum1": "Fuentes",
     "metod_p1": "UBS Global Wealth Report 2024 (adultos, datos al 31 dic 2024). Forbes Real-Time Billionaires, mayo de 2026: Elon Musk ($636B–$839B) y 2891 billonarios confirmados. Población adulta mundial: 5,36 millones.",
     "metod_sum2": "Fórmula",
-    "metod_p2": "<strong>1 escalón = $8000 = 15 cm.</strong> Altura = (Patrimonio ÷ 8000) × 0.15 m. Ejemplo: $1,000,000 → 125 escalones → 18.75 m. Mediana mundial $8,654–$9,167 → 1.08–1.15 escalones → ≈17 cm.",
+    "metod_p2": "<strong>1 escalón = $8000 = 15 cm.</strong> Cada peldaño representa $8000 USD de patrimonio neto. Para ver el desglose matemático detallado y participar en la discusión técnica del modelo, consulta el <a href=\"https://github.com/willkwolf/global-inequality-21Century\" target=\"_blank\" rel=\"noopener\" style=\"color:#60a5fa;text-decoration:underline;\">repositorio del proyecto en GitHub</a>.",
     "metod_sum3": "Limitaciones",
     "metod_li1": "Patrimonio ≠ ingreso ni efectivo disponible. Incluye vivienda, pensiones, deudas.",
     "metod_li2": "Las fortunas de billonarios fluctúan diariamente.",
     "metod_li3": "La escala es logarítmica: de centímetros a kilómetros en una sola pantalla.",
     "metod_li4": "Esta visualización expone estructura sistémica, no juzga mérito individual.",
-    "footer_text": "Datos UBS 31 dic 2024 · Forbes mayo de 2026 · Scrollytelling visual",
     "footer_author": "© 2026 William Camilo Artunduaga Viana ·",
     "footer_license": "CC BY 4.0",
     "lang_btn": "EN",
     "lang_aria": "Switch to English",
     "data_date": "UBS · dic 2024",
     "scroll_cue": "Desliza para comenzar",
+    "a11y_toolbar_label": "Panel de accesibilidad",
+    "a11y_btn_aria": "Opciones de accesibilidad",
+    "a11y_text_size": "Tamaño",
+    "a11y_size_normal": "A",
+    "a11y_size_large": "A+",
+    "a11y_size_xl": "A++",
+    "a11y_visuals": "Ajustes",
+    "a11y_contrast": "Contraste",
+    "a11y_dyslexia": "Lectura",
+    "metod_li_add_0": "Los datos excluyen activos no declarados o riqueza en paraísos fiscales fuera del radar oficial.",
+    "metod_li_add_1": "Los tipos de cambio aplicados reflejan promedios anuales ajustados para la homogeneización multirregional.",
+    "metod_source_0": "UBS Global Wealth Report 2024 (adultos, datos al 31 dic 2024)",
+    "metod_source_1": "Forbes Real-Time Billionaires (mayo de 2026)",
     "s1_headline": "Elon Musk vive en órbita",
     "s1_caption": "Menos de 1 de cada 10 millones · USD $636B–$839B",
     "s1_aria": "Elon Musk en órbita: 15,731 km",
@@ -634,19 +816,31 @@ const STRINGS = {
     "metod_sum1": "Sources",
     "metod_p1": "UBS Global Wealth Report 2024 (adults, data as of 31 Dec 2024). Forbes Real-Time Billionaires, May 2026: Elon Musk ($636B–$839B) and 2,891 confirmed billionaires. Global adult population: 5.36 billion.",
     "metod_sum2": "Formula",
-    "metod_p2": "<strong>1 step = $8,000 = 15 cm.</strong> Height = (Net worth ÷ 8000) × 0.15 m. Example: $1,000,000 → 125 steps → 18.75 m. World median $8,654–$9,167 → 1.08–1.15 steps → ≈17 cm.",
+    "metod_p2": "<strong>1 step = $8,000 = 15 cm.</strong> Each step represents $8,000 USD of net worth. For the complete mathematical breakdown and to join the technical discussion of the model, visit the <a href=\"https://github.com/willkwolf/global-inequality-21Century\" target=\"_blank\" rel=\"noopener\" style=\"color:#60a5fa;text-decoration:underline;\">project repository on GitHub</a>.",
     "metod_sum3": "Limitations",
     "metod_li1": "Net worth ≠ income or liquid cash. Includes housing, pensions, debts.",
     "metod_li2": "Billionaire fortunes fluctuate daily.",
     "metod_li3": "The scale is logarithmic: from centimeters to kilometers on one screen.",
     "metod_li4": "This visualization exposes systemic structure; it does not judge individual merit.",
-    "footer_text": "Data UBS 31 Dec 2024 · Forbes May 2026 · Visual scrollytelling",
     "footer_author": "© 2026 William Camilo Artunduaga Viana ·",
     "footer_license": "CC BY 4.0",
     "lang_btn": "ES",
     "lang_aria": "Cambiar a español",
     "data_date": "UBS · Dec 2024",
     "scroll_cue": "Scroll to begin",
+    "a11y_toolbar_label": "Accessibility panel",
+    "a11y_btn_aria": "Accessibility options",
+    "a11y_text_size": "Size",
+    "a11y_size_normal": "A",
+    "a11y_size_large": "A+",
+    "a11y_size_xl": "A++",
+    "a11y_visuals": "Settings",
+    "a11y_contrast": "Contrast",
+    "a11y_dyslexia": "Dyslexic",
+    "metod_li_add_0": "Data excludes undeclared assets or offshore wealth outside official tracking.",
+    "metod_li_add_1": "Exchange rates used reflect homogenized annual averages adjusted for multi-regional analysis.",
+    "metod_source_0": "UBS Global Wealth Report 2024 (adults, data as of Dec 31, 2024)",
+    "metod_source_1": "Forbes Real-Time Billionaires (May 2026)",
     "s1_headline": "Elon Musk lives in orbit",
     "s1_caption": "Fewer than 1 in 10 million · USD $636B–$839B",
     "s1_aria": "Elon Musk in orbit: 15,731 km",
@@ -730,6 +924,16 @@ function applyLang(lang) {
       if (label) el.setAttribute('aria-label', label);
     }
   }
+
+  // Update accessibility toolbar aria attributes
+  const a11yToolbar = document.getElementById('a11y-toolbar');
+  if (a11yToolbar && t.a11y_toolbar_label) {
+    a11yToolbar.setAttribute('aria-label', t.a11y_toolbar_label);
+  }
+  const a11yToggle = document.getElementById('a11y-toggle');
+  if (a11yToggle && t.a11y_btn_aria) {
+    a11yToggle.setAttribute('aria-label', t.a11y_btn_aria);
+  }
 }
 
 document.getElementById('lang-toggle').addEventListener('click', () => {
@@ -803,6 +1007,111 @@ function updateScroll() {
 window.addEventListener('scroll', updateScroll, { passive: true });
 window.addEventListener('resize', updateScroll);
 updateScroll();
+
+/* ── Accessibility Toolbar Interactive Logic ─────────────────── */
+(function initA11y() {
+  const toggleBtn = document.getElementById('a11y-toggle');
+  const menu = document.getElementById('a11y-menu');
+
+  if (!toggleBtn || !menu) return;
+
+  // Toggle expand menu
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+    toggleBtn.setAttribute('aria-expanded', !expanded);
+    menu.classList.toggle('show', !expanded);
+    menu.setAttribute('aria-hidden', expanded);
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!menu.contains(e.target) && e.target !== toggleBtn) {
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      menu.classList.remove('show');
+      menu.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu.classList.contains('show')) {
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      menu.classList.remove('show');
+      menu.setAttribute('aria-hidden', 'true');
+      toggleBtn.focus();
+    }
+  });
+
+  // Font scale buttons
+  const scaleBtns = menu.querySelectorAll('.a11y-group [data-scale]');
+  const applyFontScale = (scale) => {
+    document.documentElement.style.setProperty('--a11y-font-scale', scale);
+    scaleBtns.forEach(btn => {
+      const active = btn.getAttribute('data-scale') === scale.toString();
+      btn.classList.toggle('a11y-active', active);
+      btn.setAttribute('aria-pressed', active);
+    });
+    try {
+      localStorage.setItem('a11y-font-scale', scale);
+    } catch(e) {}
+  };
+
+  scaleBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const scale = btn.getAttribute('data-scale');
+      applyFontScale(scale);
+    });
+  });
+
+  // High contrast mode
+  const contrastBtn = document.getElementById('btn-high-contrast');
+  const toggleHighContrast = (enable) => {
+    document.body.classList.toggle('a11y-high-contrast', enable);
+    contrastBtn.classList.toggle('a11y-active', enable);
+    contrastBtn.setAttribute('aria-pressed', enable);
+    try {
+      localStorage.setItem('a11y-high-contrast', enable ? 'true' : 'false');
+    } catch(e) {}
+  };
+
+  if (contrastBtn) {
+    contrastBtn.addEventListener('click', () => {
+      const isContrast = document.body.classList.contains('a11y-high-contrast');
+      toggleHighContrast(!isContrast);
+    });
+  }
+
+  // Dyslexic font mode
+  const dyslexicBtn = document.getElementById('btn-dyslexic');
+  const toggleDyslexic = (enable) => {
+    document.body.classList.toggle('a11y-dyslexic', enable);
+    dyslexicBtn.classList.toggle('a11y-active', enable);
+    dyslexicBtn.setAttribute('aria-pressed', enable);
+    try {
+      localStorage.setItem('a11y-dyslexic', enable ? 'true' : 'false');
+    } catch(e) {}
+  };
+
+  if (dyslexicBtn) {
+    dyslexicBtn.addEventListener('click', () => {
+      const isDyslexic = document.body.classList.contains('a11y-dyslexic');
+      toggleDyslexic(!isDyslexic);
+    });
+  }
+
+  // Load persistence values on init
+  try {
+    const savedScale = localStorage.getItem('a11y-font-scale');
+    if (savedScale) applyFontScale(savedScale);
+
+    const savedContrast = localStorage.getItem('a11y-high-contrast') === 'true';
+    if (savedContrast) toggleHighContrast(true);
+
+    const savedDyslexic = localStorage.getItem('a11y-dyslexic') === 'true';
+    if (savedDyslexic) toggleDyslexic(true);
+  } catch(e) {}
+})();
 
 /* ── Icon reveal on enter ─────────────────────────────────────── */
 const io = new IntersectionObserver(

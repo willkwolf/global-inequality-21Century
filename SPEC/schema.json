@@ -63,6 +63,29 @@
               "enum": ["person", "organization", "other"]
             }
           }
+        },
+        "additional_limitations": {
+          "type": "ARRAY",
+          "items": {
+            "type": "OBJECT",
+            "required": ["es", "en"],
+            "properties": {
+              "es": { "type": "STRING" },
+              "en": { "type": "STRING" }
+            }
+          }
+        },
+        "sources": {
+          "type": "ARRAY",
+          "items": {
+            "type": "OBJECT",
+            "required": ["name_es", "name_en", "url"],
+            "properties": {
+              "name_es": { "type": "STRING" },
+              "name_en": { "type": "STRING" },
+              "url": { "type": "STRING", "pattern": "^https?://" }
+            }
+          }
         }
       }
     },

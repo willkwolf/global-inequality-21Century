@@ -16,7 +16,29 @@
       "name_es": "Elon Musk",
       "name_en": "Elon Musk",
       "type": "person"
-    }
+    },
+    "additional_limitations": [
+      {
+        "es": "Los datos excluyen activos no declarados o riqueza en paraísos fiscales fuera del radar oficial.",
+        "en": "Data excludes undeclared assets or offshore wealth outside official tracking."
+      },
+      {
+        "es": "Los tipos de cambio aplicados reflejan promedios anuales ajustados para la homogeneización multirregional.",
+        "en": "Exchange rates used reflect homogenized annual averages adjusted for multi-regional analysis."
+      }
+    ],
+    "sources": [
+      {
+        "name_es": "UBS Global Wealth Report 2024 (adultos, datos al 31 dic 2024)",
+        "name_en": "UBS Global Wealth Report 2024 (adults, data as of Dec 31, 2024)",
+        "url": "https://www.ubs.com/global/en/wealth-management/insights/global-wealth-report.html"
+      },
+      {
+        "name_es": "Forbes Real-Time Billionaires (mayo de 2026)",
+        "name_en": "Forbes Real-Time Billionaires (May 2026)",
+        "url": "https://www.forbes.com/real-time-billionaires/"
+      }
+    ]
   },
   "formula_constants": {
     "step_usd_value": 8000,
