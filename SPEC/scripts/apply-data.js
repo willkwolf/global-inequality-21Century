@@ -52,10 +52,10 @@ try {
   const data = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
   let html = fs.readFileSync(HTML_PATH, 'utf8');
 
-  const { total_billionaires, total_adults_world, last_updated_sources } = data.metadata;
+  const { total_billionaires, total_adults_world, last_updated_sources, top_wealth_holder } = data.metadata;
   const { step_usd_value, step_physical_height_meters } = data.formula_constants;
 
-  // Encontrar s1 (Musk) y s7 (Mediana) para formatear ficha técnica
+  // Encontrar s1 (Musk/Top) y s7 (Mediana) para formatear ficha técnica
   const s1 = data.strata.find(s => s.id === 's1');
   const s4 = data.strata.find(s => s.id === 's4');
   const s7 = data.strata.find(s => s.id === 's7');
@@ -82,6 +82,46 @@ try {
     }
   }
 
+  // Helper para dar formato a miles de millones (Billions)
+  function formatBillion(value) {
+    if (value === null) return 'N/A';
+    const billions = value / 1000000000;
+    return billions % 1 === 0 ? billions.toString() : billions.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 2 });
+  }
+
+  // Helper para parsear la fecha de Forbes
+  function formatForbesDate(dateStr, lang) {
+    const parts = dateStr.split('-');
+    if (parts.length !== 3) return dateStr;
+    const year = parts[0];
+    const monthNum = parseInt(parts[1], 10);
+    const monthsES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    const monthsEN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    if (lang === 'es') {
+      return `${monthsES[monthNum - 1]} de ${year}`;
+    } else {
+      return `${monthsEN[monthNum - 1]} ${year}`;
+    }
+  }
+
+  // Mappers para palabras de tipo de entidad
+  const typeWordsES = {
+    person: 'billonarios',
+    organization: 'organizaciones',
+    other: 'entidades'
+  };
+  const typeWordsEN = {
+    person: 'billionaires',
+    organization: 'organizations',
+    other: 'entities'
+  };
+  const typeWordES = typeWordsES[top_wealth_holder.type] || 'billonarios';
+  const typeWordEN = typeWordsEN[top_wealth_holder.type] || 'billionaires';
+
+  const rangeStr = `$${formatBillion(s1.net_worth_range_usd.min)}B–$${formatBillion(s1.net_worth_range_usd.max)}B`;
+  const nameES = top_wealth_holder.name_es;
+  const nameEN = top_wealth_holder.name_en;
+
   // 2. Construir STRINGS
   const stringsObj = {
     es: {
@@ -91,7 +131,7 @@ try {
       metod_title:    'Ficha técnica',
       metod_lead:     'Convertimos patrimonio neto en altura física. Así de literal es la desigualdad.',
       metod_sum1:     'Fuentes',
-      metod_p1:       `UBS Global Wealth Report 2024 (adultos, datos al 31 dic 2024). Forbes Real-Time Billionaires, mayo 2026: Elon Musk ($636B–$839B) y ${formattedBillionairesES} billonarios confirmados. Población adulta mundial: ${formattedAdultsES}.`,
+      metod_p1:       `UBS Global Wealth Report 2024 (adultos, datos al 31 dic 2024). Forbes Real-Time Billionaires, ${formatForbesDate(last_updated_sources.forbes_billionaires_date, 'es')}: ${nameES} (${rangeStr}) y ${formattedBillionairesES} ${typeWordES} confirmados. Población adulta mundial: ${formattedAdultsES}.`,
       metod_sum2:     'Fórmula',
       metod_p2:       `<strong>1 escalón = $${step_usd_value.toLocaleString('es-ES')} = ${step_physical_height_meters * 100} cm.</strong> Altura = (Patrimonio ÷ ${step_usd_value}) × ${step_physical_height_meters} m. Ejemplo: $1,000,000 → ${1000000 / step_usd_value} escalones → ${formatHeight(s4.physical_analogy.height_meters).label}. Mediana mundial $8,654–$9,167 → 1.08–1.15 escalones → ≈${formatHeight(s7.physical_analogy.height_meters).label}.`,
       metod_sum3:     'Limitaciones',
@@ -99,7 +139,7 @@ try {
       metod_li2:      'Las fortunas de billonarios fluctúan diariamente.',
       metod_li3:      'La escala es logarítmica: de centímetros a kilómetros en una sola pantalla.',
       metod_li4:      'Esta visualización expone estructura sistémica, no juzga mérito individual.',
-      footer_text:    `Datos UBS 31 dic 2024 · Forbes mayo 2026 · Scrollytelling visual`,
+      footer_text:    `Datos UBS 31 dic 2024 · Forbes ${formatForbesDate(last_updated_sources.forbes_billionaires_date, 'es')} · Scrollytelling visual`,
       footer_author:  '© 2026 William Camilo Artunduaga Viana ·',
       footer_license: 'CC BY 4.0',
       lang_btn:       'EN',
@@ -114,7 +154,7 @@ try {
       metod_title:    'Technical notes',
       metod_lead:     'We convert net worth into physical height. That is how literal inequality is.',
       metod_sum1:     'Sources',
-      metod_p1:       `UBS Global Wealth Report 2024 (adults, data as of 31 Dec 2024). Forbes Real-Time Billionaires, May 2026: Elon Musk ($636B–$839B) and ${formattedBillionairesEN} confirmed billionaires. Global adult population: ${formattedAdultsEN}.`,
+      metod_p1:       `UBS Global Wealth Report 2024 (adults, data as of 31 Dec 2024). Forbes Real-Time Billionaires, ${formatForbesDate(last_updated_sources.forbes_billionaires_date, 'en')}: ${nameEN} (${rangeStr}) and ${formattedBillionairesEN} confirmed ${typeWordEN}. Global adult population: ${formattedAdultsEN}.`,
       metod_sum2:     'Formula',
       metod_p2:       `<strong>1 step = $${step_usd_value.toLocaleString('en-US')} = ${step_physical_height_meters * 100} cm.</strong> Height = (Net worth ÷ ${step_usd_value}) × ${step_physical_height_meters} m. Example: $1,000,000 → ${1000000 / step_usd_value} steps → ${formatHeight(s4.physical_analogy.height_meters).label}. World median $8,654–$9,167 → 1.08–1.15 steps → ≈${formatHeight(s7.physical_analogy.height_meters).label}.`,
       metod_sum3:     'Limitations',
@@ -122,7 +162,7 @@ try {
       metod_li2:      'Billionaire fortunes fluctuate daily.',
       metod_li3:      'The scale is logarithmic: from centimeters to kilometers on one screen.',
       metod_li4:      'This visualization exposes systemic structure; it does not judge individual merit.',
-      footer_text:    `Data UBS 31 Dec 2024 · Forbes May 2026 · Visual scrollytelling`,
+      footer_text:    `Data UBS 31 Dec 2024 · Forbes ${formatForbesDate(last_updated_sources.forbes_billionaires_date, 'en')} · Visual scrollytelling`,
       footer_author:  '© 2026 William Camilo Artunduaga Viana ·',
       footer_license: 'CC BY 4.0',
       lang_btn:       'ES',
@@ -211,11 +251,25 @@ try {
       throw new Error(`No se encontró <div class="num"> dentro de la sección id="${s.id}"`);
     }
 
+    // Modificar <div class="icon" ...>...</div> en el contenido si hay un svg_icon dinámico
+    if (s.svg_icon) {
+      const iconDivRegex = /(<div class="icon"[^>]*>)([\s\S]*?)(<\/div>)/i;
+      const iconMatch = content.match(iconDivRegex);
+      if (iconMatch) {
+        const openIconTag = iconMatch[1];
+        const closeIconTag = iconMatch[3];
+        const updatedIconDiv = `${openIconTag}\n        ${s.svg_icon.trim()}\n      ${closeIconTag}`;
+        content = content.replace(iconDivRegex, updatedIconDiv);
+      } else {
+        throw new Error(`No se encontró <div class="icon"> dentro de la sección id="${s.id}" para inyectar el SVG dinámico`);
+      }
+    }
+
     // Reensamblar la sección y reemplazar en el HTML general
     const updatedSection = openTag + content + closeTag;
     html = html.replace(sectionRegex, () => updatedSection);
     
-    logSuccess(`Estrato [${s.id}] actualizado: data-alt="${s.physical_analogy.height_meters}", data-label="${fHeight.label}", num="${fHeight.num}${fHeight.unit}"`);
+    logSuccess(`Estrato [${s.id}] actualizado: data-alt="${s.physical_analogy.height_meters}", data-label="${fHeight.label}", num="${fHeight.num}${fHeight.unit}"${s.svg_icon ? ' (Icono SVG dinámico inyectado)' : ''}`);
   });
 
   // 5. Guardar archivo compilado

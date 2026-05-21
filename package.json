@@ -4,8 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node SPEC/scripts/validate-data.js && node tests/parallax-bug-condition.test.mjs && node tests/parallax-preservation.test.mjs",
+    "test": "node SPEC/scripts/validate-data.js && node tests/parallax-bug-condition.test.mjs && node tests/parallax-preservation.test.mjs && node tests/synthetic-robustness.test.mjs",
     "test:bug": "node tests/parallax-bug-condition.test.mjs",
+    "test:robustness": "node tests/synthetic-robustness.test.mjs",
     "apply-spec": "node SPEC/scripts/apply-data.js",
     "typecheck": "tsc"
   },

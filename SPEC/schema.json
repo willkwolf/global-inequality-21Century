@@ -28,7 +28,8 @@
         "license",
         "total_adults_world",
         "total_billionaires",
-        "last_updated_sources"
+        "last_updated_sources",
+        "top_wealth_holder"
       ],
       "properties": {
         "title": { "type": "STRING" },
@@ -49,6 +50,18 @@
           "properties": {
             "ubs_report_date": { "type": "STRING" },
             "forbes_billionaires_date": { "type": "STRING" }
+          }
+        },
+        "top_wealth_holder": {
+          "type": "OBJECT",
+          "required": ["name_es", "name_en", "type"],
+          "properties": {
+            "name_es": { "type": "STRING" },
+            "name_en": { "type": "STRING" },
+            "type": {
+              "type": "STRING",
+              "enum": ["person", "organization", "other"]
+            }
           }
         }
       }
@@ -160,6 +173,10 @@
                 }
               }
             }
+          },
+          "svg_icon": {
+            "type": "STRING",
+            "description": "Código SVG completo opcional para representar la analogía física."
           }
         }
       }

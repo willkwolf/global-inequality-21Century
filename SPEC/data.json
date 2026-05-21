@@ -11,6 +11,11 @@
     "last_updated_sources": {
       "ubs_report_date": "2024-12-31",
       "forbes_billionaires_date": "2026-05-01"
+    },
+    "top_wealth_holder": {
+      "name_es": "Elon Musk",
+      "name_en": "Elon Musk",
+      "type": "person"
     }
   },
   "formula_constants": {
@@ -27,7 +32,7 @@
         "average": 737500000000
       },
       "population_ratio": {
-        "percentage": 0.0000001,
+        "percentage": 1e-7,
         "ratio_phrase": {
           "es": "Menos de 1 de cada 10 millones",
           "en": "Fewer than 1 in 10 million"
@@ -49,7 +54,8 @@
           "caption": "Fewer than 1 in 10 million · USD $636B–$839B",
           "aria": "Elon Musk in orbit: 15,731 km"
         }
-      }
+      },
+      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\">\n  <circle cx=\"60\" cy=\"60\" r=\"42\" stroke-dasharray=\"5 7\" opacity=\".6\"/>\n  <circle cx=\"60\" cy=\"22\" r=\"7\" fill=\"currentColor\" stroke=\"none\"/>\n  <path d=\"M60 29 v18 M42 60 h36\" stroke-linecap=\"round\"/>\n</svg>"
     },
     {
       "id": "s2",
@@ -60,7 +66,7 @@
         "average": null
       },
       "population_ratio": {
-        "percentage": 0.0000003,
+        "percentage": 3e-7,
         "ratio_phrase": {
           "es": "3 de cada 10 millones",
           "en": "3 in 10 million"
@@ -82,7 +88,8 @@
           "caption": "3 in 10 million · More than USD $1,000 million",
           "aria": "Billionaires: 18.75 km"
         }
-      }
+      },
+      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\">\n  <ellipse cx=\"60\" cy=\"42\" rx=\"20\" ry=\"26\" fill=\"currentColor\" opacity=\".95\" stroke=\"none\"/>\n  <path d=\"M60 68 v26 M50 94 h20\" stroke-linecap=\"round\"/>\n</svg>"
     },
     {
       "id": "s3",
@@ -93,7 +100,7 @@
         "average": 3700000
       },
       "population_ratio": {
-        "percentage": 2.0,
+        "percentage": 2,
         "ratio_phrase": {
           "es": "98 de cada 100 viven más abajo",
           "en": "98 in 100 live below"
@@ -115,7 +122,8 @@
           "caption": "98 in 100 live below · More than USD $1M (avg. $3.7M)",
           "aria": "Millionaires: 70.8 meters"
         }
-      }
+      },
+      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\">\n  <rect x=\"36\" y=\"18\" width=\"48\" height=\"84\" fill=\"currentColor\" opacity=\".18\"/>\n  <path d=\"M36 18 h48 v84 H36 Z M46 32 h10 M64 32 h10 M46 46 h10 M64 46 h10 M46 60 h10 M64 60 h10 M46 74 h10 M64 74 h10 M46 88 h10 M64 88 h10\"/>\n</svg>"
     },
     {
       "id": "s4",
@@ -148,7 +156,8 @@
           "caption": "Only 1.6% of the world · Threshold USD $1M",
           "aria": "Millionaire threshold: 18.75 meters"
         }
-      }
+      },
+      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"5\" stroke-linecap=\"square\">\n  <path d=\"M18 96 h18 v-14 h18 v-14 h18 v-14 h18 v-14 h12\" fill=\"none\"/>\n  <rect x=\"18\" y=\"96\" width=\"18\" height=\"7\" fill=\"currentColor\" stroke=\"none\"/>\n  <rect x=\"36\" y=\"82\" width=\"18\" height=\"7\" fill=\"currentColor\"/>\n  <rect x=\"54\" y=\"68\" width=\"18\" height=\"7\" fill=\"currentColor\"/>\n  <rect x=\"72\" y=\"54\" width=\"18\" height=\"7\" fill=\"currentColor\"/>\n  <rect x=\"90\" y=\"40\" width=\"12\" height=\"7\" fill=\"currentColor\"/>\n</svg>"
     },
     {
       "id": "s5",
@@ -181,7 +190,8 @@
           "caption": "82 in 100 live below · USD $293k average",
           "aria": "Upper middle class: 5.5 meters"
         }
-      }
+      },
+      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\">\n  <path d=\"M28 72 v32 h64 V72 L60 42 Z\" fill=\"currentColor\" opacity=\".18\"/>\n  <path d=\"M28 72 L60 42 L92 72 M28 104 h64 M28 72 v32 M92 72 v32 M60 72 v32 M46 86 h12 v18 H46z\"/>\n</svg>"
     },
     {
       "id": "s6",
@@ -214,7 +224,8 @@
           "caption": "41 in 100 live here or below · USD $36k average",
           "aria": "The majority: 68 centimeters"
         }
-      }
+      },
+      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\">\n  <ellipse cx=\"60\" cy=\"38\" rx=\"30\" ry=\"9\" fill=\"currentColor\" opacity=\".85\" stroke=\"none\"/>\n  <ellipse cx=\"60\" cy=\"38\" rx=\"30\" ry=\"9\" opacity=\".5\"/>\n  <path d=\"M40 32 v-16 M80 32 v-16\" stroke-width=\"3.5\"/>\n  <path d=\"M36 16 h48 M36 24 h48\" stroke-width=\"3\"/>\n  <line x1=\"60\" y1=\"47\" x2=\"60\" y2=\"86\" stroke-width=\"5\"/>\n  <path d=\"M36 92 h48\" stroke-width=\"4\"/>\n  <path d=\"M36 92 L28 106 M84 92 L92 106\" stroke-width=\"3.5\"/>\n</svg>"
     },
     {
       "id": "s7",
@@ -225,7 +236,7 @@
         "average": 8910
       },
       "population_ratio": {
-        "percentage": 50.0,
+        "percentage": 50,
         "ratio_phrase": {
           "es": "50 de cada 100 no superan este escalón",
           "en": "50 in 100 do not surpass this step"
@@ -247,7 +258,8 @@
           "caption": "50 in 100 do not surpass this step · Median USD $8,654–$9,167",
           "aria": "World median: 17 centimeters"
         }
-      }
+      },
+      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"5\">\n  <rect x=\"26\" y=\"74\" width=\"68\" height=\"16\" rx=\"3\" fill=\"currentColor\" opacity=\".92\"/>\n  <path d=\"M22 100 h76\" opacity=\".5\"/>\n</svg>"
     },
     {
       "id": "s8",
@@ -280,7 +292,8 @@
           "caption": "41 in 100 live here or below · USD $1,748 average",
           "aria": "Base: 3.3 centimeters"
         }
-      }
+      },
+      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3.5\">\n  <path d=\"M28 82 L38 54 L57 44 L80 48 L96 66 L90 82 Z\" fill=\"currentColor\" opacity=\".82\"/>\n  <path d=\"M38 54 L52 62 L57 44 M52 62 L80 48\" opacity=\".42\" stroke-linecap=\"round\"/>\n  <path d=\"M18 88 h84\" stroke-linecap=\"round\" opacity=\".32\"/>\n</svg>"
     }
   ]
 }

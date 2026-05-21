@@ -65,6 +65,21 @@ try {
   if (!data.formula_constants) throw new Error('Falta el bloque "formula_constants"');
   if (!data.strata || !Array.isArray(data.strata)) throw new Error('Falta el bloque "strata" o no es un arreglo');
 
+  // Validar top_wealth_holder
+  if (!data.metadata.top_wealth_holder) {
+    throw new Error('Falta el bloque "metadata.top_wealth_holder"');
+  }
+  const { name_es, name_en, type } = data.metadata.top_wealth_holder;
+  if (!name_es || typeof name_es !== 'string' || !name_es.trim()) {
+    throw new Error('metadata.top_wealth_holder.name_es debe ser una cadena no vacía');
+  }
+  if (!name_en || typeof name_en !== 'string' || !name_en.trim()) {
+    throw new Error('metadata.top_wealth_holder.name_en debe ser una cadena no vacía');
+  }
+  if (!['person', 'organization', 'other'].includes(type)) {
+    throw new Error('metadata.top_wealth_holder.type debe ser "person", "organization" u "other"');
+  }
+
   const { step_usd_value, step_physical_height_meters } = data.formula_constants;
   if (!step_usd_value || typeof step_usd_value !== 'number') {
     throw new Error('formula_constants.step_usd_value debe ser un número positivo');
@@ -162,6 +177,20 @@ try {
       errors.push(`[${expectedId}] Translations debe contener headline, caption y aria tanto en 'es' como en 'en'`);
     } else {
       logSuccess('Integridad bilingüe (i18n) de textos y etiquetas validada.');
+    }
+
+    // Validar svg_icon opcional si existe
+    if (stratum.svg_icon !== undefined) {
+      if (typeof stratum.svg_icon !== 'string') {
+        errors.push(`[${expectedId}] svg_icon debe ser una cadena de texto`);
+      } else {
+        const cleanSvg = stratum.svg_icon.trim();
+        if (!cleanSvg.startsWith('<svg') || !cleanSvg.endsWith('</svg>')) {
+          errors.push(`[${expectedId}] svg_icon debe comenzar con "<svg" y terminar con "</svg>"`);
+        } else {
+          logSuccess(`Icono SVG dinámico validado.`);
+        }
+      }
     }
   });
 
