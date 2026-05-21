@@ -213,7 +213,7 @@ try {
 
     // Reensamblar la sección y reemplazar en el HTML general
     const updatedSection = openTag + content + closeTag;
-    html = html.replace(sectionRegex, updatedSection);
+    html = html.replace(sectionRegex, () => updatedSection);
     
     logSuccess(`Estrato [${s.id}] actualizado: data-alt="${s.physical_analogy.height_meters}", data-label="${fHeight.label}", num="${fHeight.num}${fHeight.unit}"`);
   });
