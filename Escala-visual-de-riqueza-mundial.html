@@ -462,6 +462,162 @@ body.a11y-high-contrast footer{
 body.a11y-high-contrast footer a{
   color:#ffff00 !important;
 }
+
+/* ── Accessibility Premium Navigation & Announcer ───────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.a11y-dot-nav {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 10px 8px;
+  background: rgba(10, 12, 18, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 30px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+body.light-mode .a11y-dot-nav {
+  background: rgba(245, 242, 235, 0.55);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.a11y-dot {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s, background 0.2s, border-color 0.2s;
+}
+
+.a11y-dot:hover, .a11y-dot:focus-visible {
+  transform: scale(1.3);
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+}
+
+.a11y-dot.active {
+  background: #fff;
+  border-color: #fff;
+  transform: scale(1.25);
+}
+
+body.light-mode .a11y-dot {
+  border-color: rgba(0, 0, 0, 0.4);
+}
+
+body.light-mode .a11y-dot:hover, body.light-mode .a11y-dot:focus-visible {
+  border-color: #1a1408;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .a11y-dot.active {
+  background: #1a1408;
+  border-color: #1a1408;
+}
+
+/* Tooltip styling */
+.a11y-tooltip {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%) translateX(10px);
+  background: rgba(10, 12, 18, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.a11y-dot:hover .a11y-tooltip, .a11y-dot:focus-visible .a11y-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+
+body.light-mode .a11y-tooltip {
+  background: rgba(255, 252, 245, 0.98);
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #1a1408;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* High contrast mode adaptations */
+body.a11y-high-contrast .a11y-dot-nav {
+  background: #000 !important;
+  border: 2px solid #fff !important;
+}
+
+body.a11y-high-contrast .a11y-dot {
+  border: 2px solid #fff !important;
+  background: #000 !important;
+  width: 14px;
+  height: 14px;
+}
+
+body.a11y-high-contrast .a11y-dot.active {
+  background: #fff !important;
+}
+
+body.a11y-high-contrast .a11y-tooltip {
+  background: #000 !important;
+  border: 2px solid #fff !important;
+  color: #fff !important;
+}
+
+/* focus outlines on methodology details */
+details:focus-within {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+body.light-mode details:focus-within {
+  border-color: rgba(0, 0, 0, 0.3) !important;
+}
+details summary:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+body.light-mode details summary:focus-visible {
+  outline-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Hide side dot nav on narrow screens/mobile for clean UX, rely on touch scroll snapping */
+@media (max-width: 859px) {
+  .a11y-dot-nav {
+    display: none;
+  }
+}
 </style>
 </head>
 <body>
@@ -499,6 +655,40 @@ body.a11y-high-contrast footer a{
 <!-- Progress bar -->
 <div id="progress" role="progressbar" aria-hidden="true" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
 
+<!-- Accessibility visually hidden announcer for screen readers -->
+<div id="a11y-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+<!-- Altitude Navigation Dots -->
+<nav id="a11y-dot-nav" class="a11y-dot-nav" aria-label="Navegación de secciones por altitud" data-i18n-label="a11y_nav_label">
+  <button class="a11y-dot active" data-target="s0" aria-label="Inicio" data-i18n-aria="s0_aria" aria-current="step" data-nav-name="Inicio" data-i18n-nav="s0_nav">
+    <span class="a11y-tooltip" data-i18n="s0_nav">Inicio</span>
+  </button>
+  <button class="a11y-dot" data-target="s1" aria-label="Elon Musk en órbita: 15,731 km" data-i18n-aria="s1_aria" data-nav-name="Satélite en órbita terrestre media" data-i18n-nav="s1_nav">
+    <span class="a11y-tooltip" data-i18n="s1_nav">Satélite en órbita terrestre media</span>
+  </button>
+  <button class="a11y-dot" data-target="s2" aria-label="Billonarios: 18.75 km" data-i18n-aria="s2_aria" data-nav-name="Cohete en la estratosfera" data-i18n-nav="s2_nav">
+    <span class="a11y-tooltip" data-i18n="s2_nav">Cohete en la estratosfera</span>
+  </button>
+  <button class="a11y-dot" data-target="s3" aria-label="Millonarios: 70.8 metros" data-i18n-aria="s3_aria" data-nav-name="Edificio de 20 pisos" data-i18n-nav="s3_nav">
+    <span class="a11y-tooltip" data-i18n="s3_nav">Edificio de 20 pisos</span>
+  </button>
+  <button class="a11y-dot" data-target="s4" aria-label="Umbral millonario: 18.75 metros" data-i18n-aria="s4_aria" data-nav-name="Escalera de 125 escalones" data-i18n-nav="s4_nav">
+    <span class="a11y-tooltip" data-i18n="s4_nav">Escalera de 125 escalones</span>
+  </button>
+  <button class="a11y-dot" data-target="s5" aria-label="Clase media alta: 5.5 metros" data-i18n-aria="s5_aria" data-nav-name="Casa residencial de dos pisos" data-i18n-nav="s5_nav">
+    <span class="a11y-tooltip" data-i18n="s5_nav">Casa residencial de dos pisos</span>
+  </button>
+  <button class="a11y-dot" data-target="s6" aria-label="La mayoría: 68 centímetros" data-i18n-aria="s6_aria" data-nav-name="Silla alta de bar" data-i18n-nav="s6_nav">
+    <span class="a11y-tooltip" data-i18n="s6_nav">Silla alta de bar</span>
+  </button>
+  <button class="a11y-dot" data-target="s7" aria-label="Mediana mundial: 17 centímetros" data-i18n-aria="s7_aria" data-nav-name="Un solo escalón de escalera" data-i18n-nav="s7_nav">
+    <span class="a11y-tooltip" data-i18n="s7_nav">Un solo escalón de escalera</span>
+  </button>
+  <button class="a11y-dot" data-target="s8" aria-label="Base: 3.3 centímetros" data-i18n-aria="s8_aria" data-nav-name="Una roca pequeña" data-i18n-nav="s8_nav">
+    <span class="a11y-tooltip" data-i18n="s8_nav">Una roca pequeña</span>
+  </button>
+</nav>
+
 <!-- Language toggle -->
 <button id="lang-toggle" aria-label="Switch to English">EN</button>
 
@@ -506,12 +696,12 @@ body.a11y-high-contrast footer a{
 <div id="stars" aria-hidden="true"></div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<main id="main-content">
+<main id="main-content" tabindex="-1" style="outline:none;">
 
   <!-- 0 · Mobile splash — título + subtítulo + scroll cue (hidden on desktop) -->
   <section
     class="snap" id="s0"
-    aria-label="Introducción"
+    aria-label="Introducción" data-i18n-aria="s0_aria"
   >
     <h1 data-i18n="intro_h1">¿A qué altura vives?</h1>
     <p data-i18n="intro_sub">La distancia real entre ricos y pobres es de 15.731 kilómetros</p>
@@ -778,6 +968,10 @@ const STRINGS = {
     "a11y_visuals": "Ajustes",
     "a11y_contrast": "Contraste",
     "a11y_dyslexia": "Lectura",
+    "a11y_nav_label": "Navegación de secciones por altitud",
+    "a11y_announcement_prefix": "Sección actual: ",
+    "s0_aria": "Introducción: ¿A qué altura vives? La distancia real entre ricos y pobres es de 15.731 kilómetros",
+    "s0_nav": "Inicio",
     "metod_li_add_0": "Los datos excluyen activos no declarados o riqueza en paraísos fiscales fuera del radar oficial.",
     "metod_li_add_1": "Los tipos de cambio aplicados reflejan promedios anuales ajustados para la homogeneización multirregional.",
     "metod_source_0": "UBS Global Wealth Report 2024 (adultos, datos al 31 dic 2024)",
@@ -785,27 +979,35 @@ const STRINGS = {
     "s1_headline": "Elon Musk vive en órbita",
     "s1_caption": "Menos de 1 de cada 10 millones · USD $636B–$839B",
     "s1_aria": "Elon Musk en órbita: 15,731 km",
+    "s1_nav": "Satélite en órbita terrestre media",
     "s2_headline": "Un billonario toca la estratosfera",
     "s2_caption": "3 de cada 10 millones · Más de USD $1,000 millones",
     "s2_aria": "Billonarios: 18.75 km",
+    "s2_nav": "Cohete en la estratosfera",
     "s3_headline": "Los millonarios: un edificio de 20 pisos",
     "s3_caption": "98 de cada 100 viven más abajo · Más de USD $1M (prom. $3.7M)",
     "s3_aria": "Millonarios: 70.8 metros",
+    "s3_nav": "Edificio de 20 pisos",
     "s4_headline": "Para ser millonario: 125 escalones",
     "s4_caption": "Solo el 1.6% del mundo · Umbral USD $1M",
     "s4_aria": "Umbral millonario: 18.75 metros",
+    "s4_nav": "Escalera de 125 escalones",
     "s5_headline": "16.4%: a la altura de dos pisos",
     "s5_caption": "82 de cada 100 viven más abajo · USD $293k promedio",
     "s5_aria": "Clase media alta: 5.5 metros",
+    "s5_nav": "Casa residencial de dos pisos",
     "s6_headline": "41.3% no llega a la silla de bar",
     "s6_caption": "41 de cada 100 viven aquí o más abajo · USD $36k promedio",
     "s6_aria": "La mayoría: 68 centímetros",
+    "s6_nav": "Silla alta de bar",
     "s7_headline": "La mitad del planeta: un solo escalón",
     "s7_caption": "50 de cada 100 no superan este escalón · Mediana USD $8,654–$9,167",
     "s7_aria": "Mediana mundial: 17 centímetros",
+    "s7_nav": "Un solo escalón de escalera",
     "s8_headline": "40.7% del mundo: una roca en el suelo",
     "s8_caption": "41 de cada 100 viven aquí o menos · USD $1,748 promedio",
-    "s8_aria": "Base: 3.3 centímetros"
+    "s8_aria": "Base: 3.3 centímetros",
+    "s8_nav": "Una roca pequeña"
   },
   "en": {
     "skip_text": "Skip to main content",
@@ -837,6 +1039,10 @@ const STRINGS = {
     "a11y_visuals": "Settings",
     "a11y_contrast": "Contrast",
     "a11y_dyslexia": "Dyslexic",
+    "a11y_nav_label": "Section navigation by altitude",
+    "a11y_announcement_prefix": "Current section: ",
+    "s0_aria": "Introduction: How high do you stand? The real distance between rich and poor is 15,731 kilometers",
+    "s0_nav": "Home",
     "metod_li_add_0": "Data excludes undeclared assets or offshore wealth outside official tracking.",
     "metod_li_add_1": "Exchange rates used reflect homogenized annual averages adjusted for multi-regional analysis.",
     "metod_source_0": "UBS Global Wealth Report 2024 (adults, data as of Dec 31, 2024)",
@@ -844,27 +1050,35 @@ const STRINGS = {
     "s1_headline": "Elon Musk lives in orbit",
     "s1_caption": "Fewer than 1 in 10 million · USD $636B–$839B",
     "s1_aria": "Elon Musk in orbit: 15,731 km",
+    "s1_nav": "Satellite in medium Earth orbit",
     "s2_headline": "A billionaire touches the stratosphere",
     "s2_caption": "3 in 10 million · More than USD $1,000 million",
     "s2_aria": "Billionaires: 18.75 km",
+    "s2_nav": "Rocket in the stratosphere",
     "s3_headline": "Millionaires: a 20-story building",
     "s3_caption": "98 in 100 live below · More than USD $1M (avg. $3.7M)",
     "s3_aria": "Millionaires: 70.8 meters",
+    "s3_nav": "20-story building",
     "s4_headline": "To become a millionaire: 125 steps",
     "s4_caption": "Only 1.6% of the world · Threshold USD $1M",
     "s4_aria": "Millionaire threshold: 18.75 meters",
+    "s4_nav": "Staircase of 125 steps",
     "s5_headline": "16.4%: at two-story height",
     "s5_caption": "82 in 100 live below · USD $293k average",
     "s5_aria": "Upper middle class: 5.5 meters",
+    "s5_nav": "Two-story residential house",
     "s6_headline": "41.3% don't reach the bar stool",
     "s6_caption": "41 in 100 live here or below · USD $36k average",
     "s6_aria": "The majority: 68 centimeters",
+    "s6_nav": "Bar stool",
     "s7_headline": "Half the planet: one single step",
     "s7_caption": "50 in 100 do not surpass this step · Median USD $8,654–$9,167",
     "s7_aria": "World median: 17 centimeters",
+    "s7_nav": "A single stair step",
     "s8_headline": "40.7% of the world: a pebble on the ground",
     "s8_caption": "41 in 100 live here or below · USD $1,748 average",
-    "s8_aria": "Base: 3.3 centimeters"
+    "s8_aria": "Base: 3.3 centimeters",
+    "s8_nav": "A small pebble"
   }
 };
 // STRINGS_END
@@ -915,6 +1129,32 @@ function applyLang(lang) {
   const btn = document.getElementById('lang-toggle');
   btn.textContent = t.lang_btn;
   btn.setAttribute('aria-label', t.lang_aria);
+
+  // Update s0 aria-label dynamically
+  const s0 = document.getElementById('s0');
+  if (s0 && t.s0_aria) {
+    s0.setAttribute('aria-label', t.s0_aria);
+  }
+
+  // Update dot-navigation container aria-label
+  const a11yDotNav = document.getElementById('a11y-dot-nav');
+  if (a11yDotNav && t.a11y_nav_label) {
+    a11yDotNav.setAttribute('aria-label', t.a11y_nav_label);
+  }
+
+  // Update dynamic side navigation dots aria and tooltips
+  document.querySelectorAll('.a11y-dot').forEach(dot => {
+    const ariaKey = dot.getAttribute('data-i18n-aria');
+    if (ariaKey && t[ariaKey]) {
+      dot.setAttribute('aria-label', t[ariaKey]);
+    }
+    const navKey = dot.getAttribute('data-i18n-nav');
+    if (navKey && t[navKey]) {
+      dot.setAttribute('data-nav-name', t[navKey]);
+      const tooltip = dot.querySelector('.a11y-tooltip');
+      if (tooltip) tooltip.textContent = t[navKey];
+    }
+  });
 
   // Update section aria-labels dynamically from the STRINGS keys
   for (let i = 1; i <= 8; i++) {
@@ -1119,6 +1359,109 @@ const io = new IntersectionObserver(
   { threshold: 0.55 }
 );
 snaps.forEach(s => io.observe(s));
+
+/* ── Altitude Side Navigation & Live Announcements ────────────── */
+(function initAltitudeNav() {
+  const dots = document.querySelectorAll('.a11y-dot');
+  const announcer = document.getElementById('a11y-announcer');
+  let lastAnnouncedSection = '';
+  let scrollTimeout;
+
+  // Programmatic scroll to target section with accessibility focus
+  function scrollToSection(targetId) {
+    const targetEl = document.getElementById(targetId);
+    if (!targetEl) return;
+    
+    // Make target focusable programmatically
+    targetEl.setAttribute('tabindex', '-1');
+    targetEl.style.outline = 'none';
+    
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    targetEl.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
+    
+    // Transfer keyboard focus to section after scroll animation finishes
+    setTimeout(() => {
+      targetEl.focus({ preventScroll: true });
+    }, 400);
+  }
+
+  // Bind clicks on dots to scroll
+  dots.forEach(dot => {
+    dot.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = dot.dataset.target;
+      scrollToSection(targetId);
+    });
+  });
+
+  // Handle keyboard navigation (ArrowUp/ArrowDown) inside dot menu
+  const dotNav = document.getElementById('a11y-dot-nav');
+  if (dotNav) {
+    dotNav.addEventListener('keydown', (e) => {
+      const activeDot = document.activeElement;
+      if (!activeDot || !activeDot.classList.contains('a11y-dot')) return;
+      
+      const dotsArr = Array.from(dots);
+      const currentIndex = dotsArr.indexOf(activeDot);
+      
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        const nextIndex = (currentIndex + 1) % dotsArr.length;
+        dotsArr[nextIndex].focus();
+      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const prevIndex = (currentIndex - 1 + dotsArr.length) % dotsArr.length;
+        dotsArr[prevIndex].focus();
+      }
+    });
+  }
+
+  // Keyboard global navigation shortcut (Shift + Alt + [0-8])
+  window.addEventListener('keydown', (e) => {
+    if (e.altKey && e.shiftKey && e.key >= '0' && e.key <= '8') {
+      e.preventDefault();
+      scrollToSection('s' + e.key);
+    }
+  });
+
+  // IntersectionObserver to sync dots status and aria-live announcements during scroll
+  const activeSectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const sectionId = entry.target.id;
+        
+        // Sync active state in dot nav
+        dots.forEach(dot => {
+          const isActive = dot.dataset.target === sectionId;
+          dot.classList.toggle('active', isActive);
+          dot.setAttribute('aria-current', isActive ? 'step' : 'false');
+        });
+        
+        // Dynamic screen reader announcements
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          if (lastAnnouncedSection !== sectionId) {
+            lastAnnouncedSection = sectionId;
+            const lang = document.documentElement.dataset.lang || 'es';
+            const t = STRINGS[lang];
+            if (t) {
+              const prefix = t.a11y_announcement_prefix || 'Sección actual: ';
+              const ariaText = t[sectionId + '_aria'] || '';
+              if (announcer && ariaText) {
+                announcer.textContent = prefix + ariaText;
+              }
+            }
+          }
+        }, 500); // Debounce to avoid multiple announcements on rapid scroll
+      }
+    });
+  }, {
+    threshold: 0.52 // Transitions snap when section is 52% visible in viewport
+  });
+
+  // Observe all scroll snap sections
+  snaps.forEach(s => activeSectionObserver.observe(s));
+})();
 </script>
 </body>
 </html>

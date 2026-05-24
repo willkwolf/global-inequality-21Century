@@ -153,7 +153,11 @@ try {
       a11y_size_xl:       'A++',
       a11y_visuals:       'Ajustes',
       a11y_contrast:      'Contraste',
-      a11y_dyslexia:      'Lectura'
+      a11y_dyslexia:      'Lectura',
+      a11y_nav_label:     'Navegación de secciones por altitud',
+      a11y_announcement_prefix: 'Sección actual: ',
+      s0_aria:            'Introducción: ¿A qué altura vives? La distancia real entre ricos y pobres es de 15.731 kilómetros',
+      s0_nav:             'Inicio'
     },
     en: {
       skip_text:      'Skip to main content',
@@ -184,7 +188,11 @@ try {
       a11y_size_xl:       'A++',
       a11y_visuals:       'Settings',
       a11y_contrast:      'Contrast',
-      a11y_dyslexia:      'Dyslexic'
+      a11y_dyslexia:      'Dyslexic',
+      a11y_nav_label:     'Section navigation by altitude',
+      a11y_announcement_prefix: 'Current section: ',
+      s0_aria:            'Introduction: How high do you stand? The real distance between rich and poor is 15,731 kilometers',
+      s0_nav:             'Home'
     }
   };
 
@@ -209,10 +217,12 @@ try {
     stringsObj.es[`${s.id}_headline`] = s.translations.es.headline;
     stringsObj.es[`${s.id}_caption`]  = s.translations.es.caption;
     stringsObj.es[`${s.id}_aria`]     = s.translations.es.aria;
+    stringsObj.es[`${s.id}_nav`]      = s.physical_analogy.name_es;
 
     stringsObj.en[`${s.id}_headline`] = s.translations.en.headline;
     stringsObj.en[`${s.id}_caption`]  = s.translations.en.caption;
     stringsObj.en[`${s.id}_aria`]     = s.translations.en.aria;
+    stringsObj.en[`${s.id}_nav`]      = s.physical_analogy.name_en;
   });
 
   // 3. Serializar y reemplazar bloque STRINGS en HTML
