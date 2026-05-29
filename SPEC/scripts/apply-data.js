@@ -157,7 +157,25 @@ try {
       a11y_nav_label:     'Navegación de secciones por altitud',
       a11y_announcement_prefix: 'Sección actual: ',
       s0_aria:            'Introducción: ¿A qué altura vives? La distancia real entre ricos y pobres es de 15.731 kilómetros',
-      s0_nav:             'Inicio'
+      s0_nav:             'Inicio',
+      metodEcosystemTag:  'Ruta del Pensamiento Crítico · Paso 5',
+      metodEcosystemTitle:'Diferencias globales, realidades locales: Coeficiente de Palma',
+      metodEcosystemText: 'Estas diferencias globales se concretan con particular dureza en la realidad de América Latina. Exploremos en detalle la distribución en un contexto nacional específico.',
+      metodEcosystemBtn:  'Analizar el caso de la Desigualdad de Palma en Colombia ➔',
+      stepPathTitle:      'Ruta del Pensamiento Crítico',
+      stepPathSub:        'Una red de visualizaciones interactivas para explorar la economía y la sociedad',
+      stepTitle1:         'Comprender',
+      stepProject1:       'Mapa de Escuelas',
+      stepStatusExplore:  'Explorar ➔',
+      stepTitle2:         'Mezclar',
+      stepProject2:       'El Bar de Cocteles',
+      stepTitle3:         'Contrastar',
+      stepProject3:       'Filosofía de la Libertad',
+      stepTitle4:         'Escalar',
+      stepProject4:       'Brecha de Riqueza Global',
+      stepStatusHere:     'Estás aquí',
+      stepTitle5:         'Aterrizar',
+      stepProject5:       'Desigualdad en Colombia'
     },
     en: {
       skip_text:      'Skip to main content',
@@ -192,7 +210,25 @@ try {
       a11y_nav_label:     'Section navigation by altitude',
       a11y_announcement_prefix: 'Current section: ',
       s0_aria:            'Introduction: How high do you stand? The real distance between rich and poor is 15,731 kilometers',
-      s0_nav:             'Home'
+      s0_nav:             'Home',
+      metodEcosystemTag:  'Critical Thinking Path · Step 5',
+      metodEcosystemTitle:'Global differences, local realities: The Palma Ratio',
+      metodEcosystemText: 'These global differences manifest with particular harshness in the reality of Latin America. Let\'s explore the distribution in detail within a specific national context.',
+      metodEcosystemBtn:  'Analyze the case of Palma Inequality in Colombia ➔',
+      stepPathTitle:      'Critical Thinking Path',
+      stepPathSub:        'A network of interactive visualizations to explore economics and society',
+      stepTitle1:         'Understand',
+      stepProject1:       'Schools Map',
+      stepStatusExplore:  'Explore ➔',
+      stepTitle2:         'Mix',
+      stepProject2:       'The Cocktail Bar',
+      stepTitle3:         'Contrast',
+      stepProject3:       'Philosophy of Liberty',
+      stepTitle4:         'Scale',
+      stepProject4:       'Global Wealth Gap',
+      stepStatusHere:     'You are here',
+      stepTitle5:         'Land',
+      stepProject5:       'Inequality in Colombia'
     }
   };
 
