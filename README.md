@@ -1,181 +1,143 @@
-# ¿A qué altura vives? / How High Do You Stand?
+# 🌌 ¿A qué altura vives? · Paso 4 / How High Do You Stand? · Step 4
 
-**La distancia real entre ricos y pobres es de 15.731 kilómetros.**  
-*The real distance between rich and poor is 15,731 kilometers.*
-
-> A bilingual (ES/EN) scrollytelling visualization of global wealth inequality.  
-> Live demo → [willkwolf.github.io/global-inequality-21Century](https://willkwolf.github.io/global-inequality-21Century)
+### *Visualización interactiva y scrollytelling de la brecha de riqueza mundial, convirtiendo patrimonio neto en altura física.*
+### *An interactive scrollytelling visualization of the global wealth gap, converting net worth into physical height.*
 
 ---
 
-## Descripción del proyecto / Project Description
-
-Esta pieza es un scrollytelling de pantalla completa que convierte el patrimonio neto en altura física. La premisa es simple y brutal: si cada escalón de 15 cm equivale a $8,000 USD de riqueza, ¿a qué altura te encuentras tú?
-
-El recorrido va desde el suelo —donde el 40.7 % de la humanidad ocupa apenas 3.3 cm— hasta la órbita baja de la Tierra, donde Elon Musk alcanza los 15.731 km. En el camino se atraviesan ocho capas visuales que representan distintos estratos de riqueza global, cada una con su propio color, icono y dato estadístico.
-
----
-
-*This is a full-screen scrollytelling piece that converts net worth into physical height. The premise is simple and stark: if each 15 cm step equals $8,000 USD in wealth, how high do you stand?*
-
-*The journey goes from the ground — where 40.7% of humanity occupies just 3.3 cm — all the way to low Earth orbit, where Elon Musk reaches 15,731 km. Along the way, eight visual layers represent different global wealth strata, each with its own color, icon, and statistical data point.*
+[![Demo Live](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge&logo=github)](https://willkwolf.github.io/global-inequality-21Century/)
+[![Ecosistema: Paso 4](https://img.shields.io/badge/Ruta_Pensamiento_Crítico-Paso_4-blue?style=for-the-badge)](https://github.com/willkwolf/global-inequality-21Century)
+[![Licencia CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg?style=for-the-badge)](https://creativecommons.org/licenses/by/4.0/)
+[![Robustness Tests](https://img.shields.io/badge/Robustness_Tests-passed-46c117?style=for-the-badge)](https://github.com/willkwolf/global-inequality-21Century)
 
 ---
 
-## Dinámica a Prueba de Futuro y Neutralidad de Datos / Dynamic Future-Proof Architecture & Data Neutrality
-
-Este proyecto **no cuenta con datos acoplados estáticamente ("hardcoded")** ni está atado a un personaje o año específico. 
-
-* **Neutralidad en la Cúspide (Elon Musk)**: En la instantánea de datos recopilada (mayo de 2026), Elon Musk figura como el poseedor del patrimonio neto más alto del mundo según la lista *Forbes Real-Time Billionaires*. Se le ha incluido en la sección 1 (`s1`) por este único motivo fáctico de la fuente original, reflejando neutralidad y fidelidad a los datos crudos, sin inclinación personal, ideológica o corporativa a favor o en contra de su persona.
-* **Diseño e Iconografía Genérica**: Todo el visualizador interactivo está desacoplado del contenido mediante el **SPEC metodológico** (`SPEC/data.json`). Si en encuestas futuras de riqueza (ej. en 5 años) el patrimonio más alto del mundo pertenece a otra persona, a una organización, a una fundación o a un sindicato colectivo, bastará con actualizar los datos de `metadata.top_wealth_holder` y correr el compilador (`npm run apply-spec`).
-* **Soporte de SVGs Dinámicos**: Gracias a la propiedad `svg_icon` en cada estrato del SPEC, el visualizador adaptará dinámicamente tanto las analogías, el tipo de entidad (ej. "billonarios", "organizaciones"), las alturas físicas, como las representaciones gráficas SVG inyectadas automáticamente.
+## 🌐 Demo en Vivo / Live Demo
+**👉 [Ver en vivo en GitHub Pages](https://willkwolf.github.io/global-inequality-21Century/)**
 
 ---
 
-*This project **does not contain hardcoded data** nor is it permanently locked to any specific individual or year.*
+## 🧭 La Ruta del Pensamiento Crítico (El Ecosistema)
+Este proyecto forma parte de **"La Ruta del Pensamiento Crítico"**, una red interactiva de 5 webs estáticas de `@willkwolf` que conectan teoría económica, dilemas políticos, brechas materiales y contextos locales.
 
-* **Data Neutrality at the Top (Elon Musk)**: In the May 2026 dataset compilation, Elon Musk was listed as the wealthiest individual on the *Forbes Real-Time Billionaires* index. He is included in section 1 (`s1`) purely based on this objective, factual data source at the time of compilation, and not due to any personal or corporate bias (for or against him).
-* **Generic SPEC-Driven Design**: The visualizer is completely decoupled from the data payload via the **Methodology SPEC** (`SPEC/data.json`). If in future wealth surveys (e.g., in 5 years) the highest wealth stratum belongs to another person, an organization, or a collective syndicate, one only needs to update `metadata.top_wealth_holder` and execute the compiler (`npm run apply-spec`).
-* **Dynamic SVG Support**: Through the `svg_icon` property in each stratum of the SPEC, the frontend automatically adapts all bilingual texts, the kinds of entities (e.g., "billionaires", "organizations"), physical heights, and the visual SVG icons.
-
----
-
-## Metodología de visualización / Visualization Methodology
-
-### La fórmula / The Formula
-
-```
-Altura (m) = (Patrimonio neto en USD ÷ 8,000) × 0.15
-Height (m) = (Net worth in USD ÷ 8,000) × 0.15
+```mermaid
+graph TD
+    A["Paso 1: EcoSchoolMap (Comprender)<br><i>mapa-escuelas-politicas</i>"] -- "Cócteles Ideológicos" --> B["Paso 2: BAR-Economic (Mezclar)<br><i>BAR-Economic</i>"]
+    B -- "Test de Sobriedad" --> C["Paso 3: liberty-infographic (Contrastar)<br><i>Isaiah Berlin</i>"]
+    C -- "Límites de la Libertad" --> D["Paso 4: global-inequality (Escalar)<br><i>Igualdad-Economica-2025</i>"]
+    D -- "Contexto Local" --> E["Paso 5: colombia-palma-desigualdad (Aterrizar)<br><i>Desigualdad de Palma</i>"]
+    E -- "Reflexión Ética" --> C
 ```
 
-**1 escalón = $8,000 USD = 15 cm**
-
-Esta escala hace que la mediana mundial de riqueza ($8,654–$9,167 USD) corresponda a aproximadamente un escalón de escalera — una imagen cotidiana y comprensible para cualquier persona en el mundo.
-
-*This scale makes the global median wealth ($8,654–$9,167 USD) correspond to roughly one stair step — an everyday image comprehensible to anyone in the world.*
-
-### Los ocho estratos / The Eight Strata
-
-| Sección | Altura | Grupo | Patrimonio promedio |
-|---------|--------|-------|---------------------|
-| 1 | 15,731 km | Elon Musk (referencia) | $636B–$839B |
-| 2 | 18.75 km | Billonarios (>$1B) | >$1,000M |
-| 3 | 70.8 m | Millonarios (promedio) | ~$3.7M |
-| 4 | 18.75 m | Umbral millonario | $1M |
-| 5 | 5.5 m | Clase media alta (16.4%) | ~$293k |
-| 6 | 68 cm | Mayoría global (41.3%) | ~$36k |
-| 7 | 17 cm | Mediana mundial (50%) | $8,654–$9,167 |
-| 8 | 3.3 cm | Base (40.7%) | ~$1,748 |
-
-### Paleta de colores / Color Palette
-
-El viaje visual sigue una progresión cromática que refuerza el descenso desde el espacio hasta la tierra:
-
-- **Negro profundo** (#000000) → espacio exterior (Elon Musk)
-- **Azul noche** (#081428 → #0f1e3a) → estratosfera (billonarios)
-- **Azul marino** (#1a365d → #2f476b) → atmósfera superior (millonarios)
-- **Gris pizarra** (#64748b) → horizonte (clase media)
-- **Tierra cálida** (#a68b63 → #e7dcc3) → superficie terrestre (mayoría)
-
-*The visual journey follows a chromatic progression reinforcing the descent from space to earth.*
+> [!NOTE]
+> **Estás en el Paso 4: Escalar**. En el paso anterior contrastaste los dilemas de la libertad formal. Aquí escalas las colosales dimensiones materiales de la brecha de riqueza mundial en kilómetros reales de distancia. Al final de la página, la necesidad de un contexto nacional te invitará a analizar la brecha en un plano local en el **Paso 5: La Desigualdad de Palma en Colombia**.
 
 ---
 
-## Fuentes / Sources
+## 🔍 Contexto Temático / Philosophical Context
 
-- **UBS Global Wealth Report 2024** — Datos de patrimonio neto por adulto, distribución global, medianas y promedios por decil. Datos al 31 de diciembre de 2024.
-- **Forbes Real-Time Billionaires** (mayo 2026) — Fortuna de Elon Musk ($636B–$839B) y recuento de 2,891 billonarios confirmados.
-- **Población adulta mundial** — 5,360 millones de adultos (base de cálculo de percentiles).
+### Español
+Esta pieza es un scrollytelling de pantalla completa que convierte el patrimonio neto de la población en altura física. Su premisa analítica actualiza el clásico desfile de Jan Pen (1971): si cada escalón estándar de escalera (15 cm) equivale a **$8,000 USD** de patrimonio neto, ¿a qué altura física te encuentras tú respecto a la humanidad? 
 
----
+El recorrido inicia en el suelo de la base —donde el 40.7 % de los adultos del planeta ocupan apenas la altura de una pequeña piedra de 3.3 cm— y se eleva verticalmente de forma logarítmica atravesando nubes e infraestructura de satélites hasta llegar a la órbita baja de la Tierra, donde la persona más rica del mundo alcanza una colosal altura de **15,731 kilómetros**.
 
-## Discusión / Discussion
+### English
+This piece is a full-screen scrollytelling visualizer that translates net worth into physical height. Its analytical premise updates Jan Pen's classic parade (1971): if a standard 15 cm stair step represents **$8,000 USD** of net worth, how high do you physically stand relative to the rest of the world?
 
-### ¿Por qué altura y no otra metáfora?
-
-La metáfora de la altura fue popularizada por el economista Jan Pen en su "Desfile de enanos y gigantes" (1971). Este proyecto la actualiza con datos de 2024 y la convierte en una experiencia interactiva. La altura es intuitiva: todos sabemos lo que mide un escalón, una casa, un edificio. Nadie tiene intuición sobre lo que significa "15,731 km de riqueza".
-
-*The height metaphor was popularized by economist Jan Pen in his "Parade of Dwarfs and Giants" (1971). This project updates it with 2024 data and turns it into an interactive experience.*
-
-### Lo que la visualización muestra — y lo que no
-
-La escala es **logarítmica en la práctica**: pasamos de centímetros a kilómetros en ocho pantallas. Esto es necesario para que la desigualdad sea visible, pero también significa que la distancia visual entre estratos no es proporcional a la distancia real.
-
-**Patrimonio ≠ ingreso.** El patrimonio neto incluye vivienda, pensiones, activos financieros y deudas. Una persona con casa propia en un país de ingresos medios puede tener un patrimonio positivo significativo sin tener liquidez.
-
-**Las fortunas de los billonarios fluctúan diariamente.** Las cifras de Elon Musk son una instantánea de mayo 2026 y pueden variar en decenas de miles de millones en días.
-
-**Esta visualización expone estructura sistémica, no juzga mérito individual.**
-
-*This visualization exposes systemic structure; it does not judge individual merit.*
-
-### Implicaciones
-
-La brecha de 15.731 km entre la persona más rica y la mediana mundial no es solo un número llamativo. Es evidencia de que los sistemas de acumulación de riqueza operan en escalas radicalmente distintas para distintos grupos de la población. La mitad de la humanidad adulta no supera un escalón de escalera. El 1.6% más rico supera un edificio de 20 pisos.
+The vertical journey begins on the ground — where 40.7% of the world's adults occupy just 3.3 cm (a pebble) — and scales logarithmically through the atmosphere and orbit structures, ending in low Earth orbit where the richest person reaches **15,731 kilometers**.
 
 ---
 
-## Características técnicas / Technical Features
+## 🤓 Para el Lector más Nerd / Ficha Técnica (Deep Tech & Data Insights)
 
-- **Un solo archivo HTML** — sin dependencias de build, sin frameworks, sin bundler
-- **Scroll snapping** — navegación por secciones con `scroll-snap-type: y mandatory`
-- **Bilingüe ES/EN** — sistema i18n propio con validación de integridad en consola
-- **Parallax de estrellas** — capa de fondo con `translateY` proporcional al scroll
-- **Accesibilidad** — skip link, roles ARIA, `aria-label` por sección, `focus-visible`, soporte `prefers-reduced-motion`
-- **Responsivo** — diseño adaptado a móviles modernos (360px+), tablets y escritorio
-- **Sin cookies, sin tracking, sin analytics**
+### La Fórmula de Escala
+$$\text{Altura física (m)} = \left(\frac{\text{Patrimonio Neto (USD)}}{\$8,000}\right) \times 0.15\text{ m}$$
+Esta escala garantiza que la mediana de riqueza mundial ($8,654–$9,167 USD) se concrete de forma comprensible e intuitiva a la altura de un solo escalón de escalera.
+
+### Los Ocho Estratos de la Pirámide Global
+El visualizador se divide en 8 capas de datos representados secuencialmente:
+1. **Órbita Terrestre (15,731 km):** Cúspide de la riqueza (Elon Musk en la instantánea recopilada de mayo de 2026: $636B–$839B).
+2. **Estratosfera (18.75 km):** Billonarios globales (patrimonio neto > $1,000 millones).
+3. **Atmósfera Media (70.8 m):** Millonarios promedio (~$3.7 millones).
+4. **Atmósfera Baja (18.75 m):** Umbral de entrada al millonario ($1 millón).
+5. **Altura de Dos Pisos (5.5 m):** Clase media alta global (~$293k de patrimonio promedio, 16.4% de adultos).
+6. **Silla de Bar (68 cm):** Mayoría global (~$36k de patrimonio promedio, 41.3% de adultos).
+7. **Un Escalón (17 cm):** Mediana mundial de riqueza (50% de la población adulta).
+8. **Suelo Base (3.3 cm):** El 40.7% de la base del planeta (~$1,748 de patrimonio promedio).
+
+### Arquitectura a Prueba de Futuro y Neutralidad
+El visualizador está **totalmente desacoplado de los datos**. No hay figuras ni nombres hardcodeados. El compilador (`SPEC/scripts/apply-data.js`) consume la fuente de verdad única del **SPEC** (`SPEC/data.json`).
+* Si el patrimonio más alto del mundo cambia a otra entidad, organización o persona, basta con editar `metadata.top_wealth_holder` y re-compilar.
+* El compilador inyecta dinámicamente las traducciones, las alturas, los sustantivos bilingües de la entidad y las representaciones gráficas SVG.
+* **Neutralidad Académica:** La inclusión de Elon Musk en el estrato 1 responde estrictamente a la rigurosidad de los datos de la fuente oficial (*Forbes Real-Time Billionaires*, mayo de 2026) y carece de juicio de valor personal, político o ideológico.
 
 ---
 
-## Uso y reutilización / Usage and Reuse
+## 🛠️ Stack Tecnológico
 
-Este proyecto está publicado bajo licencia **Creative Commons Attribution 4.0 International (CC BY 4.0)**.
+* **HTML5 & CSS3 Premium:** Con diseño responsivo para móviles de 360px+ y efecto parallax de estrellas interactivo al scroll.
+* **JSDOM & Node.js Testing (`tests/`):** Suite robusta que simula 100 iteraciones con datos sintéticos extremos (`synthetic-robustness.test.mjs`) validando la total inmunidad del compilador ante fluctuaciones absurdas y garantizando la coherencia i18n del 100% de las etiquetas del visualizador.
+* **Accesibilidad Nativa:** Incluye skip links, panel de accesibilidad local (Ajuste de contraste, modo Dyslexic para facilitar la lectura, 3 escalas dinámicas de texto) y etiquetas semánticas ARIA por sección.
 
-Puedes copiar, adaptar y redistribuir este trabajo — incluso con fines comerciales — siempre que des crédito apropiado al autor original.
+---
 
-*This project is published under the **Creative Commons Attribution 4.0 International (CC BY 4.0)** license. You may copy, adapt, and redistribute this work — even for commercial purposes — as long as you give appropriate credit to the original author.*
+## 📦 Instalación y Uso Local
 
-**Cita sugerida / Suggested citation:**
+### Requisitos
+* **Node.js** 18+ (para compilar y correr tests)
 
-> Artunduaga Viana, William Camilo (2026). *¿A qué altura vives? La distancia real entre ricos y pobres es de 15.731 kilómetros*. Visualización interactiva. CC BY 4.0. https://github.com/willkwolf/global-inequality-21Century
+### Servidor de Desarrollo
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/willkwolf/global-inequality-21Century.git
+cd global-inequality-21Century
+
+# 2. Instalar dependencias npm
+npm install
+
+# 3. Lanzar servidor de desarrollo o abrir directamente:
+# El visualizador principal se encuentra en: Escala-visual-de-riqueza-mundial.html
+# Abre el archivo o usa live-server:
+npx live-server
+```
+
+### Ejecutar Compilador y Tests de Robustez
+```bash
+# Correr el pipeline oficial que inyecta el SPEC
+node SPEC/scripts/apply-data.js
+
+# Ejecutar la suite automatizada de 100 iteraciones
+npm test
+```
+
+---
+
+## 📝 Cómo Citar / Citation (APA 7)
+
+**Referencia en formato APA 7ma Edición:**
+> Artunduaga Viana, W. C. (2026). *¿A qué altura vives? La distancia real entre ricos y pobres es de 15,731 kilómetros* (Versión compilada con datos UBS 2024 / Forbes 2026) [Visualización de datos interactiva]. GitHub. https://github.com/willkwolf/global-inequality-21Century
+
+**BibTeX para investigadores:**
+```bibtex
+@software{artunduaga2026altura,
+  author = {Artunduaga Viana, William Camilo},
+  title = {¿A qué altura vives?},
+  year = {2026},
+  publisher = {GitHub},
+  url = {https://github.com/willkwolf/global-inequality-21Century},
+  note = {Scrollytelling interactivo bilingüe de la desigualdad global de riqueza basada en UBS y Forbes}
+}
+```
+
+---
+
+## 📜 Licencia / License
+
+Este proyecto se publica bajo la licencia **Creative Commons Attribution 4.0 International (CC BY 4.0)**.
 
 [![CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
 
----
-
-## Autoría / Authorship
-
-**William Camilo Artunduaga Viana**, 2026  
-Colombia
-
----
-
-## Despliegue en GitHub Pages / GitHub Pages Deployment
-
-El archivo principal es `Escala-visual-de-riqueza-mundial.html`. Para publicarlo en GitHub Pages:
-
-1. Ve a **Settings → Pages** en el repositorio
-2. En *Source*, selecciona la rama `main` y la carpeta `/ (root)`
-3. Guarda. GitHub Pages publicará el sitio en `https://willkwolf.github.io/global-inequality-21Century/`
-4. Para que `index.html` apunte al archivo correcto, puedes renombrarlo a `index.html` o agregar un `index.html` que redirija:
-
-```html
-<!DOCTYPE html>
-<meta http-equiv="refresh" content="0; url=Escala-visual-de-riqueza-mundial.html">
-```
-
----
-
-## Estructura del repositorio / Repository Structure
-
-```
-global-inequality-21Century/
-├── Escala-visual-de-riqueza-mundial.html   # Visualización principal
-├── README.md                               # Este archivo
-└── index.html                              # (opcional) Redirección para GitHub Pages
-```
-
----
-
-*Datos: UBS Global Wealth Report 2024 · Forbes mayo 2026*
+**Bajo esta licencia puedes:**
+* **Compartir:** Copiar, redistribuir y comunicar libremente el material en cualquier medio.
+* **Adaptar:** Mezclar, transformar y construir sobre el material para cualquier propósito, incluso comercial.
+* **Atribución:** Debes reconocer la autoría de forma correspondiente y proporcionar un enlace a la licencia.
