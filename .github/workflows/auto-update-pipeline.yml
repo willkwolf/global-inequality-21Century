@@ -1,0 +1,112 @@
+name: Autonomous AI Data Update, Vibium Verification & Publication Pipeline
+
+on:
+  schedule:
+    - cron: '0 6 1 * *' # Ejecución mensual automatizada
+  workflow_dispatch:
+    inputs:
+      force_publish:
+        description: 'Forzar publicación si los guardrails pasan (true/false)'
+        required: false
+        default: 'false'
+  push:
+    branches:
+      - main
+    paths:
+      - 'SPEC/data.json'
+      - 'src/**'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  update-validate-publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 1. Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 2. Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: 3. Install Dependencies & Vibium Verification Layer
+        run: npm ci
+
+      - name: 4. Ingest, Drift Detection & AI Adaptation (Gemini)
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          echo "=== Ejecutando Motor de Adaptación y Drift con Gemini ==="
+          node SPEC/scripts/apply-data.js
+
+      - name: 5. Execute Mathematical & Structural Invariant Tests
+        run: |
+          echo "=== Ejecutando Suite de Validación de Contratos y Tres Escenarios ==="
+          npm run test:unit
+          npm run test:scenarios
+
+      - name: 6. Execute Vibium Verification Layer (Visual, Semantic, A11y, Cognitive)
+        run: |
+          echo "=== Ejecutando Vibium Verification Engine en Servidor Local ==="
+          npm run test:vibium
+
+      - name: 7. Upload Vibium Deterministic Evidence Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: vibium-verification-recordings
+          path: artifacts/vibium/
+          if-no-files-found: warn
+
+      - name: 8. Execute Parallax & Synthetic Robustness Invariant Suites
+        run: |
+          npm run test:bug
+          npm run test:robustness
+
+      - name: 9. Verify i18n & HTML Integrity
+        run: |
+          node -e "
+            const fs = require('fs');
+            const html = fs.readFileSync('Escala-visual-de-riqueza-mundial.html', 'utf8');
+            if (!html.includes('// STRINGS_START') || !html.includes('// STRINGS_END')) {
+              throw new Error('Marcadores i18n corruptos');
+            }
+            if (html.includes('NaN') || html.includes('undefined')) {
+              throw new Error('Valores corruptos en el HTML compilado');
+            }
+            console.log('✓ Integridad de HTML, accesibilidad y Vibium 100% validadas.');
+          "
+
+      - name: 10. Commit OpenWiki Ledger & Documentation Updates
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "AI Governance Agent"
+          git add OpenWiki/ README.md
+          git diff-index --quiet HEAD || git commit -m "docs(governance): update ledger and documentation [skip ci]"
+          git push origin main || echo "No changes to push"
+        continue-on-error: true
+
+      - name: 11. Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: 12. Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: 13. Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

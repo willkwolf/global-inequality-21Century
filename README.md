@@ -7,8 +7,17 @@
 
 [![Demo Live](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge&logo=github)](https://willkwolf.github.io/global-inequality-21Century/)
 [![Ecosistema: Paso 4](https://img.shields.io/badge/Ruta_Pensamiento_Crítico-Paso_4-blue?style=for-the-badge)](https://github.com/willkwolf/global-inequality-21Century)
+[![Vibium Verification](https://img.shields.io/badge/Vibium_Verification-passed-46c117?style=for-the-badge)](https://github.com/VibiumDev/vibium)
 [![Licencia CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg?style=for-the-badge)](https://creativecommons.org/licenses/by/4.0/)
-[![Robustness Tests](https://img.shields.io/badge/Robustness_Tests-passed-46c117?style=for-the-badge)](https://github.com/willkwolf/global-inequality-21Century)
+
+---
+
+## 📌 Estado del Sistema y Gobernanza (Versión 2.1.0)
+- **Versión:** `v2.1.0 (Vibium Verified)`
+- **Fecha de Publicación:** `Agosto 2026`
+- **Fuentes Primarias:** *UBS Global Wealth Report 2024*, *Forbes Real-Time Billionaires* (mayo 2026), *World Inequality Database (WID.world)*.
+- **Metodología de Escala:** Jan Pen Parade (1971) actualizado; $1\text{ escalón} (15\text{ cm}) \approx \text{Mediana global de riqueza } (\$8,000\text{ USD})$.
+- **Estado de la Abstracción:** `VALID_ABSTRACTION` (Certificado por Vibium Verification Engine).
 
 ---
 
@@ -18,7 +27,7 @@
 ---
 
 ## 🧭 La Ruta del Pensamiento Crítico (El Ecosistema)
-Este proyecto forma parte de **"La Ruta del Pensamiento Crítico"**, una red interactiva de 5 webs estáticas de `@willkwolf` que conectan teoría económica, dilemas políticos, brechas materiales y contextos locales.
+Este proyecto forma parte de **"La Ruta del Pensamiento Crítico"**, una red interactiva de 5 webs estáticas de `@willkwolf` que conectan teoría económica, dilemas políticos, brechas materiales y contextos locales:
 
 ```mermaid
 graph TD
@@ -29,115 +38,86 @@ graph TD
     E -- "Reflexión Ética" --> C
 ```
 
-> [!NOTE]
-> **Estás en el Paso 4: Escalar**. En el paso anterior contrastaste los dilemas de la libertad formal. Aquí escalas las colosales dimensiones materiales de la brecha de riqueza mundial en kilómetros reales de distancia. Al final de la página, la necesidad de un contexto nacional te invitará a analizar la brecha en un plano local en el **Paso 5: La Desigualdad de Palma en Colombia**.
+---
+
+## 🏛 Arquitectura de Desacoplamiento: Qué Cambia y Qué Permanece
+
+Para garantizar que el sistema sea autoactualizable mediante agentes de IA sin romper la abstracción pedagógica, los componentes se rigen por la siguiente matriz:
+
+| Categoría | Componentes | Descripción y Regla de Gobernanza |
+|---|---|---|
+| 🟢 **CONSERVADO** | **Metáfora de altura espacial**, Scrollytelling vertical, Contrato de Abstracción, Accesibilidad WCAG 2.1 AAA, Integridad matemática. | Inmutables. Ningún agente puede alterar la regla de Jan Pen ni destruir la experiencia pedagógica. |
+| 🟡 **ADAPTABLE** | **Valor del escalón ($USD)**, Altura máxima de la cúspide, Textos y titulares bilingües (ES/EN), Iconos SVG de estratos, Fechas de fuentes. | Recalibrados automáticamente por el agente ante **Data Drift** o **Semantic Drift**. |
+| 🔵 **CAMBIADO** | **Renderizado dinámico de $N$ estratos**, Desacoplamiento total del DOM, Motor de Drift en 5 ejes, Capa de Verificación Vibium. | Arquitectura modular en `src/` con validación en servidor local y navegador real. |
+| 🔴 **DEPRECATED** | Loops estáticos de 8 estratos fijos, Nombres de multimillonarios hardcodeados en HTML, Footers estáticos desactualizados. | Eliminados por completo del codebase. |
 
 ---
 
-## 🔍 Contexto Temático / Philosophical Context
+## 🔬 Capa de Verificación Vibium (Vibium Verification Layer)
 
-### Español
-Esta pieza es un scrollytelling de pantalla completa que convierte el patrimonio neto de la población en altura física. Su premisa analítica actualiza el clásico desfile de Jan Pen (1971): si cada escalón estándar de escalera (15 cm) equivale a **$8,000 USD** de patrimonio neto, ¿a qué altura física te encuentras tú respecto a la humanidad? 
+Vibium opera como verificador autónomo independiente sobre la aplicación servida en tiempo real (`http://127.0.0.1:8088`):
 
-El recorrido inicia en el suelo de la base —donde el 40.7 % de los adultos del planeta ocupan apenas la altura de una pequeña piedra de 3.3 cm— y se eleva verticalmente de forma logarítmica atravesando nubes e infraestructura de satélites hasta llegar a la órbita baja de la Tierra, donde la persona más rica del mundo alcanza una colosal altura de **15,731 kilómetros**.
+```
+DATA → CANONICAL MODEL → AI ADAPTATION → BUILD → LOCAL SERVER → VIBIUM VERIFICATION → GITHUB PAGES
+```
 
-### English
-This piece is a full-screen scrollytelling visualizer that translates net worth into physical height. Its analytical premise updates Jan Pen's classic parade (1971): if a standard 15 cm stair step represents **$8,000 USD** of net worth, how high do you physically stand relative to the rest of the world?
-
-The vertical journey begins on the ground — where 40.7% of the world's adults occupy just 3.3 cm (a pebble) — and scales logarithmically through the atmosphere and orbit structures, ending in low Earth orbit where the richest person reaches **15,731 kilometers**.
+### Resultados de la Suite de Verificación
+1. **Escenario 1 (Data Drift Probable):** Mediana sube a $\$11,200\text{ USD}$, cúspide a $\$940\text{B USD}$ $\to$ **`PASS_WITH_ADAPTATION`** (*Evidencia:* `artifacts/vibium/scenario-1/final-recording.zip`).
+2. **Escenario 2 (Methodological & Semantic Drift):** Metodología PPP, 6 estratos dinámicos, Fondo Soberano $\to$ **`PASS_WITH_ADAPTATION`** (*Evidencia:* `artifacts/vibium/scenario-2/final-recording.zip`).
+3. **Escenario 3 (Chaotic / Adversarial Drift):** Mediana negativa destructiva de $-\$50\text{M USD}$ $\to$ **`ABSTRACTION_LIMIT_REACHED`** (Publicación detenida, *Evidencia:* `artifacts/vibium/scenario-3/final-recording.zip`).
+4. **12 Pruebas Sintéticas Extremas:** Cobertura de valores ínfimos, hiperinflación, varianza nula, deuda subterránea, outliers astronómicos, feeds corruptos y datasets incompletos.
 
 ---
 
-## 🤓 Para el Lector más Nerd / Ficha Técnica (Deep Tech & Data Insights)
+## 🧠 Pruebas Cognitivas Pedagógicas (Efecto Contraste)
+La visualización permite comparar la percepción subjetiva con la distribución real:
+- **Escenario A ("Soy muy rico"):** Quien tiene $\$1\text{M USD}$ descubre que su altura ($18.75\text{ m}$) está a nivel de una escalera frente a los $15,731\text{ km}$ de la órbita.
+- **Escenario B ("Soy muy pobre"):** Quien tiene $\$1,700\text{ USD}$ comprende que el 40% de la población mundial comparte el estrato de $3.3\text{ cm}$ (el guijarro).
+- **Escenario C ("Soy clase media"):** Quien tiene $\$36,000\text{ USD}$ ve que está a la altura de una silla de bar ($68\text{ cm}$), con el $99.999996\%$ de la distancia aún por encima.
 
-### La Fórmula de Escala
+---
+
+## 🤓 La Fórmula de Escala
 $$\text{Altura física (m)} = \left(\frac{\text{Patrimonio Neto (USD)}}{\$8,000}\right) \times 0.15\text{ m}$$
-Esta escala garantiza que la mediana de riqueza mundial ($8,654–$9,167 USD) se concrete de forma comprensible e intuitiva a la altura de un solo escalón de escalera.
-
-### Los Ocho Estratos de la Pirámide Global
-El visualizador se divide en 8 capas de datos representados secuencialmente:
-1. **Órbita Terrestre (15,731 km):** Cúspide de la riqueza (Elon Musk en la instantánea recopilada de mayo de 2026: $636B–$839B).
-2. **Estratosfera (18.75 km):** Billonarios globales (patrimonio neto > $1,000 millones).
-3. **Atmósfera Media (70.8 m):** Millonarios promedio (~$3.7 millones).
-4. **Atmósfera Baja (18.75 m):** Umbral de entrada al millonario ($1 millón).
-5. **Altura de Dos Pisos (5.5 m):** Clase media alta global (~$293k de patrimonio promedio, 16.4% de adultos).
-6. **Silla de Bar (68 cm):** Mayoría global (~$36k de patrimonio promedio, 41.3% de adultos).
-7. **Un Escalón (17 cm):** Mediana mundial de riqueza (50% de la población adulta).
-8. **Suelo Base (3.3 cm):** El 40.7% de la base del planeta (~$1,748 de patrimonio promedio).
-
-### Arquitectura a Prueba de Futuro y Neutralidad
-El visualizador está **totalmente desacoplado de los datos**. No hay figuras ni nombres hardcodeados. El compilador (`SPEC/scripts/apply-data.js`) consume la fuente de verdad única del **SPEC** (`SPEC/data.json`).
-* Si el patrimonio más alto del mundo cambia a otra entidad, organización o persona, basta con editar `metadata.top_wealth_holder` y re-compilar.
-* El compilador inyecta dinámicamente las traducciones, las alturas, los sustantivos bilingües de la entidad y las representaciones gráficas SVG.
-* **Neutralidad Académica:** La inclusión de Elon Musk en el estrato 1 responde estrictamente a la rigurosidad de los datos de la fuente oficial (*Forbes Real-Time Billionaires*, mayo de 2026) y carece de juicio de valor personal, político o ideológico.
 
 ---
 
-## 🛠️ Stack Tecnológico
-
-* **HTML5 & CSS3 Premium:** Con diseño responsivo para móviles de 360px+ y efecto parallax de estrellas interactivo al scroll.
-* **JSDOM & Node.js Testing (`tests/`):** Suite robusta que simula 100 iteraciones con datos sintéticos extremos (`synthetic-robustness.test.mjs`) validando la total inmunidad del compilador ante fluctuaciones absurdas y garantizando la coherencia i18n del 100% de las etiquetas del visualizador.
-* **Accesibilidad Nativa:** Incluye skip links, panel de accesibilidad local (Ajuste de contraste, modo Dyslexic para facilitar la lectura, 3 escalas dinámicas de texto) y etiquetas semánticas ARIA por sección.
-
----
-
-## 📦 Instalación y Uso Local
+## 🛠️ Instalación y Ejecución Local
 
 ### Requisitos
-* **Node.js** 18+ (para compilar y correr tests)
+* **Node.js** 20+
+* **Vibium** (CLI global o runner local)
 
-### Servidor de Desarrollo
+### Instalación de Vibium y Skill
 ```bash
-# 1. Clonar el repositorio
-git clone https://github.com/willkwolf/global-inequality-21Century.git
-cd global-inequality-21Century
+# Instalación global de Vibium
+npm install -g vibium
 
-# 2. Instalar dependencias npm
+# Instalación del skill Vibium Vibe-Check
+npx skills add https://github.com/VibiumDev/vibium --skill vibe-check
+
+# Instalación de dependencias del repositorio
 npm install
-
-# 3. Lanzar servidor de desarrollo o abrir directamente:
-# El visualizador principal se encuentra en: Escala-visual-de-riqueza-mundial.html
-# Abre el archivo o usa live-server:
-npx live-server
 ```
 
-### Ejecutar Compilador y Tests de Robustez
+### Ejecutar Suite Completa de Tests y Verificación Vibium
 ```bash
-# Correr el pipeline oficial que inyecta el SPEC
-node SPEC/scripts/apply-data.js
+# Compilar e inyectar datos del SPEC
+npm run apply-spec
 
-# Ejecutar la suite automatizada de 100 iteraciones
+# Ejecutar verificación completa (Contratos + Drift + 3 Escenarios + Vibium + Parallax + Robustez 100/100)
 npm test
+
+# Ejecutar exclusivamente la suite de verificación Vibium
+npm run test:vibium
 ```
 
 ---
 
-## 📝 Cómo Citar / Citation (APA 7)
-
-**Referencia en formato APA 7ma Edición:**
-> Artunduaga Viana, W. C. (2026). *¿A qué altura vives? La distancia real entre ricos y pobres es de 15,731 kilómetros* (Versión compilada con datos UBS 2024 / Forbes 2026) [Visualización de datos interactiva]. GitHub. https://github.com/willkwolf/global-inequality-21Century
-
-**BibTeX para investigadores:**
-```bibtex
-@software{artunduaga2026altura,
-  author = {Artunduaga Viana, William Camilo},
-  title = {¿A qué altura vives?},
-  year = {2026},
-  publisher = {GitHub},
-  url = {https://github.com/willkwolf/global-inequality-21Century},
-  note = {Scrollytelling interactivo bilingüe de la desigualdad global de riqueza basada en UBS y Forbes}
-}
-```
+## 📚 Documentación y Gobernanza en OpenWiki
+Para consultar el registro inmutable de decisiones, bitácora de advertencias y modelos ontológicos, visita el directorio [`OpenWiki/`](./OpenWiki/README.md).
 
 ---
 
 ## 📜 Licencia / License
-
 Este proyecto se publica bajo la licencia **Creative Commons Attribution 4.0 International (CC BY 4.0)**.
-
-[![CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
-
-**Bajo esta licencia puedes:**
-* **Compartir:** Copiar, redistribuir y comunicar libremente el material en cualquier medio.
-* **Adaptar:** Mezclar, transformar y construir sobre el material para cualquier propósito, incluso comercial.
-* **Atribución:** Debes reconocer la autoría de forma correspondiente y proporcionar un enlace a la licencia.

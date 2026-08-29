@@ -1,10 +1,13 @@
 {
   "name": "igualdad-economica-tests",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node SPEC/scripts/validate-data.js && node tests/parallax-bug-condition.test.mjs && node tests/parallax-preservation.test.mjs && node tests/synthetic-robustness.test.mjs",
+    "test": "node SPEC/scripts/validate-data.js && node tests/unit/canonical-model.test.mjs && node tests/unit/drift-engine.test.mjs && node tests/unit/scale-recalibrator.test.mjs && node tests/unit/guardrails.test.mjs && node tests/three-scenarios.test.mjs && node tests/vibium-verification.test.mjs && node tests/parallax-bug-condition.test.mjs && node tests/parallax-preservation.test.mjs && node tests/synthetic-robustness.test.mjs",
+    "test:vibium": "node tests/vibium-verification.test.mjs",
+    "test:scenarios": "node tests/three-scenarios.test.mjs",
+    "test:unit": "node tests/unit/canonical-model.test.mjs && node tests/unit/drift-engine.test.mjs && node tests/unit/scale-recalibrator.test.mjs && node tests/unit/guardrails.test.mjs",
     "test:bug": "node tests/parallax-bug-condition.test.mjs",
     "test:robustness": "node tests/synthetic-robustness.test.mjs",
     "apply-spec": "node SPEC/scripts/apply-data.js",
@@ -14,6 +17,7 @@
     "@types/node": "^25.9.1",
     "fast-check": "^3.22.0",
     "jsdom": "^25.0.1",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vibium": "^26.8.21"
   }
 }

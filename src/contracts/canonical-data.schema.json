@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CanonicalWealthDataModel",
+  "description": "Esquema canónico unificado e inmutable para la ingesta y preservación de datos de desigualdad de riqueza global.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "dataset_id",
+    "retrieved_at",
+    "methodology_version",
+    "raw_sources",
+    "global_metrics",
+    "distributions"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": ["2.0.0"]
+    },
+    "dataset_id": {
+      "type": "string",
+      "description": "Identificador único determinista basado en hash del payload crudo"
+    },
+    "retrieved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "methodology_version": {
+      "type": "string",
+      "description": "Versión metodológica explícita para control de rupturas de serie"
+    },
+    "semantic_concept": {
+      "type": "string",
+      "default": "Patrimonio neto global por adulto (Net Worth per Adult)"
+    },
+    "raw_sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "name", "url", "payload_hash"],
+        "properties": {
+          "source_id": { "type": "string" },
+          "name": { "type": "string" },
+          "url": { "type": "string" },
+          "report_date": { "type": "string" },
+          "payload_hash": { "type": "string" }
+        }
+      }
+    },
+    "global_metrics": {
+      "type": "object",
+      "required": ["total_adult_population", "currency_basis"],
+      "properties": {
+        "total_adult_population": { "type": "number", "minimum": 1 },
+        "total_billionaires_count": { "type": "number", "minimum": 0 },
+        "currency_basis": { "type": "string" },
+        "wealth_median_usd": { "type": "number", "minimum": 0 },
+        "wealth_mean_usd": { "type": "number", "minimum": 0 },
+        "top_holder": {
+          "type": "object",
+          "required": ["name", "type", "estimated_net_worth_usd"],
+          "properties": {
+            "name": { "type": "string" },
+            "type": { "type": "string", "enum": ["person", "organization", "fund", "collective", "other"] },
+            "estimated_net_worth_usd": { "type": "number", "minimum": 0 }
+          }
+        }
+      }
+    },
+    "distributions": {
+      "type": "array",
+      "description": "Capas percentiles y estratos normalizados",
+      "items": {
+        "type": "object",
+        "required": ["stratum_key", "percentile_range", "population_percentage", "net_worth_usd"],
+        "properties": {
+          "stratum_key": { "type": "string" },
+          "pedagogical_role": { "type": "string", "enum": ["BASE", "ESCALA", "CONTRASTE", "CONTEXTO", "EXTREMO"] },
+          "percentile_range": {
+            "type": "object",
+            "required": ["from", "to"],
+            "properties": {
+              "from": { "type": "number", "minimum": 0, "maximum": 100 },
+              "to": { "type": "number", "minimum": 0, "maximum": 100 }
+            }
+          },
+          "population_percentage": { "type": "number", "minimum": 0, "maximum": 100 },
+          "net_worth_usd": {
+            "type": "object",
+            "required": ["threshold_min"],
+            "properties": {
+              "threshold_min": { "type": "number" },
+              "threshold_max": { "type": ["number", "null"] },
+              "average": { "type": ["number", "null"] },
+              "median": { "type": ["number", "null"] }
+            }
+          }
+        }
+      }
+    }
+  }
+}

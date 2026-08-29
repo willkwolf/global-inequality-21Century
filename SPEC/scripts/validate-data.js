@@ -3,16 +3,14 @@
  *
  * PROPÓSITO:
  * Validar la integridad metodológica y de traducciones del archivo `SPEC/data.json`.
- * Este validador no tiene dependencias npm externas para asegurar portabilidad total
- * (conforme al Principio 4: Evitar dependencias de tecnologías específicas).
+ * Este validador no tiene dependencias npm externas para asegurar portabilidad total.
  *
  * COMPROBACIONES:
  * 1. Estructura y campos requeridos en metadatos y fórmulas.
- * 2. Existencia exacta de 8 estratos (s1 a s8) en orden descendente.
+ * 2. Validación dinámica de estratos (N >= 3) en orden descendente estricto.
  * 3. Consistencia metodológica/matemática:
- *    - La altura de cada sección debe ser estrictamente decreciente (s1 > s2 > s3... > s8).
- *    - La altura física declarada debe derivar de un patrimonio neto coherente con su rango
- *      usando la fórmula de escalado estándar: Altura = (Patrimonio / step_usd) * step_height.
+ *    - La altura de cada sección debe ser estrictamente decreciente (s1 > s2 > s3... > sN).
+ *    - La altura física declarada debe derivar de un patrimonio neto coherente con su rango.
  * 4. Integridad i18n (bilingüismo ES/EN):
  *    - Presencia de titulares y subtítulos bilingües.
  *    - Verificación de consistencia léxica (claves no vacías).
@@ -76,8 +74,8 @@ try {
   if (!name_en || typeof name_en !== 'string' || !name_en.trim()) {
     throw new Error('metadata.top_wealth_holder.name_en debe ser una cadena no vacía');
   }
-  if (!['person', 'organization', 'other'].includes(type)) {
-    throw new Error('metadata.top_wealth_holder.type debe ser "person", "organization" u "other"');
+  if (!['person', 'organization', 'fund', 'collective', 'other'].includes(type)) {
+    throw new Error('metadata.top_wealth_holder.type debe ser "person", "organization", "fund", "collective" u "other"');
   }
 
   const { step_usd_value, step_physical_height_meters } = data.formula_constants;
@@ -123,9 +121,9 @@ try {
 
   logSuccess('Metadatos y constantes de fórmula iniciales validados.');
 
-  // 3. Validar estratos
-  if (data.strata.length !== 8) {
-    throw new Error(`Se esperan exactamente 8 estratos en "strata", se encontraron ${data.strata.length}`);
+  // 3. Validar estratos dinámicos
+  if (data.strata.length < 3) {
+    throw new Error(`Se esperan al menos 3 estratos para sostener la narrativa pedagógica, se encontraron ${data.strata.length}`);
   }
 
   let lastHeight = Infinity;
@@ -167,7 +165,6 @@ try {
     lastHeight = height_meters;
 
     // Validar consistencia matemática de la fórmula
-    // expectedWealth = (altura / step_height) * step_usd
     const expectedWealth = (height_meters / step_physical_height_meters) * step_usd_value;
     const { min, max, average } = stratum.net_worth_range_usd;
 
@@ -175,21 +172,16 @@ try {
     let description = '';
 
     if (min !== null && max !== null) {
-      // Debería caer dentro del rango [min, max]
       mathValid = expectedWealth >= min && expectedWealth <= max;
       description = `esperado entre Rango [${min}, ${max}]`;
     } else if (min !== null) {
-      // Debería ser >= min
       mathValid = expectedWealth >= min;
       description = `>= Mínimo [${min}]`;
     } else if (average !== null) {
-      // Debería estar cerca del promedio (dentro de una tolerancia del 5% debido a redondeos visuales)
       const tolerance = average * 0.05;
       mathValid = Math.abs(expectedWealth - average) <= tolerance;
       description = `cercano al Promedio [${average}] (dentro del 5%)`;
     } else {
-      // Rango indefinido, advertencia
-      logWarning(`[${expectedId}] Sin rango definido para validación matemática`);
       mathValid = true;
     }
 

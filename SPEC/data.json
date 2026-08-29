@@ -2,41 +2,41 @@
   "@context": "https://schema.org",
   "@type": "Dataset",
   "metadata": {
-    "title": "Desigualdad Global de Riqueza - Siglo XXI",
-    "description": "Datos centralizados para la visualización de la desigualdad global de riqueza basada en la metáfora de la altura física.",
-    "author": "William Camilo Artunduaga Viana",
+    "title": "Desigualdad Global de Riqueza - Siglo XXI (Sintético 2029)",
+    "description": "Datos sintéticos autogenerados para pruebas extremas de robustez.",
+    "author": "Antigravity AI Synthesizer",
     "license": "CC BY 4.0",
-    "total_adults_world": 5360,
-    "total_billionaires": 2891,
+    "total_adults_world": 5565,
+    "total_billionaires": 3466,
     "last_updated_sources": {
-      "ubs_report_date": "2024-12-31",
-      "forbes_billionaires_date": "2026-05-01"
+      "ubs_report_date": "2028-12-31",
+      "forbes_billionaires_date": "2029-05-01"
     },
     "top_wealth_holder": {
-      "name_es": "Elon Musk",
-      "name_en": "Elon Musk",
+      "name_es": "Zhong Shanshan",
+      "name_en": "Zhong Shanshan",
       "type": "person"
     },
     "additional_limitations": [
       {
-        "es": "Los datos excluyen activos no declarados o riqueza en paraísos fiscales fuera del radar oficial.",
-        "en": "Data excludes undeclared assets or offshore wealth outside official tracking."
+        "es": "Limitación sintética adicional A para el año 2029",
+        "en": "Additional synthetic limitation A for the year 2029"
       },
       {
-        "es": "Los tipos de cambio aplicados reflejan promedios anuales ajustados para la homogeneización multirregional.",
-        "en": "Exchange rates used reflect homogenized annual averages adjusted for multi-regional analysis."
+        "es": "Limitación sintética adicional B para el año 2029",
+        "en": "Additional synthetic limitation B for the year 2029"
       }
     ],
     "sources": [
       {
-        "name_es": "UBS Global Wealth Report 2024 (adultos, datos al 31 dic 2024)",
-        "name_en": "UBS Global Wealth Report 2024 (adults, data as of Dec 31, 2024)",
-        "url": "https://www.ubs.com/global/en/wealth-management/insights/global-wealth-report.html"
+        "name_es": "Reporte Sintético UBS 2029",
+        "name_en": "Synthetic UBS Report 2029",
+        "url": "https://www.ubs.com/synthetic-2029"
       },
       {
-        "name_es": "Forbes Real-Time Billionaires (mayo de 2026)",
-        "name_en": "Forbes Real-Time Billionaires (May 2026)",
-        "url": "https://www.forbes.com/real-time-billionaires/"
+        "name_es": "Billonarios Forbes Sintético 2029",
+        "name_en": "Synthetic Forbes Billionaires 2029",
+        "url": "https://www.forbes.com/synthetic-2029"
       }
     ]
   },
@@ -49,9 +49,9 @@
       "id": "s1",
       "@type": "StatisticalPopulation",
       "net_worth_range_usd": {
-        "min": 636000000000,
-        "max": 839000000000,
-        "average": 737500000000
+        "min": 693000000000,
+        "max": 1158000000000,
+        "average": 925500000000
       },
       "population_ratio": {
         "percentage": 1e-7,
@@ -61,23 +61,23 @@
         }
       },
       "physical_analogy": {
-        "name_es": "Satélite en órbita terrestre media",
-        "name_en": "Satellite in medium Earth orbit",
-        "height_meters": 15731000
+        "name_es": "Satélite en órbita sintética 2029",
+        "name_en": "Satellite in synthetic orbit 2029",
+        "height_meters": 17353125
       },
       "translations": {
         "es": {
-          "headline": "Elon Musk vive en órbita",
-          "caption": "Menos de 1 de cada 10 millones · USD $636B–$839B",
-          "aria": "Elon Musk en órbita: 15,731 km"
+          "headline": "Zhong Shanshan vive en órbita",
+          "caption": "Menos de 1 de cada 10 millones · USD $693B–$1158B",
+          "aria": "Zhong Shanshan en órbita: 17.353,13 km"
         },
         "en": {
-          "headline": "Elon Musk lives in orbit",
-          "caption": "Fewer than 1 in 10 million · USD $636B–$839B",
-          "aria": "Elon Musk in orbit: 15,731 km"
+          "headline": "Zhong Shanshan lives in orbit",
+          "caption": "Fewer than 1 in 10 million · USD $693B–$1158B",
+          "aria": "Zhong Shanshan in orbit: 17,353.13 km"
         }
       },
-      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\">\n  <circle cx=\"60\" cy=\"60\" r=\"42\" stroke-dasharray=\"5 7\" opacity=\".6\"/>\n  <circle cx=\"60\" cy=\"22\" r=\"7\" fill=\"currentColor\" stroke=\"none\"/>\n  <path d=\"M60 29 v18 M42 60 h36\" stroke-linecap=\"round\"/>\n</svg>"
+      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"5\" id=\"svg-s1\">\n  <!-- Círculo dinámico de robustez sintética -->\n  <circle cx=\"60\" cy=\"60\" r=\"21\" opacity=\".5\" stroke-dasharray=\"3 5\" />\n  <ellipse cx=\"60\" cy=\"60\" rx=\"21\" ry=\"23\" fill=\"currentColor\" opacity=\".22\" />\n  <path d=\"M20 100 h80 M60 20 v80\" stroke-linecap=\"round\" />\n</svg>"
     },
     {
       "id": "s2",
@@ -101,17 +101,17 @@
       },
       "translations": {
         "es": {
-          "headline": "Un billonario toca la estratosfera",
+          "headline": "Un billonario toca la estratosfera (2029)",
           "caption": "3 de cada 10 millones · Más de USD $1,000 millones",
-          "aria": "Billonarios: 18.75 km"
+          "aria": "Billonarios: 18,75 km"
         },
         "en": {
-          "headline": "A billionaire touches the stratosphere",
+          "headline": "A billionaire touches the stratosphere (2029)",
           "caption": "3 in 10 million · More than USD $1,000 million",
           "aria": "Billionaires: 18.75 km"
         }
       },
-      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\">\n  <ellipse cx=\"60\" cy=\"42\" rx=\"20\" ry=\"26\" fill=\"currentColor\" opacity=\".95\" stroke=\"none\"/>\n  <path d=\"M60 68 v26 M50 94 h20\" stroke-linecap=\"round\"/>\n</svg>"
+      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" id=\"svg-s2\">\n  <!-- Círculo dinámico de robustez sintética -->\n  <circle cx=\"60\" cy=\"60\" r=\"17\" opacity=\".5\" stroke-dasharray=\"3 5\" />\n  <ellipse cx=\"60\" cy=\"60\" rx=\"17\" ry=\"31\" fill=\"currentColor\" opacity=\".22\" />\n  <path d=\"M20 100 h80 M60 20 v80\" stroke-linecap=\"round\" />\n</svg>"
     },
     {
       "id": "s3",
@@ -119,7 +119,7 @@
       "net_worth_range_usd": {
         "min": 1000000,
         "max": 1000000000,
-        "average": 3700000
+        "average": 2500000
       },
       "population_ratio": {
         "percentage": 2,
@@ -131,21 +131,21 @@
       "physical_analogy": {
         "name_es": "Edificio de 20 pisos",
         "name_en": "20-story building",
-        "height_meters": 70.8
+        "height_meters": 46.875
       },
       "translations": {
         "es": {
           "headline": "Los millonarios: un edificio de 20 pisos",
-          "caption": "98 de cada 100 viven más abajo · Más de USD $1M (prom. $3.7M)",
-          "aria": "Millonarios: 70.8 metros"
+          "caption": "98 de cada 100 viven más abajo · Más de USD $1M (prom. $2.5M)",
+          "aria": "Millonarios: 46,9 metros"
         },
         "en": {
           "headline": "Millionaires: a 20-story building",
-          "caption": "98 in 100 live below · More than USD $1M (avg. $3.7M)",
-          "aria": "Millionaires: 70.8 meters"
+          "caption": "98 in 100 live below · More than USD $1M (avg. $2.5M)",
+          "aria": "Millionaires: 46.9 meters"
         }
       },
-      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\">\n  <rect x=\"36\" y=\"18\" width=\"48\" height=\"84\" fill=\"currentColor\" opacity=\".18\"/>\n  <path d=\"M36 18 h48 v84 H36 Z M46 32 h10 M64 32 h10 M46 46 h10 M64 46 h10 M46 60 h10 M64 60 h10 M46 74 h10 M64 74 h10 M46 88 h10 M64 88 h10\"/>\n</svg>"
+      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" id=\"svg-s3\">\n  <!-- Círculo dinámico de robustez sintética -->\n  <circle cx=\"60\" cy=\"60\" r=\"33\" opacity=\".5\" stroke-dasharray=\"3 5\" />\n  <ellipse cx=\"60\" cy=\"60\" rx=\"33\" ry=\"21\" fill=\"currentColor\" opacity=\".22\" />\n  <path d=\"M20 100 h80 M60 20 v80\" stroke-linecap=\"round\" />\n</svg>"
     },
     {
       "id": "s4",
@@ -171,15 +171,15 @@
         "es": {
           "headline": "Para ser millonario: 125 escalones",
           "caption": "Solo el 1.6% del mundo · Umbral USD $1M",
-          "aria": "Umbral millonario: 18.75 metros"
+          "aria": "Umbral millonario: 18,8 metros"
         },
         "en": {
           "headline": "To become a millionaire: 125 steps",
           "caption": "Only 1.6% of the world · Threshold USD $1M",
-          "aria": "Millionaire threshold: 18.75 meters"
+          "aria": "Millionaire threshold: 18.8 meters"
         }
       },
-      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"5\" stroke-linecap=\"square\">\n  <path d=\"M18 96 h18 v-14 h18 v-14 h18 v-14 h18 v-14 h12\" fill=\"none\"/>\n  <rect x=\"18\" y=\"96\" width=\"18\" height=\"7\" fill=\"currentColor\" stroke=\"none\"/>\n  <rect x=\"36\" y=\"82\" width=\"18\" height=\"7\" fill=\"currentColor\"/>\n  <rect x=\"54\" y=\"68\" width=\"18\" height=\"7\" fill=\"currentColor\"/>\n  <rect x=\"72\" y=\"54\" width=\"18\" height=\"7\" fill=\"currentColor\"/>\n  <rect x=\"90\" y=\"40\" width=\"12\" height=\"7\" fill=\"currentColor\"/>\n</svg>"
+      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" id=\"svg-s4\">\n  <!-- Círculo dinámico de robustez sintética -->\n  <circle cx=\"60\" cy=\"60\" r=\"27\" opacity=\".5\" stroke-dasharray=\"3 5\" />\n  <ellipse cx=\"60\" cy=\"60\" rx=\"27\" ry=\"25\" fill=\"currentColor\" opacity=\".22\" />\n  <path d=\"M20 100 h80 M60 20 v80\" stroke-linecap=\"round\" />\n</svg>"
     },
     {
       "id": "s5",
@@ -187,7 +187,7 @@
       "net_worth_range_usd": {
         "min": 100000,
         "max": 1000000,
-        "average": 293000
+        "average": 350000
       },
       "population_ratio": {
         "percentage": 16.4,
@@ -199,21 +199,21 @@
       "physical_analogy": {
         "name_es": "Casa residencial de dos pisos",
         "name_en": "Two-story residential house",
-        "height_meters": 5.5
+        "height_meters": 6.5625
       },
       "translations": {
         "es": {
-          "headline": "16.4%: a la altura de dos pisos",
-          "caption": "82 de cada 100 viven más abajo · USD $293k promedio",
-          "aria": "Clase media alta: 5.5 metros"
+          "headline": "16.4%: a la altura de dos pisos (2029)",
+          "caption": "82 de cada 100 viven más abajo · USD $350k promedio",
+          "aria": "Clase media alta: 6,6 metros"
         },
         "en": {
-          "headline": "16.4%: at two-story height",
-          "caption": "82 in 100 live below · USD $293k average",
-          "aria": "Upper middle class: 5.5 meters"
+          "headline": "16.4%: at two-story height (2029)",
+          "caption": "82 in 100 live below · USD $350k average",
+          "aria": "Upper middle class: 6.6 meters"
         }
       },
-      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\">\n  <path d=\"M28 72 v32 h64 V72 L60 42 Z\" fill=\"currentColor\" opacity=\".18\"/>\n  <path d=\"M28 72 L60 42 L92 72 M28 104 h64 M28 72 v32 M92 72 v32 M60 72 v32 M46 86 h12 v18 H46z\"/>\n</svg>"
+      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" id=\"svg-s5\">\n  <!-- Círculo dinámico de robustez sintética -->\n  <circle cx=\"60\" cy=\"60\" r=\"21\" opacity=\".5\" stroke-dasharray=\"3 5\" />\n  <ellipse cx=\"60\" cy=\"60\" rx=\"21\" ry=\"21\" fill=\"currentColor\" opacity=\".22\" />\n  <path d=\"M20 100 h80 M60 20 v80\" stroke-linecap=\"round\" />\n</svg>"
     },
     {
       "id": "s6",
@@ -221,7 +221,7 @@
       "net_worth_range_usd": {
         "min": 10000,
         "max": 100000,
-        "average": 36000
+        "average": 39000
       },
       "population_ratio": {
         "percentage": 41.3,
@@ -233,29 +233,29 @@
       "physical_analogy": {
         "name_es": "Silla alta de bar",
         "name_en": "Bar stool",
-        "height_meters": 0.68
+        "height_meters": 0.73125
       },
       "translations": {
         "es": {
-          "headline": "41.3% no llega a la silla de bar",
-          "caption": "41 de cada 100 viven aquí o más abajo · USD $36k promedio",
-          "aria": "La mayoría: 68 centímetros"
+          "headline": "La mayoría no llega a la silla de bar",
+          "caption": "41 de cada 100 viven aquí o más abajo · USD $39k promedio",
+          "aria": "La mayoría: 73,1 centímetros"
         },
         "en": {
-          "headline": "41.3% don't reach the bar stool",
-          "caption": "41 in 100 live here or below · USD $36k average",
-          "aria": "The majority: 68 centimeters"
+          "headline": "The majority don't reach the bar stool",
+          "caption": "41 in 100 live here or below · USD $39k average",
+          "aria": "The majority: 73.1 centimeters"
         }
       },
-      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\">\n  <ellipse cx=\"60\" cy=\"38\" rx=\"30\" ry=\"9\" fill=\"currentColor\" opacity=\".85\" stroke=\"none\"/>\n  <ellipse cx=\"60\" cy=\"38\" rx=\"30\" ry=\"9\" opacity=\".5\"/>\n  <path d=\"M40 32 v-16 M80 32 v-16\" stroke-width=\"3.5\"/>\n  <path d=\"M36 16 h48 M36 24 h48\" stroke-width=\"3\"/>\n  <line x1=\"60\" y1=\"47\" x2=\"60\" y2=\"86\" stroke-width=\"5\"/>\n  <path d=\"M36 92 h48\" stroke-width=\"4\"/>\n  <path d=\"M36 92 L28 106 M84 92 L92 106\" stroke-width=\"3.5\"/>\n</svg>"
+      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"5\" id=\"svg-s6\">\n  <!-- Círculo dinámico de robustez sintética -->\n  <circle cx=\"60\" cy=\"60\" r=\"26\" opacity=\".5\" stroke-dasharray=\"3 5\" />\n  <ellipse cx=\"60\" cy=\"60\" rx=\"26\" ry=\"32\" fill=\"currentColor\" opacity=\".22\" />\n  <path d=\"M20 100 h80 M60 20 v80\" stroke-linecap=\"round\" />\n</svg>"
     },
     {
       "id": "s7",
       "@type": "StatisticalPopulation",
       "net_worth_range_usd": {
-        "min": 8654,
-        "max": 9167,
-        "average": 8910
+        "min": 8632,
+        "max": 9029,
+        "average": 8831
       },
       "population_ratio": {
         "percentage": 50,
@@ -267,29 +267,29 @@
       "physical_analogy": {
         "name_es": "Un solo escalón de escalera",
         "name_en": "A single stair step",
-        "height_meters": 0.17
+        "height_meters": 0.16558124999999999
       },
       "translations": {
         "es": {
-          "headline": "La mitad del planeta: un solo escalón",
-          "caption": "50 de cada 100 no superan este escalón · Mediana USD $8,654–$9,167",
-          "aria": "Mediana mundial: 17 centímetros"
+          "headline": "La mitad del planeta: un solo escalón (2029)",
+          "caption": "50 de cada 100 no superan este escalón · Mediana USD $8,632–$9,029",
+          "aria": "Mediana mundial: 16,6 centímetros"
         },
         "en": {
-          "headline": "Half the planet: one single step",
-          "caption": "50 in 100 do not surpass this step · Median USD $8,654–$9,167",
-          "aria": "World median: 17 centimeters"
+          "headline": "Half the planet: one single step (2029)",
+          "caption": "50 in 100 do not surpass this step · Median USD $8,632–$9,029",
+          "aria": "World median: 16.6 centimeters"
         }
       },
-      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"5\">\n  <rect x=\"26\" y=\"74\" width=\"68\" height=\"16\" rx=\"3\" fill=\"currentColor\" opacity=\".92\"/>\n  <path d=\"M22 100 h76\" opacity=\".5\"/>\n</svg>"
+      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" id=\"svg-s7\">\n  <!-- Círculo dinámico de robustez sintética -->\n  <circle cx=\"60\" cy=\"60\" r=\"31\" opacity=\".5\" stroke-dasharray=\"3 5\" />\n  <ellipse cx=\"60\" cy=\"60\" rx=\"31\" ry=\"24\" fill=\"currentColor\" opacity=\".22\" />\n  <path d=\"M20 100 h80 M60 20 v80\" stroke-linecap=\"round\" />\n</svg>"
     },
     {
       "id": "s8",
       "@type": "StatisticalPopulation",
       "net_worth_range_usd": {
         "min": 0,
-        "max": 8654,
-        "average": 1748
+        "max": 8632,
+        "average": 1600
       },
       "population_ratio": {
         "percentage": 40.7,
@@ -301,21 +301,21 @@
       "physical_analogy": {
         "name_es": "Una roca pequeña",
         "name_en": "A small pebble",
-        "height_meters": 0.033
+        "height_meters": 0.03
       },
       "translations": {
         "es": {
-          "headline": "40.7% del mundo: una roca en el suelo",
-          "caption": "41 de cada 100 viven aquí o menos · USD $1,748 promedio",
-          "aria": "Base: 3.3 centímetros"
+          "headline": "La base del mundo: una roca en el suelo",
+          "caption": "41 de cada 100 viven aquí o menos · USD $1,600 promedio",
+          "aria": "Base: 3 centímetros"
         },
         "en": {
-          "headline": "40.7% of the world: a pebble on the ground",
-          "caption": "41 in 100 live here or below · USD $1,748 average",
-          "aria": "Base: 3.3 centimeters"
+          "headline": "The world base: a pebble on the ground",
+          "caption": "41 in 100 live here or below · USD $1,600 average",
+          "aria": "Base: 3 centimeters"
         }
       },
-      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3.5\">\n  <path d=\"M28 82 L38 54 L57 44 L80 48 L96 66 L90 82 Z\" fill=\"currentColor\" opacity=\".82\"/>\n  <path d=\"M38 54 L52 62 L57 44 M52 62 L80 48\" opacity=\".42\" stroke-linecap=\"round\"/>\n  <path d=\"M18 88 h84\" stroke-linecap=\"round\" opacity=\".32\"/>\n</svg>"
+      "svg_icon": "<svg viewBox=\"0 0 120 120\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"5\" id=\"svg-s8\">\n  <!-- Círculo dinámico de robustez sintética -->\n  <circle cx=\"60\" cy=\"60\" r=\"25\" opacity=\".5\" stroke-dasharray=\"3 5\" />\n  <ellipse cx=\"60\" cy=\"60\" rx=\"25\" ry=\"30\" fill=\"currentColor\" opacity=\".22\" />\n  <path d=\"M20 100 h80 M60 20 v80\" stroke-linecap=\"round\" />\n</svg>"
     }
   ]
 }

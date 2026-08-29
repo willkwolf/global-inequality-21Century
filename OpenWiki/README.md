@@ -1,0 +1,38 @@
+# OpenWiki — Sistema de Gobernanza y Verdad Documental
+
+Bienvenido a **OpenWiki**, la fuente única de verdad (*Single Source of Truth*) para la gobernanza, arquitectura, metodología y control de versiones del proyecto **Escala Visual de Desigualdad Global de Riqueza**.
+
+---
+
+## 🏛 Principio Rector
+
+> **"No construyas una interfaz que dependa de que el mundo permanezca igual. Construye una abstracción estable capaz de representar un mundo cambiante."**
+> 
+> *DATA DRIFT ≠ ABSTRACTION FAILURE.*
+
+---
+
+## 📚 Índice de Documentación y Gobernanza
+
+1. [01. Dominio y Abstracción Conceptual](./01_DOMINIO_Y_ABSTRACCION.md) — Definición ontológica, metáfora espacial y estabilidad de abstracción.
+2. [02. Contrato de Abstracción](./02_CONTRATO_DE_ABSTRACCION.md) — Desacoplamiento estricto entre fuentes de datos y la interfaz visual.
+3. [03. Modelo Canónico de Datos](./03_MODELO_CANONICO_DE_DATOS.md) — Esquema unificado agnóstico a proveedores y adaptadores primarios.
+4. [04. Motor de Detección y Clasificación de Drift](./04_MOTOR_DE_DRIFT.md) — Análisis de drift en 5 dimensiones (*Data, Semantic, Methodological, Domain, Conceptual*).
+5. [05. Arquitectura del Agente de IA (Gemini)](./05_ARQUITECTURA_AGENTE_GEMINI.md) — Adaptación semántica, seguridad de credenciales y motor determinista de respaldo.
+6. [06. Metodología y Recalibración Dinámica](./06_METODOLOGIA_Y_RECALIBRACION.md) — Fórmulas, escalón patrón (~15 cm = mediana) y selección de analogías físicas.
+7. [07. Guardrails y Protocolo de Fallback Humano](./07_GUARDRAILS_Y_FALLBACKS.md) — Límites epistemológicos, `ADAPTATION_FAILED` y detención de publicación.
+8. [08. Pipeline CI/CD en GitHub Actions](./08_PIPELINE_CI_CD_GITHUB_ACTIONS.md) — Pipeline de 14 etapas, puertas de calidad y secretos.
+9. [09. Telemetría y Observabilidad](./09_TELEMETRIA_Y_AUDITORIA.md) — Esquema de auditoría `INPUT → DECISION → TRANSFORMATION → OUTPUT`.
+10. [10. Registro Inmutable de Cambios (Change Log Ledger)](./10_CHANGE_LOG_LEDGER.md) — Libro mayor append-only de modificaciones del agente.
+11. [11. Advertencias Arquitectónicas (Architectural Warnings)](./11_ARCHITECTURAL_WARNINGS.md) — Registro de alertas y tensiones conceptuales detectadas.
+12. [12. Resultados de la Suite de Tres Escenarios](./12_THREE_SCENARIO_RESULTS.md) — Verificación empírica de los escenarios Probable, Metodológico y Caótico.
+13. [13. Marco de Verificación Vibium](./13_VIBIUM_VERIFICATION_FRAMEWORK.md) — Capa transversal de verificación visual, funcional, semántica y de accesibilidad.
+14. [14. Límites Físicos de la Abstracción y Pruebas Cognitivas](./14_ABSTRACTION_LIMITS_AND_COGNITIVE_TESTS.md) — Regla de límites físicos/visuales/epistémicos y escenarios de contraste perceptivo.
+
+---
+
+## 🔒 Regla de Integridad de Código y Datos
+- El **código fuente** contiene la implementación ejecutable.
+- **OpenWiki** contiene el conocimiento, los contratos formales y la gobernanza del proyecto.
+- **Vibium** certifica que la aplicación renderizada cumple los contratos sin regresiones.
+- Ninguna publicación se realiza sin que el cambio quede registrado de forma auditable e inmutable en este repositorio.
