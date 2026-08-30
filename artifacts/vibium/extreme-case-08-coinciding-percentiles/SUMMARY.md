@@ -2,7 +2,7 @@
 
 - **Escenario:** `extreme-case-08-coinciding-percentiles`
 - **Estado de Verificación:** **`ABSTRACTION_LIMIT_REACHED`**
-- **Timestamp:** `2026-08-30T04:35:40.093Z`
+- **Timestamp:** `2026-08-30T04:44:46.457Z`
 - **Abstracción:** LIMIT_BREACHED
 - **Escala:** 1 escalón = `$8000 USD` (`0.15 m`)
 - **Total Estratos Renderizados:** `2`

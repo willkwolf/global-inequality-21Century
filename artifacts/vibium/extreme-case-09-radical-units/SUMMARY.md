@@ -2,7 +2,7 @@
 
 - **Escenario:** `extreme-case-09-radical-units`
 - **Estado de Verificación:** **`PASS_WITH_ADAPTATION`**
-- **Timestamp:** `2026-08-30T04:35:40.226Z`
+- **Timestamp:** `2026-08-30T04:44:46.583Z`
 - **Abstracción:** WITHIN_LIMITS
 - **Escala:** 1 escalón = `$15000 USD` (`0.15 m`)
 - **Total Estratos Renderizados:** `3`
