@@ -76,12 +76,12 @@
       "translations": {
         "es": {
           "headline": "Elon Musk vive en órbita",
-          "caption": "Menos de 1 de cada 10 millones · USD $636B–$839B",
+          "caption": "Menos de 1 de cada 10 millones · USD* $636B–$839B",
           "aria": "Elon Musk en órbita: 13.828,13 km"
         },
         "en": {
           "headline": "Elon Musk lives in orbit",
-          "caption": "Fewer than 1 in 10 million · USD $636B–$839B",
+          "caption": "Fewer than 1 in 10 million · USD* $636B–$839B",
           "aria": "Elon Musk in orbit: 13,828.13 km"
         }
       },
@@ -110,12 +110,12 @@
       "translations": {
         "es": {
           "headline": "Un billonario toca la estratosfera",
-          "caption": "3 de cada 10 millones · Más de USD $1,000 millones",
+          "caption": "3 de cada 10 millones · Más de USD* $1,000 millones",
           "aria": "Billonarios: 18,75 km"
         },
         "en": {
           "headline": "A billionaire touches the stratosphere",
-          "caption": "3 in 10 million · More than USD $1,000 million",
+          "caption": "3 in 10 million · More than USD* $1,000 million",
           "aria": "Billionaires: 18.75 km"
         }
       },
@@ -144,12 +144,12 @@
       "translations": {
         "es": {
           "headline": "Los millonarios: un edificio de 20 pisos",
-          "caption": "98 de cada 100 viven más abajo · Promedio USD $3.7M",
+          "caption": "98 de cada 100 viven más abajo · Promedio USD* $3.7M",
           "aria": "Millonarios: 69,38 metros"
         },
         "en": {
           "headline": "Millionaires: a 20-story building",
-          "caption": "98 in 100 live below · Average USD $3.7M",
+          "caption": "98 in 100 live below · Average USD* $3.7M",
           "aria": "Millionaires: 69.38 meters"
         }
       },
@@ -178,12 +178,12 @@
       "translations": {
         "es": {
           "headline": "Para ser millonario: 125 escalones",
-          "caption": "Solo el 1.6% del mundo · Umbral USD $1M",
+          "caption": "Solo el 1.6% del mundo · Umbral USD* $1M",
           "aria": "Umbral millonario: 18,75 metros"
         },
         "en": {
           "headline": "To become a millionaire: 125 steps",
-          "caption": "Only 1.6% of the world · Threshold USD $1M",
+          "caption": "Only 1.6% of the world · Threshold USD* $1M",
           "aria": "Millionaire threshold: 18.75 meters"
         }
       },
@@ -212,12 +212,12 @@
       "translations": {
         "es": {
           "headline": "16.4%: a la altura de dos pisos",
-          "caption": "82 de cada 100 viven más abajo · USD $293k promedio",
+          "caption": "82 de cada 100 viven más abajo · USD* $293k promedio",
           "aria": "Clase media alta: 5,49 metros"
         },
         "en": {
           "headline": "16.4%: at two-story height",
-          "caption": "82 in 100 live below · USD $293k average",
+          "caption": "82 in 100 live below · USD* $293k average",
           "aria": "Upper middle class: 5.49 meters"
         }
       },
@@ -246,12 +246,12 @@
       "translations": {
         "es": {
           "headline": "La mayoría no llega a la silla de bar",
-          "caption": "41 de cada 100 viven aquí o más abajo · USD $36k promedio",
+          "caption": "41 de cada 100 viven aquí o más abajo · USD* $36k promedio",
           "aria": "La mayoría: 67,5 centímetros"
         },
         "en": {
           "headline": "The majority don't reach the bar stool",
-          "caption": "41 in 100 live here or below · USD $36k average",
+          "caption": "41 in 100 live here or below · USD* $36k average",
           "aria": "The majority: 67.5 centimeters"
         }
       },
@@ -280,12 +280,12 @@
       "translations": {
         "es": {
           "headline": "La mitad del planeta: un solo escalón",
-          "caption": "50 de cada 100 no superan este escalón · Mediana USD $8,910",
+          "caption": "50 de cada 100 no superan este escalón · Mediana USD* $8,910",
           "aria": "Mediana mundial: 16,7 centímetros"
         },
         "en": {
           "headline": "Half the planet: one single step",
-          "caption": "50 in 100 do not surpass this step · Median USD $8,910",
+          "caption": "50 in 100 do not surpass this step · Median USD* $8,910",
           "aria": "World median: 16.7 centimeters"
         }
       },
@@ -314,12 +314,12 @@
       "translations": {
         "es": {
           "headline": "La base del mundo: una roca en el suelo",
-          "caption": "41 de cada 100 viven aquí o menos · USD $1,748 promedio",
+          "caption": "41 de cada 100 viven aquí o menos · USD* $1,748 promedio",
           "aria": "Base: 3,3 centímetros"
         },
         "en": {
           "headline": "The world base: a pebble on the ground",
-          "caption": "41 in 100 live here or below · USD $1,748 average",
+          "caption": "41 in 100 live here or below · USD* $1,748 average",
           "aria": "Base: 3.3 centimeters"
         }
       },

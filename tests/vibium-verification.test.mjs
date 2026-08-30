@@ -94,9 +94,8 @@ async function runVibiumSuite() {
       dataset_id: "s1_dataset",
       summary_es: "UBS Global Wealth Report 2027 y Forbes Real-Time Billionaires.",
       summary_en: "UBS Global Wealth Report 2027 and Forbes Real-Time Billionaires.",
-      sources: [{ name: "UBS 2027", url: "https://ubs.com" }],
-      date_label_es: "UBS · dic 2027 · v2.1",
-      date_label_en: "UBS · Dec 2027 · v2.1",
+      date_label_es: "UBS · dic 2027 · * Valor presente",
+      date_label_en: "UBS · Dec 2027 · * Present value",
       limitations: [
         { code: "VALUATION", es: "Patrimonio neto individual = activos reales y financieros personales menos deudas.", en: "Individual net worth = personal real and financial assets minus liabilities." },
         { code: "INDIVIDUAL_SCOPE", es: "Unidad de análisis exclusiva: Personas naturales adultas.", en: "Exclusive analysis unit: Adult natural persons." },

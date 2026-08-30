@@ -92,8 +92,8 @@ try {
   const rangeStrEs = `$${formatBillionMagnitude(s1.net_worth_range_usd.min, 'es')}–$${formatBillionMagnitude(s1.net_worth_range_usd.max, 'es')}`;
   const rangeStrEn = `$${formatBillionMagnitude(s1.net_worth_range_usd.min, 'en')}–$${formatBillionMagnitude(s1.net_worth_range_usd.max, 'en')}`;
   const reportYear = lastUpdated.ubs_report_date ? lastUpdated.ubs_report_date.split('-')[0] : "2024";
-  const dateLabelEs = `UBS · dic ${reportYear} · v2.1`;
-  const dateLabelEn = `UBS · Dec ${reportYear} · v2.1`;
+  const dateLabelEs = `UBS · dic ${reportYear} · * Valor presente`;
+  const dateLabelEn = `UBS · Dec ${reportYear} · * Present value`;
 
   const summary_es = `UBS Global Wealth Report ${reportYear} (adultos, datos al 31 dic ${reportYear}). Forbes Real-Time Billionaires, ${formatForbesDate(lastUpdated.forbes_billionaires_date, 'es')}: ${topHolder.name_es} (${rangeStrEs}) y ${formattedBillionairesES} billonarios confirmados. Población adulta mundial: ${formattedAdultsES}.`;
   const summary_en = `UBS Global Wealth Report ${reportYear} (adults, data as of 31 Dec ${reportYear}). Forbes Real-Time Billionaires, ${formatForbesDate(lastUpdated.forbes_billionaires_date, 'en')}: ${topHolder.name_en} (${rangeStrEn}) and ${formattedBillionairesEN} confirmed billionaires. Global adult population: ${formattedAdultsEN}.`;

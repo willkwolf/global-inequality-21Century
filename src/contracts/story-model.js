@@ -17,8 +17,8 @@ export class StoryModel {
   generateStringsDictionary() {
     const prov = this.doc.provenance || {};
     const currentYear = NumberFormatter.getCurrentYear();
-    const dateLabelEs = prov.date_label_es || `UBS · dic 2024 · v2.1`;
-    const dateLabelEn = prov.date_label_en || `UBS · Dec 2024 · v2.1`;
+    const dateLabelEs = prov.date_label_es || `UBS · dic 2024 · * Valor presente`;
+    const dateLabelEn = prov.date_label_en || `UBS · Dec 2024 · * Present value`;
 
     const es = {
       skip_text: "Saltar al contenido principal",

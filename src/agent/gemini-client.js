@@ -101,15 +101,15 @@ ${JSON.stringify(payload, null, 2)}`;
           const magEn = NumberFormatter.formatMagnitude(wealthVal, 'en');
           headline_es = `${topHolderName} vive en órbita`;
           headline_en = `${topHolderName} stands in orbit`;
-          caption_es = `Menos de 1 de cada 10 millones · USD $${magEs} · Altura: ${hEs.full_label}`;
-          caption_en = `Fewer than 1 in 10 million · USD $${magEn} · Altitude: ${hEn.full_label}`;
+          caption_es = `Menos de 1 de cada 10 millones · USD* $${magEs} · Altura: ${hEs.full_label}`;
+          caption_en = `Fewer than 1 in 10 million · USD* $${magEn} · Altitude: ${hEn.full_label}`;
           aria_es = `${topHolderName} en órbita: ${hEs.verbal_label}`;
           aria_en = `${topHolderName} in orbit: ${hEn.verbal_label}`;
         } else {
           headline_es = "Un billonario toca la estratosfera";
           headline_en = "A billionaire touches the stratosphere";
-          caption_es = `3 de cada 10 millones · Más de USD $1.000 millones · Altura: ${hEs.full_label}`;
-          caption_en = `3 in 10 million · More than USD $1,000 million · Altitude: ${hEn.full_label}`;
+          caption_es = `3 de cada 10 millones · Más de USD* $1.000 millones · Altura: ${hEs.full_label}`;
+          caption_en = `3 in 10 million · More than USD* $1,000 million · Altitude: ${hEn.full_label}`;
           aria_es = `Billonarios: ${hEs.verbal_label}`;
           aria_en = `Billionaires: ${hEn.verbal_label}`;
         }
@@ -119,8 +119,8 @@ ${JSON.stringify(payload, null, 2)}`;
           const magEn = NumberFormatter.formatMagnitude(wealthVal, 'en');
           headline_es = `Los millonarios: ${refEs.toLowerCase()}`;
           headline_en = `Millionaires: ${refEn.toLowerCase()}`;
-          caption_es = `98 de cada 100 viven más abajo · Promedio USD $${magEs}`;
-          caption_en = `98 in 100 live below · Average USD $${magEn}`;
+          caption_es = `98 de cada 100 viven más abajo · Promedio USD* $${magEs}`;
+          caption_en = `98 in 100 live below · Average USD* $${magEn}`;
           aria_es = `Millonarios: ${hEs.verbal_label}`;
           aria_en = `Millionaires: ${hEn.verbal_label}`;
         } else {
@@ -128,8 +128,8 @@ ${JSON.stringify(payload, null, 2)}`;
           headline_en = `To become a millionaire: ${refEn.toLowerCase()}`;
           const pctEs = NumberFormatter.formatPercentage(pct || 1.6, 'es');
           const pctEn = NumberFormatter.formatPercentage(pct || 1.6, 'en');
-          caption_es = `Solo el ${pctEs} de adultos · Umbral USD $1M`;
-          caption_en = `Only ${pctEn} of adults · Threshold USD $1M`;
+          caption_es = `Solo el ${pctEs} de adultos · Umbral USD* $1M`;
+          caption_en = `Only ${pctEn} of adults · Threshold USD* $1M`;
           aria_es = `Umbral millonario: ${hEs.verbal_label}`;
           aria_en = `Millionaire threshold: ${hEn.verbal_label}`;
         }
@@ -141,8 +141,8 @@ ${JSON.stringify(payload, null, 2)}`;
           const magEn = NumberFormatter.formatMagnitude(wealthVal, 'en');
           headline_es = `${pctEs}: a la altura de ${refEs.toLowerCase()}`;
           headline_en = `${pctEn}: at the height of ${refEn.toLowerCase()}`;
-          caption_es = `82 de cada 100 viven más abajo · USD $${magEs} promedio`;
-          caption_en = `82 in 100 live below · USD $${magEn} average`;
+          caption_es = `82 de cada 100 viven más abajo · USD* $${magEs} promedio`;
+          caption_en = `82 in 100 live below · USD* $${magEn} average`;
           aria_es = `Clase media alta: ${hEs.verbal_label}`;
           aria_en = `Upper middle class: ${hEn.verbal_label}`;
         } else {
@@ -150,14 +150,14 @@ ${JSON.stringify(payload, null, 2)}`;
           const magEn = NumberFormatter.formatMagnitude(wealthVal, 'en');
           headline_es = `La mayoría no llega a la ${refEs.toLowerCase()}`;
           headline_en = `The majority doesn't reach the ${refEn.toLowerCase()}`;
-          caption_es = `41 de cada 100 viven aquí o más abajo · USD $${magEs} promedio`;
-          caption_en = `41 in 100 live here or below · USD $${magEn} average`;
+          caption_es = `41 de cada 100 viven aquí o más abajo · USD* $${magEs} promedio`;
+          caption_en = `41 in 100 live here or below · USD* $${magEn} average`;
           aria_es = `La mayoría: ${hEs.verbal_label}`;
           aria_en = `The majority: ${hEn.verbal_label}`;
         }
       } else if (layer.pedagogical_role === "ESCALA") {
-        const currEs = NumberFormatter.formatCurrency(Math.round(wealthVal), 'USD', 'es');
-        const currEn = NumberFormatter.formatCurrency(Math.round(wealthVal), 'USD', 'en');
+        const currEs = NumberFormatter.formatCurrency(Math.round(wealthVal), 'USD*', 'es');
+        const currEn = NumberFormatter.formatCurrency(Math.round(wealthVal), 'USD*', 'en');
         headline_es = "La mitad del planeta: un solo escalón";
         headline_en = "Half the planet: one single step";
         caption_es = `50 de cada 100 no superan este escalón · Mediana ${currEs}`;
@@ -166,8 +166,8 @@ ${JSON.stringify(payload, null, 2)}`;
         aria_en = `World median: ${hEn.verbal_label}`;
       } else {
         // BASE
-        const currEs = NumberFormatter.formatCurrency(Math.round(wealthVal), 'USD', 'es');
-        const currEn = NumberFormatter.formatCurrency(Math.round(wealthVal), 'USD', 'en');
+        const currEs = NumberFormatter.formatCurrency(Math.round(wealthVal), 'USD*', 'es');
+        const currEn = NumberFormatter.formatCurrency(Math.round(wealthVal), 'USD*', 'en');
         headline_es = `La base del mundo: ${refEs.toLowerCase()}`;
         headline_en = `The world base: ${refEn.toLowerCase()}`;
         caption_es = `${Math.round(pct)} de cada 100 viven aquí o menos · ${currEs} promedio`;

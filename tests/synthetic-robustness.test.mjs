@@ -98,8 +98,8 @@ try {
     const formattedBillionairesEN = NumberFormatter.formatNumber(totalBillionaires, 'en');
 
     const reportYear = lastUpdated.ubs_report_date ? lastUpdated.ubs_report_date.split('-')[0] : "2024";
-    const dateLabelEs = `UBS · dic ${reportYear} · v2.1`;
-    const dateLabelEn = `UBS · Dec ${reportYear} · v2.1`;
+    const dateLabelEs = `UBS · dic ${reportYear} · * Valor presente`;
+    const dateLabelEn = `UBS · Dec ${reportYear} · * Present value`;
 
     const summary_es = `UBS Global Wealth Report ${reportYear}. ${topHolder.name_es} y ${formattedBillionairesES} billonarios. Adultos: ${formattedAdultsES}.`;
     const summary_en = `UBS Global Wealth Report ${reportYear}. ${topHolder.name_en} and ${formattedBillionairesEN} billionaires. Adults: ${formattedAdultsEN}.`;

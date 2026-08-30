@@ -65,8 +65,8 @@ export class VibiumExtremeSuite {
               { code: "EXT_1", es: "Limitación sintética extrema 1", en: "Synthetic extreme limitation 1" },
               { code: "EXT_2", es: "Limitación sintética extrema 2", en: "Synthetic extreme limitation 2" }
             ],
-            date_label_es: "Test · 2026 · v2.1",
-            date_label_en: "Test · 2026 · v2.1"
+            date_label_es: "Test · 2026 · * Valor presente",
+            date_label_en: "Test · 2026 · * Present value"
           }
         } : null;
 

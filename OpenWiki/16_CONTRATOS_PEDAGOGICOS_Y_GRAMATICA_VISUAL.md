@@ -23,26 +23,37 @@ Cada estrato visual obedece a un contrato cognitivo y visual inmutable que ancla
 ### Regla Fundamental: Cero Cadenas Estáticas Desalineadas
 Ningún valor numérico, altura, fecha ni nombre de titular puede quedar congelado como texto estático:
 1. `caption_es` / `caption_en`: Calculados determinísticamente en tiempo de compilación según las magnitudes reales del dataset activo.
-2. `data_date`: Generado como `${SOURCE} · ${DATA_PERIOD} · v${METHODOLOGY_VERSION}` (ej. `UBS · dic 2024 · v2.1`).
-3. `limitations`: Arreglo estructurado de advertencias epistemológicas inyectado como elementos semánticos `<li>`.
+2. `data_date`: Generado como `${SOURCE} · ${DATA_PERIOD} · * Valor presente` (ej. `UBS · dic 2024 · * Valor presente` en ES / `UBS · Dec 2024 · * Present value` en EN). Se prohíbe incluir sufijos de versión tipo `v2.1` en este componente visual.
+3. `USD*`: Todos los montos monetarios en captions utilizan el asterisco `USD*` para indicar de forma transparente la normalización al poder adquisitivo de valor presente (`current_year()`).
+4. `limitations`: Arreglo estructurado de advertencias epistemológicas inyectado como elementos semánticos `<li>`.
 
 ---
 
 ## 3. Integración de Principios de Edward Tufte
 
 1. **Maximización del Data-Ink Ratio:** Cada píxel y elemento gráfico en pantalla comunica altura física o contraste poblacional. Se eliminan adornos decorativos no funcionales.
-2. **Pequeños Múltiplos y Consistencia:** Todas las secciones comparten la misma jerarquía: Altura numérica destacada $\to$ Titular pedagógico $\to$ Caption descriptivo $\to$ Icono SVG monocromático $\to$ Etiqueta de fuente.
+2. **Pequeños Múltiplos y Consistencia:** Todas las secciones comparten la misma jerarquía: Altura numérica destacada $\to$ Titular pedagógico $\to$ Caption descriptivo $\to$ Icono SVG monocromático $\to$ Etiqueta de fuente con indicador de valor presente.
 3. **Integridad Gráfica y Lie Factor = 1.0:** La altura en metros mantiene una relación estrictamente lineal con los dólares representados según la fórmula:
    $$\text{Altura (m)} = \frac{\text{Patrimonio (USD)}}{8000} \times 0.15$$
 4. **Densidad de Información sin Sobrecarga:** El panel de accesibilidad y la ficha técnica proporcionan el contexto cuantitativo detallado sin ensuciar la experiencia principal de scroll.
 
 ---
 
-## 4. Responsive UI/UX y Touch Targets
+## 4. Estándar Dual Obligatorio (Desktop y Mobile) y Plan de Remediación
 
-- **Mobile First (390x844 / 360x780):**
-  - Tipografía fluida con `clamp()`.
-  - Zero horizontal scroll (`overflow-x: hidden`).
+Tanto la experiencia de **Escritorio (Desktop 1280x800 / 1920x1080)** como la de **Móvil (Mobile 375x667 / 390x844)** constituyen el **estándar vinculante e innegociable** de la aplicación:
+
+```mermaid
+graph TD
+    A["Evaluación del Challenger"] --> B{"¿Respeta la ubicación exacta<br>de textos, jerarquía y responsive<br>en Desktop y Mobile?"}
+    B -- "SÍ" --> C["Continúa evaluación de Quality Gates"]
+    B -- "NO (Desplazamiento, overlap o desborde)" --> D["<b>BLOQUEO DE PROMOCIÓN</b><br>Estado: REMEDIATION_REQUIRED<br>Generar Plan de Remediación Visual"]
+```
+
+### Reglas de Remediación:
+- **Zero Layout Shift:** Si un Challenger desplaza titulares, números o badges fuera de los contenedores seguros (`.grid`, `.num`, `.headline`, `.caption`, `.data-date`), se marca automáticamente como `REMEDIATION_REQUIRED`.
+- **Aislamiento de Producción:** El Champion vivo continúa inalterado en producción mientras el Challenger es sometido a remediación en el sandbox.
+- **Mobile First & Touch Targets:** Touch targets mínimos de $44 \times 44\text{ px}$, tipografía fluida con `clamp()`, `overflow-x: hidden` y contraste de color accesible WCAG 2.1/2.2 AA.
   - Touch targets de botones y controles de accesibilidad $\ge 44 \times 44\text{ px}$.
   - Cero solapamiento entre la navegación lateral por puntos y los contenedores de texto.
 - **Desktop (1920x1080 / 1440x900):**
