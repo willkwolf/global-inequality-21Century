@@ -3,7 +3,7 @@
  * 
  * SUITE DE PRUEBAS EXTREMAS VIBIUM (12 CASOS LÍMITE Y DEGENERATIVOS)
  * 
- * Descubre los límites epistemológicos, físicos y visuales de la abstracción
+ * Descubre los límites epistemológicos, físicos, ontológicos y visuales de la abstracción
  * antes de que lleguen a producción.
  */
 
@@ -33,12 +33,13 @@ export class VibiumExtremeSuite {
 
         const abstractionDoc = testCase.canonicalData && recalib ? {
           contract_version: "2.0.0",
+          analysis_unit: "natural_person",
           title_es: "¿A qué altura vives?",
           title_en: "How high do you stand?",
           subtitle_es: `Distancia calculada: ${recalib.layers[0]?.formatted_height_label || '0 m'}`,
           subtitle_en: `Calculated distance: ${recalib.layers[0]?.formatted_height_label || '0 m'}`,
-          semantic_concept_es: "Patrimonio neto",
-          semantic_concept_en: "Net worth",
+          semantic_concept_es: "Patrimonio neto personal por adulto (Net Worth per Adult)",
+          semantic_concept_en: "Personal net worth per adult",
           scale_formula: {
             unit_value_usd: recalib.formula_constants.step_usd_value,
             step_height_meters: recalib.formula_constants.step_physical_height_meters
@@ -49,8 +50,8 @@ export class VibiumExtremeSuite {
             narrative: {
               headline_es: `${l.physical_reference.name_es} (${l.formatted_height_label})`,
               headline_en: `${l.physical_reference.name_en} (${l.formatted_height_label})`,
-              caption_es: `Estrato representativo con altura ${l.formatted_height_label}`,
-              caption_en: `Representative layer with height ${l.formatted_height_label}`,
+              caption_es: `Estrato representativo con altura ${l.formatted_height_label} · USD $${l.raw_magnitude}`,
+              caption_en: `Representative layer with height ${l.formatted_height_label} · USD $${l.raw_magnitude}`,
               aria_es: `${l.physical_reference.name_es}`,
               aria_en: `${l.physical_reference.name_en}`
             }
@@ -60,10 +61,12 @@ export class VibiumExtremeSuite {
             summary_es: testCase.name,
             summary_en: testCase.name,
             sources: [{ name: "Extreme Test Source", url: "https://example.com" }],
-            additional_limitations: [
-              { es: "Limitación sintética extrema 1", en: "Synthetic extreme limitation 1" },
-              { es: "Limitación sintética extrema 2", en: "Synthetic extreme limitation 2" }
-            ]
+            limitations: [
+              { code: "EXT_1", es: "Limitación sintética extrema 1", en: "Synthetic extreme limitation 1" },
+              { code: "EXT_2", es: "Limitación sintética extrema 2", en: "Synthetic extreme limitation 2" }
+            ],
+            date_label_es: "Test · 2026 · v2.1",
+            date_label_en: "Test · 2026 · v2.1"
           }
         } : null;
 
@@ -112,11 +115,12 @@ export class VibiumExtremeSuite {
         name: "1. Todos los valores muy bajos (Casi cero universal)",
         expectedBehavior: "PASS_WITH_ADAPTATION",
         canonicalData: {
-          global_metrics: { wealth_median_usd: 12, top_holder: { name: "Micro Holder", estimated_net_worth_usd: 500 } },
+          analysis_unit: "natural_person",
+          global_metrics: { wealth_median_usd: 12, top_holder: { name: "Low Wealth Person", type: "natural_person", estimated_net_worth_usd: 500 } },
           distributions: [
             { pedagogical_role: "EXTREMO", net_worth_usd: { average: 500, threshold_min: 200, threshold_max: null }, population_percentage: 1 },
-            { pedagogical_role: "CONTRASTE", net_worth_usd: { average: 50, threshold_min: 20, threshold_max: 200 }, population_percentage: 9 },
-            { pedagogical_role: "BASE", net_worth_usd: { average: 12, threshold_min: 0, threshold_max: 20 }, population_percentage: 90 }
+            { pedagogical_role: "ESCALA", net_worth_usd: { average: 12, threshold_min: 5, threshold_max: 20 }, population_percentage: 49 },
+            { pedagogical_role: "BASE", net_worth_usd: { average: 2, threshold_min: 0, threshold_max: 5 }, population_percentage: 50 }
           ]
         }
       },
@@ -125,11 +129,12 @@ export class VibiumExtremeSuite {
         name: "2. Todos los valores muy altos (Hiperinflación / Trillones)",
         expectedBehavior: "PASS_WITH_ADAPTATION",
         canonicalData: {
-          global_metrics: { wealth_median_usd: 500000000, top_holder: { name: "Galactic Holder", estimated_net_worth_usd: 1000000000000000 } },
+          analysis_unit: "natural_person",
+          global_metrics: { wealth_median_usd: 5000000000000, top_holder: { name: "Trillionaire Person", type: "natural_person", estimated_net_worth_usd: 900000000000000 } },
           distributions: [
-            { pedagogical_role: "EXTREMO", net_worth_usd: { average: 1000000000000000, threshold_min: 1e14, threshold_max: null }, population_percentage: 0.1 },
-            { pedagogical_role: "CONTRASTE", net_worth_usd: { average: 50000000000, threshold_min: 1e9, threshold_max: 1e14 }, population_percentage: 4.9 },
-            { pedagogical_role: "BASE", net_worth_usd: { average: 500000000, threshold_min: 1e8, threshold_max: 1e9 }, population_percentage: 95 }
+            { pedagogical_role: "EXTREMO", net_worth_usd: { average: 900000000000000, threshold_min: 1e14, threshold_max: null }, population_percentage: 1 },
+            { pedagogical_role: "ESCALA", net_worth_usd: { average: 5000000000000, threshold_min: 1e12, threshold_max: 1e13 }, population_percentage: 49 },
+            { pedagogical_role: "BASE", net_worth_usd: { average: 1000000000000, threshold_min: 0, threshold_max: 1e12 }, population_percentage: 50 }
           ]
         }
       },
@@ -138,10 +143,12 @@ export class VibiumExtremeSuite {
         name: "3. Distribución extremadamente desigual (Distancia astronómica > Luna)",
         expectedBehavior: "ABSTRACTION_LIMIT_REACHED",
         canonicalData: {
-          global_metrics: { wealth_median_usd: 10, top_holder: { name: "Solar Monopolist", estimated_net_worth_usd: 1e16 } },
+          analysis_unit: "natural_person",
+          global_metrics: { wealth_median_usd: 100, top_holder: { name: "Cosmic Person", type: "natural_person", estimated_net_worth_usd: 10000000000000000000000 } },
           distributions: [
-            { pedagogical_role: "EXTREMO", net_worth_usd: { average: 1e16, threshold_min: 1e15, threshold_max: null }, population_percentage: 0.00001 },
-            { pedagogical_role: "BASE", net_worth_usd: { average: 10, threshold_min: 0, threshold_max: 20 }, population_percentage: 99.99999 }
+            { pedagogical_role: "EXTREMO", net_worth_usd: { average: 1e22, threshold_min: 1e21, threshold_max: null }, population_percentage: 0.0001 },
+            { pedagogical_role: "ESCALA", net_worth_usd: { average: 100, threshold_min: 50, threshold_max: 200 }, population_percentage: 50 },
+            { pedagogical_role: "BASE", net_worth_usd: { average: 10, threshold_min: 0, threshold_max: 50 }, population_percentage: 49.9999 }
           ]
         }
       },
@@ -150,9 +157,12 @@ export class VibiumExtremeSuite {
         name: "4. Distribución casi uniforme (Varianza nula)",
         expectedBehavior: "ABSTRACTION_LIMIT_REACHED",
         canonicalData: {
-          global_metrics: { wealth_median_usd: 50000, top_holder: { name: "Equalizer", estimated_net_worth_usd: 50000 } },
+          analysis_unit: "natural_person",
+          global_metrics: { wealth_median_usd: 50000, top_holder: { name: "Equal Person", type: "natural_person", estimated_net_worth_usd: 50000.01 } },
           distributions: [
-            { pedagogical_role: "EXTREMO", net_worth_usd: { average: 50000, threshold_min: 50000, threshold_max: 50000 }, population_percentage: 100 }
+            { pedagogical_role: "EXTREMO", net_worth_usd: { average: 50000.01, threshold_min: 50000, threshold_max: 50000.01 }, population_percentage: 33.3 },
+            { pedagogical_role: "ESCALA", net_worth_usd: { average: 50000.0, threshold_min: 49999.99, threshold_max: 50000 }, population_percentage: 33.3 },
+            { pedagogical_role: "BASE", net_worth_usd: { average: 49999.99, threshold_min: 49999.98, threshold_max: 49999.99 }, population_percentage: 33.4 }
           ]
         }
       },
@@ -161,11 +171,12 @@ export class VibiumExtremeSuite {
         name: "5. Valores negativos moderados (Corteza subterránea)",
         expectedBehavior: "PASS_WITH_ADAPTATION",
         canonicalData: {
-          global_metrics: { wealth_median_usd: -2500, top_holder: { name: "Solvent Top", estimated_net_worth_usd: 500000000 } },
+          analysis_unit: "natural_person",
+          global_metrics: { wealth_median_usd: 8500, top_holder: { name: "Elon Musk", type: "natural_person", estimated_net_worth_usd: 750000000000 } },
           distributions: [
-            { pedagogical_role: "EXTREMO", net_worth_usd: { average: 500000000, threshold_min: 1e8, threshold_max: null }, population_percentage: 1 },
-            { pedagogical_role: "CONTRASTE", net_worth_usd: { average: 25000, threshold_min: 0, threshold_max: 1e8 }, population_percentage: 19 },
-            { pedagogical_role: "BASE", net_worth_usd: { average: -2500, threshold_min: -5000, threshold_max: 0 }, population_percentage: 80 }
+            { pedagogical_role: "EXTREMO", net_worth_usd: { average: 750000000000, threshold_min: 5e11, threshold_max: null }, population_percentage: 0.001 },
+            { pedagogical_role: "ESCALA", net_worth_usd: { average: 8500, threshold_min: 5000, threshold_max: 12000 }, population_percentage: 49.999 },
+            { pedagogical_role: "BASE", net_worth_usd: { average: -2500, threshold_min: -5000, threshold_max: 0 }, population_percentage: 50 }
           ]
         }
       },
@@ -174,9 +185,10 @@ export class VibiumExtremeSuite {
         name: "6. Outlier astronómico más allá de la Luna (> 384,400 km)",
         expectedBehavior: "ABSTRACTION_LIMIT_REACHED",
         canonicalData: {
-          global_metrics: { wealth_median_usd: 8000, top_holder: { name: "Cosmic Entity", estimated_net_worth_usd: 1e22 } },
+          analysis_unit: "natural_person",
+          global_metrics: { wealth_median_usd: 8000, top_holder: { name: "Astronomical Person", type: "natural_person", estimated_net_worth_usd: 1e20 } },
           distributions: [
-            { pedagogical_role: "EXTREMO", net_worth_usd: { average: 1e22, threshold_min: 1e21, threshold_max: null }, population_percentage: 0.0001 },
+            { pedagogical_role: "EXTREMO", net_worth_usd: { average: 1e20, threshold_min: 1e19, threshold_max: null }, population_percentage: 0.0001 },
             { pedagogical_role: "BASE", net_worth_usd: { average: 8000, threshold_min: 0, threshold_max: 16000 }, population_percentage: 99.9999 }
           ]
         }
@@ -186,7 +198,8 @@ export class VibiumExtremeSuite {
         name: "7. Datos incompletos (Solo 1 percentil)",
         expectedBehavior: "ABSTRACTION_LIMIT_REACHED",
         canonicalData: {
-          global_metrics: { wealth_median_usd: 8000, top_holder: { name: "Partial", estimated_net_worth_usd: 1000000 } },
+          analysis_unit: "natural_person",
+          global_metrics: { wealth_median_usd: 8000, top_holder: { name: "Partial Person", type: "natural_person", estimated_net_worth_usd: 1000000 } },
           distributions: [
             { pedagogical_role: "EXTREMO", net_worth_usd: { average: 1000000, threshold_min: 1000000, threshold_max: null }, population_percentage: 50 }
           ]
@@ -197,7 +210,8 @@ export class VibiumExtremeSuite {
         name: "8. Percentiles coincidentes (Peldaños idénticos)",
         expectedBehavior: "ABSTRACTION_LIMIT_REACHED",
         canonicalData: {
-          global_metrics: { wealth_median_usd: 10000, top_holder: { name: "Same", estimated_net_worth_usd: 10000 } },
+          analysis_unit: "natural_person",
+          global_metrics: { wealth_median_usd: 10000, top_holder: { name: "Same Person", type: "natural_person", estimated_net_worth_usd: 10000 } },
           distributions: [
             { pedagogical_role: "EXTREMO", net_worth_usd: { average: 10000, threshold_min: 10000, threshold_max: 10000 }, population_percentage: 50 },
             { pedagogical_role: "BASE", net_worth_usd: { average: 10000, threshold_min: 10000, threshold_max: 10000 }, population_percentage: 50 }
@@ -209,7 +223,8 @@ export class VibiumExtremeSuite {
         name: "9. Cambios radicales de unidades (Satoshis / BTC)",
         expectedBehavior: "PASS_WITH_ADAPTATION",
         canonicalData: {
-          global_metrics: { wealth_median_usd: 15000, top_holder: { name: "Crypto Whale", estimated_net_worth_usd: 850000000000 } },
+          analysis_unit: "natural_person",
+          global_metrics: { wealth_median_usd: 15000, top_holder: { name: "Satoshi Nakamoto", type: "natural_person", estimated_net_worth_usd: 850000000000 } },
           distributions: [
             { pedagogical_role: "EXTREMO", net_worth_usd: { average: 850000000000, threshold_min: 5e11, threshold_max: null }, population_percentage: 0.1 },
             { pedagogical_role: "CONTRASTE", net_worth_usd: { average: 100000, threshold_min: 50000, threshold_max: 200000 }, population_percentage: 9.9 },
@@ -218,10 +233,11 @@ export class VibiumExtremeSuite {
         }
       },
       {
-        id: "case-10-collective-entity",
-        name: "10. Cambio a entidad colectiva soberana (Fondo Soberano)",
-        expectedBehavior: "PASS_WITH_ADAPTATION",
+        id: "case-10-non-natural-person-rejection",
+        name: "10. Rechazo estricto de entidades jurídicas/fondos soberanos",
+        expectedBehavior: "ABSTRACTION_LIMIT_REACHED",
         canonicalData: {
+          analysis_unit: "natural_person",
           global_metrics: { wealth_median_usd: 9500, top_holder: { name: "Global Sovereign AI Fund", type: "fund", estimated_net_worth_usd: 2500000000000 } },
           distributions: [
             { pedagogical_role: "EXTREMO", entity_reference: { name: "Global Sovereign AI Fund", type: "fund" }, net_worth_usd: { average: 2500000000000, threshold_min: 2e12, threshold_max: null }, population_percentage: 0.01 },
@@ -241,7 +257,8 @@ export class VibiumExtremeSuite {
         name: "12. Fuente parcialmente corrupta (Deuda astronómica masiva)",
         expectedBehavior: "ABSTRACTION_LIMIT_REACHED",
         canonicalData: {
-          global_metrics: { wealth_median_usd: -5000000000, top_holder: { name: "Black Hole", estimated_net_worth_usd: 0 } },
+          analysis_unit: "natural_person",
+          global_metrics: { wealth_median_usd: -5000000000, top_holder: { name: "Corrupted Record", type: "natural_person", estimated_net_worth_usd: 0 } },
           distributions: []
         }
       }

@@ -1,12 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "CanonicalWealthDataModel",
-  "description": "Esquema canónico unificado e inmutable para la ingesta y preservación de datos de desigualdad de riqueza global.",
+  "description": "Esquema canónico unificado e inmutable para la ingesta y preservación de datos de desigualdad de riqueza global de Personas Naturales.",
   "type": "object",
   "required": [
     "schema_version",
     "dataset_id",
     "retrieved_at",
+    "analysis_unit",
     "methodology_version",
     "raw_sources",
     "global_metrics",
@@ -15,7 +16,7 @@
   "properties": {
     "schema_version": {
       "type": "string",
-      "enum": ["2.0.0"]
+      "enum": ["2.0.0", "2.1.0"]
     },
     "dataset_id": {
       "type": "string",
@@ -25,6 +26,11 @@
       "type": "string",
       "format": "date-time"
     },
+    "analysis_unit": {
+      "type": "string",
+      "enum": ["natural_person", "individual_adult"],
+      "description": "Unidad de análisis estrictamente restringida a Personas Naturales adultas"
+    },
     "methodology_version": {
       "type": "string",
       "description": "Versión metodológica explícita para control de rupturas de serie"
@@ -32,6 +38,18 @@
     "semantic_concept": {
       "type": "string",
       "default": "Patrimonio neto global por adulto (Net Worth per Adult)"
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code", "es", "en"],
+        "properties": {
+          "code": { "type": "string" },
+          "es": { "type": "string" },
+          "en": { "type": "string" }
+        }
+      }
     },
     "raw_sources": {
       "type": "array",
@@ -61,7 +79,7 @@
           "required": ["name", "type", "estimated_net_worth_usd"],
           "properties": {
             "name": { "type": "string" },
-            "type": { "type": "string", "enum": ["person", "organization", "fund", "collective", "other"] },
+            "type": { "type": "string", "enum": ["natural_person", "person", "individual"] },
             "estimated_net_worth_usd": { "type": "number", "minimum": 0 }
           }
         }
@@ -69,7 +87,7 @@
     },
     "distributions": {
       "type": "array",
-      "description": "Capas percentiles y estratos normalizados",
+      "description": "Capas percentiles y estratos normalizados de personas naturales",
       "items": {
         "type": "object",
         "required": ["stratum_key", "percentile_range", "population_percentage", "net_worth_usd"],

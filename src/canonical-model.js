@@ -2,10 +2,12 @@
  * src/canonical-model.js
  * 
  * CANONICAL DATA MODEL FACTORY & CONVERTER
- * Ensambla los datos normalizados de diferentes adaptadores primarios en una estructura canónica única.
+ * Ensambla los datos normalizados de diferentes adaptadores primarios en una estructura canónica única,
+ * restringiendo la unidad de análisis exclusivamente a PERSONAS NATURALES ADULTAS.
  */
 
 import crypto from 'crypto';
+import { EntityFilter } from './domain/domain-definition.js';
 
 export class CanonicalDataModel {
   /**
@@ -13,10 +15,11 @@ export class CanonicalDataModel {
    * @param {Object} params
    * @param {string} params.methodology_version
    * @param {string} [params.semantic_concept]
+   * @param {Array<Object>} [params.limitations]
    * @param {Array<Object>} params.adapter_fragments
    * @returns {Object} Canonical Data Object
    */
-  static build({ methodology_version = "2.0.0", semantic_concept, adapter_fragments }) {
+  static build({ methodology_version = "2.1.0", semantic_concept, limitations, adapter_fragments }) {
     if (!Array.isArray(adapter_fragments) || adapter_fragments.length === 0) {
       throw new Error("Se requiere al menos un fragmento de adaptador para construir el modelo canónico.");
     }
@@ -30,7 +33,7 @@ export class CanonicalDataModel {
       wealth_mean_usd: 87400,
       top_holder: {
         name: "Elon Musk",
-        type: "person",
+        type: "natural_person",
         estimated_net_worth_usd: 737500000000
       }
     };
@@ -47,10 +50,27 @@ export class CanonicalDataModel {
       });
 
       if (fragment.metrics) {
+        // Validar filtro de entidad en la métrica global si existe top_holder
+        if (fragment.metrics.top_holder) {
+          const entityCheck = EntityFilter.classifyEntity(fragment.metrics.top_holder);
+          if (!entityCheck.is_natural_person) {
+            throw new Error(`[EntityFilter Error] La entidad '${fragment.metrics.top_holder.name}' no es una Persona Natural: ${entityCheck.reason}`);
+          }
+          fragment.metrics.top_holder.type = "natural_person";
+        }
         global_metrics = { ...global_metrics, ...fragment.metrics };
       }
 
       if (fragment.strata_distribution && Array.isArray(fragment.strata_distribution)) {
+        for (const dist of fragment.strata_distribution) {
+          if (dist.entity_reference) {
+            const entCheck = EntityFilter.classifyEntity(dist.entity_reference);
+            if (!entCheck.is_natural_person) {
+              throw new Error(`[EntityFilter Error] Estrato '${dist.stratum_key}' contiene entidad no admisible: ${entCheck.reason}`);
+            }
+            dist.entity_reference.type = "natural_person";
+          }
+        }
         all_distributions.push(...fragment.strata_distribution);
       }
     }
@@ -58,15 +78,24 @@ export class CanonicalDataModel {
     // Ordenar distribuciones de menor a mayor percentil
     all_distributions.sort((a, b) => a.percentile_range.from - b.percentile_range.from);
 
+    const defaultLimitations = limitations || [
+      { code: "VALUATION_BASIS", es: "Patrimonio neto = activos reales y financieros personales menos deudas.", en: "Net worth = personal real and financial assets minus liabilities." },
+      { code: "INDIVIDUAL_SCOPE", es: "Unidad de análisis exclusiva: Personas naturales adultas.", en: "Exclusive analysis unit: Adult natural persons." },
+      { code: "VOLATILITY", es: "Las fortunas de personas en la cúspide fluctúan según el mercado.", en: "Fortunes of individuals at the apex fluctuate with market valuations." },
+      { code: "LOGARITHMIC_SCALE", es: "Escala vertical proporcional: de centímetros a miles de kilómetros.", en: "Proportional vertical scale: from centimeters to thousands of kilometers." }
+    ];
+
     const serializedContent = JSON.stringify({ raw_sources, global_metrics, all_distributions });
     const dataset_id = "canonical_" + crypto.createHash('sha256').update(serializedContent).digest('hex').substring(0, 16);
 
     return {
-      schema_version: "2.0.0",
+      schema_version: "2.1.0",
       dataset_id,
+      analysis_unit: "natural_person",
       retrieved_at: new Date().toISOString(),
       methodology_version,
-      semantic_concept: semantic_concept || "Patrimonio neto global por adulto",
+      semantic_concept: semantic_concept || "Patrimonio neto personal por adulto (Net Worth per Adult)",
+      limitations: defaultLimitations,
       raw_sources,
       global_metrics,
       distributions: all_distributions
@@ -77,11 +106,20 @@ export class CanonicalDataModel {
    * Valida la estructura básica del modelo canónico
    */
   static validate(canonicalData) {
-    if (!canonicalData || canonicalData.schema_version !== "2.0.0") {
+    if (!canonicalData || (canonicalData.schema_version !== "2.0.0" && canonicalData.schema_version !== "2.1.0")) {
       throw new Error("Versión o estructura de esquema canónico inválida");
+    }
+    if (canonicalData.analysis_unit && canonicalData.analysis_unit !== "natural_person" && canonicalData.analysis_unit !== "individual_adult") {
+      throw new Error(`Unidad de análisis '${canonicalData.analysis_unit}' inválida. Solo se admite 'natural_person'.`);
     }
     if (!canonicalData.global_metrics?.total_adult_population || canonicalData.global_metrics.total_adult_population <= 0) {
       throw new Error("Población adulta total inválida en modelo canónico");
+    }
+    if (canonicalData.global_metrics?.top_holder) {
+      const check = EntityFilter.classifyEntity(canonicalData.global_metrics.top_holder);
+      if (!check.is_natural_person) {
+        throw new Error(`Cúspide contiene entidad no válida: ${check.reason}`);
+      }
     }
     if (!Array.isArray(canonicalData.distributions) || canonicalData.distributions.length === 0) {
       throw new Error("No hay distribuciones percentiles en el modelo canónico");

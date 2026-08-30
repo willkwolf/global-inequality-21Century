@@ -2,6 +2,7 @@
  * tests/vibium-verification.test.mjs
  * 
  * SUITE DE VERIFICACIÓN VIBIUM (SCENARIOS 1, 2, 3 + EXTREME TESTS)
+ * Validada en doble resolución: MOBILE (390x844) y DESKTOP (1920x1080).
  */
 
 import assert from 'node:assert/strict';
@@ -32,10 +33,11 @@ async function runVibiumSuite() {
   const extremeSuite = new VibiumExtremeSuite();
 
   // -------------------------------------------------------------
-  // ESCENARIO 1: Normal / Probable Drift
+  // ESCENARIO 1: Normal / Probable Drift (Persona Natural)
   // -------------------------------------------------------------
   console.log(`${BOLD}=== VIBIUM: Escenario 1 (Data Drift Probable) ===${RESET}`);
   const s1Canonical = {
+    analysis_unit: "natural_person",
     metadata: {
       dataset_id: "vibium_scenario_1",
       methodology_version: "2.1-Standard",
@@ -47,11 +49,11 @@ async function runVibiumSuite() {
       total_adult_population: 5400000000,
       wealth_median_usd: 11200,
       wealth_mean_usd: 91000,
-      top_holder: { name: "Bernard Arnault & Family", estimated_net_worth_usd: 940000000000, type: "person" },
+      top_holder: { name: "Bernard Arnault & Family", estimated_net_worth_usd: 940000000000, type: "natural_person" },
       total_billionaires_count: 3100
     },
     distributions: [
-      { pedagogical_role: "EXTREMO", percentile_range: { min: 99.9999, max: 100 }, population_percentage: 0.0001, net_worth_usd: { average: 940000000000, threshold_min: 1000000000, threshold_max: null }, entity_reference: { name: "Bernard Arnault & Family", type: "person" } },
+      { pedagogical_role: "EXTREMO", percentile_range: { min: 99.9999, max: 100 }, population_percentage: 0.0001, net_worth_usd: { average: 940000000000, threshold_min: 1000000000, threshold_max: null }, entity_reference: { name: "Bernard Arnault & Family", type: "natural_person" } },
       { pedagogical_role: "CONTRASTE", percentile_range: { min: 99.9, max: 99.9999 }, population_percentage: 0.0999, net_worth_usd: { average: 1000000000, threshold_min: 50000000, threshold_max: 1000000000 } },
       { pedagogical_role: "CONTRASTE", percentile_range: { min: 99.0, max: 99.9 }, population_percentage: 0.9, net_worth_usd: { average: 4500000, threshold_min: 2000000, threshold_max: 50000000 } },
       { pedagogical_role: "CONTRASTE", percentile_range: { min: 90.0, max: 99.0 }, population_percentage: 9.0, net_worth_usd: { average: 1200000, threshold_min: 500000, threshold_max: 2000000 } },
@@ -65,12 +67,13 @@ async function runVibiumSuite() {
   const s1Recalib = ScaleRecalibrator.recalibrate(s1Canonical);
   const s1Abstraction = {
     contract_version: "2.0.0",
+    analysis_unit: "natural_person",
     title_es: "¿A qué altura vives?",
     title_en: "How high do you stand?",
-    subtitle_es: `La distancia real entre ricos y pobres es de ${s1Recalib.layers[0].formatted_height_label}`,
-    subtitle_en: `The real distance between rich and poor is ${s1Recalib.layers[0].formatted_height_label}`,
-    semantic_concept_es: "Patrimonio neto global",
-    semantic_concept_en: "Global net worth",
+    subtitle_es: `La distancia real entre la base y la cúspide es de ${s1Recalib.layers[0].formatted_height_label}`,
+    subtitle_en: `The real distance between base and apex is ${s1Recalib.layers[0].formatted_height_label}`,
+    semantic_concept_es: "Patrimonio neto personal por adulto (Net Worth per Adult)",
+    semantic_concept_en: "Personal net worth per adult",
     scale_formula: {
       unit_value_usd: s1Recalib.formula_constants.step_usd_value,
       step_height_meters: s1Recalib.formula_constants.step_physical_height_meters
@@ -81,20 +84,24 @@ async function runVibiumSuite() {
       narrative: {
         headline_es: `${l.physical_reference.name_es} (${l.formatted_height_label})`,
         headline_en: `${l.physical_reference.name_en} (${l.formatted_height_label})`,
-        caption_es: `Estrato representativo con altura ${l.formatted_height_label}`,
-        caption_en: `Representative layer with height ${l.formatted_height_label}`,
-        aria_es: `${l.physical_reference.name_es}`,
-        aria_en: `${l.physical_reference.name_en}`
+        caption_es: `Menos de 1 de cada 10 millones · USD $${Math.round(l.raw_magnitude / 1e9)}B · Altura: ${l.formatted_height_label}`,
+        caption_en: `Fewer than 1 in 10 million · USD $${Math.round(l.raw_magnitude / 1e9)}B · Altitude: ${l.formatted_height_label}`,
+        aria_es: `${l.physical_reference.name_es}: ${l.formatted_height_label}`,
+        aria_en: `${l.physical_reference.name_en}: ${l.formatted_height_label}`
       }
     })),
     provenance: {
       dataset_id: "s1_dataset",
-      summary_es: "Datos simulados escenario 1",
-      summary_en: "Simulated scenario 1 data",
+      summary_es: "UBS Global Wealth Report 2027 y Forbes Real-Time Billionaires.",
+      summary_en: "UBS Global Wealth Report 2027 and Forbes Real-Time Billionaires.",
       sources: [{ name: "UBS 2027", url: "https://ubs.com" }],
-      additional_limitations: [
-        { es: "Limitación metodológica 1", en: "Methodological limitation 1" },
-        { es: "Limitación metodológica 2", en: "Methodological limitation 2" }
+      date_label_es: "UBS · dic 2027 · v2.1",
+      date_label_en: "UBS · Dec 2027 · v2.1",
+      limitations: [
+        { code: "VALUATION", es: "Patrimonio neto individual = activos reales y financieros personales menos deudas.", en: "Individual net worth = personal real and financial assets minus liabilities." },
+        { code: "INDIVIDUAL_SCOPE", es: "Unidad de análisis exclusiva: Personas naturales adultas.", en: "Exclusive analysis unit: Adult natural persons." },
+        { code: "VOLATILITY", es: "Las fortunas en la cúspide fluctúan diariamente.", en: "Fortunes at the apex fluctuate daily." },
+        { code: "LOGARITHMIC", es: "Escala proporcional desde centímetros a kilómetros.", en: "Proportional scale from centimeters to kilometers." }
       ]
     }
   };
@@ -112,10 +119,11 @@ async function runVibiumSuite() {
   logSuccess(`Escenario 1 superado (Decisión: ${s1Result.decision}). Grabación guardada en: ${s1Result.evidenceZip}`);
 
   // -------------------------------------------------------------
-  // ESCENARIO 2: Significant Data & Methodological Drift
+  // ESCENARIO 2: Significant Data & Methodological Drift (PPP / 6 estratos)
   // -------------------------------------------------------------
   console.log(`\n${BOLD}=== VIBIUM: Escenario 2 (Methodological & Semantic Drift) ===${RESET}`);
   const s2Canonical = {
+    analysis_unit: "natural_person",
     metadata: {
       dataset_id: "vibium_scenario_2",
       methodology_version: "3.0-PPP-Adjusted",
@@ -127,11 +135,11 @@ async function runVibiumSuite() {
       total_adult_population: 5600000000,
       wealth_median_usd: 15400,
       wealth_mean_usd: 110000,
-      top_holder: { name: "Global Sovereign AI Wealth Fund", estimated_net_worth_usd: 1800000000000, type: "fund" },
-      total_billionaires_count: 0
+      top_holder: { name: "Larry Ellison", estimated_net_worth_usd: 1800000000000, type: "natural_person" },
+      total_billionaires_count: 3200
     },
     distributions: [
-      { pedagogical_role: "EXTREMO", percentile_range: { min: 99.99, max: 100 }, population_percentage: 0.01, net_worth_usd: { average: 1800000000000, threshold_min: 10000000000, threshold_max: null }, entity_reference: { name: "Global Sovereign AI Wealth Fund", type: "fund" } },
+      { pedagogical_role: "EXTREMO", percentile_range: { min: 99.99, max: 100 }, population_percentage: 0.01, net_worth_usd: { average: 1800000000000, threshold_min: 10000000000, threshold_max: null }, entity_reference: { name: "Larry Ellison", type: "natural_person" } },
       { pedagogical_role: "CONTRASTE", percentile_range: { min: 99.0, max: 99.99 }, population_percentage: 0.99, net_worth_usd: { average: 25000000, threshold_min: 5000000, threshold_max: 10000000000 } },
       { pedagogical_role: "CONTRASTE", percentile_range: { min: 90.0, max: 99.0 }, population_percentage: 9.0, net_worth_usd: { average: 2100000, threshold_min: 800000, threshold_max: 5000000 } },
       { pedagogical_role: "CONTRASTE", percentile_range: { min: 50.0, max: 90.0 }, population_percentage: 40.0, net_worth_usd: { average: 350000, threshold_min: 15400, threshold_max: 800000 } },
@@ -143,12 +151,13 @@ async function runVibiumSuite() {
   const s2Recalib = ScaleRecalibrator.recalibrate(s2Canonical);
   const s2Abstraction = {
     contract_version: "2.0.0",
+    analysis_unit: "natural_person",
     title_es: "¿A qué altura vives?",
     title_en: "How high do you stand?",
-    subtitle_es: `La distancia real entre ricos y pobres es de ${s2Recalib.layers[0].formatted_height_label}`,
-    subtitle_en: `The real distance between rich and poor is ${s2Recalib.layers[0].formatted_height_label}`,
-    semantic_concept_es: "Patrimonio neto ajustado (PPP)",
-    semantic_concept_en: "Net worth adjusted (PPP)",
+    subtitle_es: `La distancia real entre la base y la cúspide es de ${s2Recalib.layers[0].formatted_height_label}`,
+    subtitle_en: `The real distance between base and apex is ${s2Recalib.layers[0].formatted_height_label}`,
+    semantic_concept_es: "Patrimonio neto personal ajustado (PPP)",
+    semantic_concept_en: "Personal net worth adjusted (PPP)",
     scale_formula: {
       unit_value_usd: s2Recalib.formula_constants.step_usd_value,
       step_height_meters: s2Recalib.formula_constants.step_physical_height_meters
@@ -159,20 +168,24 @@ async function runVibiumSuite() {
       narrative: {
         headline_es: `${l.physical_reference.name_es} (${l.formatted_height_label})`,
         headline_en: `${l.physical_reference.name_en} (${l.formatted_height_label})`,
-        caption_es: `Estrato representativo con altura ${l.formatted_height_label}`,
-        caption_en: `Representative layer with height ${l.formatted_height_label}`,
-        aria_es: `${l.physical_reference.name_es}`,
-        aria_en: `${l.physical_reference.name_en}`
+        caption_es: `Estrato representativo con altura ${l.formatted_height_label} · USD $${l.raw_magnitude}`,
+        caption_en: `Representative layer with height ${l.formatted_height_label} · USD $${l.raw_magnitude}`,
+        aria_es: `${l.physical_reference.name_es}: ${l.formatted_height_label}`,
+        aria_en: `${l.physical_reference.name_en}: ${l.formatted_height_label}`
       }
     })),
     provenance: {
       dataset_id: "s2_dataset",
-      summary_es: "Datos simulados escenario 2",
-      summary_en: "Simulated scenario 2 data",
+      summary_es: "WID.world 2028 PPP Edition (Personas Naturales).",
+      summary_en: "WID.world 2028 PPP Edition (Natural Persons).",
       sources: [{ name: "WID.world 2028 PPP", url: "https://wid.world" }],
-      additional_limitations: [
-        { es: "Limitación metodológica 1", en: "Methodological limitation 1" },
-        { es: "Limitación metodológica 2", en: "Methodological limitation 2" }
+      date_label_es: "WID · ene 2028 · v3.0-PPP",
+      date_label_en: "WID · Jan 2028 · v3.0-PPP",
+      limitations: [
+        { code: "PPP_METHOD", es: "Ajuste por paridad de poder adquisitivo multirregional.", en: "Multi-regional purchasing power parity adjustment." },
+        { code: "INDIVIDUAL_SCOPE", es: "Unidad de análisis exclusiva: Personas naturales adultas.", en: "Exclusive analysis unit: Adult natural persons." },
+        { code: "VOLATILITY", es: "Fluctuación según mercados financieros globales.", en: "Fluctuation based on global financial markets." },
+        { code: "LOGARITHMIC", es: "Escala proporcional desde centímetros a kilómetros.", en: "Proportional scale from centimeters to kilometers." }
       ]
     }
   };
@@ -190,10 +203,11 @@ async function runVibiumSuite() {
   logSuccess(`Escenario 2 superado (Decisión: ${s2Result.decision}). Grabación guardada en: ${s2Result.evidenceZip}`);
 
   // -------------------------------------------------------------
-  // ESCENARIO 3: Chaotic / Adversarial Drift
+  // ESCENARIO 3: Chaotic / Adversarial Drift (Deuda y Quiebre)
   // -------------------------------------------------------------
   console.log(`\n${BOLD}=== VIBIUM: Escenario 3 (Chaotic / Adversarial Drift) ===${RESET}`);
   const s3Canonical = {
+    analysis_unit: "natural_person",
     metadata: {
       dataset_id: "vibium_scenario_3",
       methodology_version: "Corrupted",
@@ -205,7 +219,7 @@ async function runVibiumSuite() {
       total_adult_population: 5000000000,
       wealth_median_usd: -50000000,
       wealth_mean_usd: -20000000,
-      top_holder: { name: "Void Entity", estimated_net_worth_usd: 0, type: "other" },
+      top_holder: { name: "Void Entity", estimated_net_worth_usd: 0, type: "natural_person" },
       total_billionaires_count: 0
     },
     distributions: []

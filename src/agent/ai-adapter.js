@@ -58,19 +58,32 @@ export class AiAdaptationAgent {
 
     const adaptedStory = storyAdaptationResult.adapted_story;
 
-    // 5. Ensamblar documento del Contrato de Abstracción
-    const dateLabelEs = incomingData.raw_sources?.[0]?.report_date ? `UBS · ${incomingData.raw_sources[0].report_date.split('-')[0]}` : "UBS · dic 2024";
-    const dateLabelEn = incomingData.raw_sources?.[0]?.report_date ? `UBS · ${incomingData.raw_sources[0].report_date.split('-')[0]}` : "UBS · Dec 2024";
+    // 5. Ensamblar metadatos dinámicos de procedencia y fecha
+    const primarySource = incomingData.raw_sources?.[0]?.name || "UBS Global Wealth Report";
+    const reportDate = incomingData.raw_sources?.[0]?.report_date || "2024";
+    const methVersion = incomingData.methodology_version || "2.1.0";
+    
+    // data_date dinámico: SOURCE · PERIOD · METHODOLOGY
+    const dateLabelEs = `${primarySource.split(' ')[0]} · ${reportDate} · v${methVersion}`;
+    const dateLabelEn = `${primarySource.split(' ')[0]} · ${reportDate} · v${methVersion}`;
 
-    const topPerson = incomingData.global_metrics?.top_holder?.name || "Cúspide";
-    const totalAdultsM = (incomingData.global_metrics?.total_adult_population / 1e6).toFixed(0);
+    const topPerson = incomingData.global_metrics?.top_holder?.name || "Cúspide individual";
+    const totalAdultsB = (incomingData.global_metrics?.total_adult_population / 1e9).toFixed(2);
     const billionairesCount = incomingData.global_metrics?.total_billionaires_count || 2891;
 
-    const summary_es = `${incomingData.raw_sources?.[0]?.name || "UBS Report"}. Forbes Billionaires: ${topPerson} y ${billionairesCount} billonarios confirmados. Población adulta mundial: ${(totalAdultsM / 1000).toFixed(2)} billones.`;
-    const summary_en = `${incomingData.raw_sources?.[0]?.name || "UBS Report"}. Forbes Billionaires: ${topPerson} and ${billionairesCount} confirmed billionaires. World adult population: ${(totalAdultsM / 1000).toFixed(2)} billion.`;
+    const summary_es = `${primarySource} (adultos, datos a ${reportDate}). Forbes Billionaires: ${topPerson} y ${billionairesCount} billonarios confirmados. Población adulta mundial: ${totalAdultsB} billones.`;
+    const summary_en = `${primarySource} (adults, data as of ${reportDate}). Forbes Billionaires: ${topPerson} and ${billionairesCount} confirmed billionaires. World adult population: ${totalAdultsB} billion.`;
+
+    const limitations = incomingData.limitations || [
+      { code: "VALUATION", es: "Patrimonio neto individual = activos inmobiliarios y financieros personales menos deudas.", en: "Individual net worth = personal real and financial assets minus liabilities." },
+      { code: "INDIVIDUAL_SCOPE", es: "Unidad de análisis exclusiva: Personas naturales adultas. Excluye activos corporativos e instituciones.", en: "Exclusive analysis unit: Adult natural persons. Excludes corporate assets and institutions." },
+      { code: "VOLATILITY", es: "Las valoraciones de fortunas individuales fluctúan según los mercados.", en: "Individual fortune valuations fluctuate with global market prices." },
+      { code: "LOGARITHMIC", es: "La escala física es proporcional: desde centímetros en el suelo hasta miles de kilómetros en órbita.", en: "The physical scale is proportional: from centimeters on the ground to thousands of kilometers in orbit." }
+    ];
 
     const abstractionDoc = {
       contract_version: "2.0.0",
+      analysis_unit: "natural_person",
       title_es: adaptedStory.title_es,
       title_en: adaptedStory.title_en,
       subtitle_es: adaptedStory.subtitle_es,
@@ -86,12 +99,13 @@ export class AiAdaptationAgent {
       provenance: {
         dataset_id: incomingData.dataset_id,
         retrieved_at: incomingData.retrieved_at,
-        methodology_version: incomingData.methodology_version,
+        methodology_version: methVersion,
         sources: incomingData.raw_sources,
         summary_es,
         summary_en,
         date_label_es: dateLabelEs,
-        date_label_en: dateLabelEn
+        date_label_en: dateLabelEn,
+        limitations: limitations
       }
     };
 

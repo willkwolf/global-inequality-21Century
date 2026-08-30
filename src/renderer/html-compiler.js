@@ -90,7 +90,7 @@ export class HtmlCompiler {
 
     // 4. Actualizar dinámicamente las fuentes en la ficha técnica
     const sourcesRegex = /(<ul id="sources-list"[^>]*>)([\s\S]*?)(<\/ul>)/i;
-    if (abstractionDoc.provenance.sources && html.match(sourcesRegex)) {
+    if (abstractionDoc.provenance?.sources && html.match(sourcesRegex)) {
       let srcHtml = '';
       abstractionDoc.provenance.sources.forEach((src, idx) => {
         const name = src.name_es || src.name;
@@ -98,6 +98,19 @@ export class HtmlCompiler {
       });
       srcHtml += '\n        ';
       html = html.replace(sourcesRegex, (m, p1, p2, p3) => `${p1}${srcHtml}${p3}`);
+    }
+
+    // 5. Actualizar dinámicamente las limitaciones en la ficha técnica
+    const limitationsRegex = /(<ul id="limitations-list"[^>]*>)([\s\S]*?)(<\/ul>)/i;
+    if (abstractionDoc.provenance?.limitations && html.match(limitationsRegex)) {
+      let limHtml = '';
+      abstractionDoc.provenance.limitations.forEach((lim, idx) => {
+        const key = idx < 4 ? `metod_li${idx + 1}` : `metod_li_add_${idx - 4}`;
+        const text = strings.es[key] || lim.es;
+        limHtml += `\n        <li data-i18n="${key}">${text}</li>`;
+      });
+      limHtml += '\n      ';
+      html = html.replace(limitationsRegex, (m, p1, p2, p3) => `${p1}${limHtml}${p3}`);
     }
 
     return html;

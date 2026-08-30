@@ -7,22 +7,16 @@
  *
  * COMPROBACIONES:
  * 1. Estructura y campos requeridos en metadatos y fórmulas.
- * 2. Validación dinámica de estratos (N >= 3) en orden descendente estricto.
- * 3. Consistencia metodológica/matemática:
- *    - La altura de cada sección debe ser estrictamente decreciente (s1 > s2 > s3... > sN).
- *    - La altura física declarada debe derivar de un patrimonio neto coherente con su rango.
- * 4. Integridad i18n (bilingüismo ES/EN):
- *    - Presencia de titulares y subtítulos bilingües.
- *    - Verificación de consistencia léxica (claves no vacías).
- *
- * RETORNO:
- * - Exits con código 0 si todo está correcto.
- * - Exits con código 1 si encuentra errores, detallándolos con códigos de color ANSI.
+ * 2. Exclusividad de PERSONA NATURAL como unidad de análisis.
+ * 3. Validación dinámica de estratos (N >= 3) en orden descendente estricto.
+ * 4. Consistencia metodológica/matemática.
+ * 5. Integridad i18n (bilingüismo ES/EN).
  */
 
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { EntityFilter } from '../../src/domain/domain-definition.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -74,8 +68,13 @@ try {
   if (!name_en || typeof name_en !== 'string' || !name_en.trim()) {
     throw new Error('metadata.top_wealth_holder.name_en debe ser una cadena no vacía');
   }
-  if (!['person', 'organization', 'fund', 'collective', 'other'].includes(type)) {
-    throw new Error('metadata.top_wealth_holder.type debe ser "person", "organization", "fund", "collective" u "other"');
+  if (!['person', 'natural_person', 'individual'].includes(type)) {
+    throw new Error('metadata.top_wealth_holder.type debe ser "natural_person" o "person"');
+  }
+
+  const entityCheck = EntityFilter.classifyEntity(name_es || name_en);
+  if (!entityCheck.is_natural_person) {
+    throw new Error(`La entidad en la cúspide no es una Persona Natural: ${entityCheck.reason}`);
   }
 
   const { step_usd_value, step_physical_height_meters } = data.formula_constants;

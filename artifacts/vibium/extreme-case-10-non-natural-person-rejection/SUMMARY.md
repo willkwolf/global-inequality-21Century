@@ -1,9 +1,9 @@
-# Vibium Verification Recording Summary — 3. Distribución extremadamente desigual (Distancia astronómica > Luna)
+# Vibium Verification Recording Summary — 10. Rechazo estricto de entidades jurídicas/fondos soberanos
 
-- **Escenario:** `extreme-case-03-extreme-inequality`
+- **Escenario:** `extreme-case-10-non-natural-person-rejection`
 - **Estado de Verificación:** **`ABSTRACTION_LIMIT_REACHED`**
-- **Timestamp:** `2026-08-29T23:49:35.584Z`
-- **Abstracción:** LIMIT_BREACHED
+- **Timestamp:** `2026-08-29T23:49:35.914Z`
+- **Abstracción:** NON_NATURAL_PERSON_BLOCKED
 - **Escala:** 1 escalón = `$8000 USD` (`0.15 m`)
 - **Total Estratos Renderizados:** `3`
 - **Altura Máxima Cúspide:** `N/A`
@@ -34,6 +34,6 @@
 ---
 
 ## 4. Pruebas Cognitivas Pedagógicas
-- **Escenario A ("Soy muy rico"):** N/A - Límite alcanzado
+- **Escenario A ("Soy muy rico"):** N/A - Bloqueado por filtro ontológico
 - **Escenario B ("Soy muy pobre"):** Posición relativa global evidenciada.
 - **Escenario C ("Soy clase media"):** Distancia a los extremos revelada.

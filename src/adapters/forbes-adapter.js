@@ -2,9 +2,11 @@
  * src/adapters/forbes-adapter.js
  * 
  * Adaptador para Forbes Real-Time Billionaires (extremo superior y recuento de multimillonarios).
+ * Aplica el filtro ontológico para admitir exclusivamente Personas Naturales.
  */
 
 import { BaseSourceAdapter } from './base-adapter.js';
+import { EntityFilter } from '../domain/domain-definition.js';
 
 export class ForbesSourceAdapter extends BaseSourceAdapter {
   constructor() {
@@ -17,11 +19,16 @@ export class ForbesSourceAdapter extends BaseSourceAdapter {
     const totalBillionaires = rawPayload.total_billionaires || 2891;
     const topPerson = rawPayload.top_holder || {
       name: "Elon Musk",
-      type: "person",
+      type: "natural_person",
       estimated_net_worth_usd: 737500000000,
       range_min: 636000000000,
       range_max: 839000000000
     };
+
+    const classification = EntityFilter.classifyEntity(topPerson);
+    if (!classification.is_natural_person) {
+      throw new Error(`[ForbesAdapter] Entidad rechazada en la cúspide: ${classification.reason}`);
+    }
 
     return {
       source_id: this.sourceId,
@@ -31,7 +38,11 @@ export class ForbesSourceAdapter extends BaseSourceAdapter {
       payload_hash: hash,
       metrics: {
         total_billionaires_count: totalBillionaires,
-        top_holder: topPerson
+        top_holder: {
+          name: topPerson.name,
+          type: "natural_person",
+          estimated_net_worth_usd: topPerson.estimated_net_worth_usd
+        }
       },
       strata_distribution: [
         {
@@ -59,7 +70,7 @@ export class ForbesSourceAdapter extends BaseSourceAdapter {
           },
           entity_reference: {
             name: topPerson.name,
-            type: topPerson.type
+            type: "natural_person"
           }
         }
       ]

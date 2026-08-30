@@ -4,9 +4,9 @@
  * SUITE DE PRUEBAS DE LOS TRES ESCENARIOS (THREE-SCENARIO TEST SUITE)
  * 
  * Valida que la abstracción pedagógica sobrevive y se comporta correctamente ante:
- * - ESCENARIO 1: Data Drift Probable (evolución cuantitativa normal).
- * - ESCENARIO 2: Methodology & Semantic Drift (nuevas definiciones, entidades y 6 estratos).
- * - ESCENARIO 3: Chaotic / Adversarial Drift (valores absurdos / negativos que desafían la abstracción).
+ * - ESCENARIO 1: Data Drift Probable (evolución cuantitativa normal en Personas Naturales).
+ * - ESCENARIO 2: Methodology & Semantic Drift (definición PPP, 6 estratos dinámicos, Personas Naturales).
+ * - ESCENARIO 3: Chaotic / Adversarial Drift (valores negativos / intento de entidades jurídicas).
  */
 
 import fs from 'fs';
@@ -46,7 +46,7 @@ const agent = new AiAdaptationAgent();
 
 // Baseline canónico inicial
 const baselineCanonical = CanonicalDataModel.build({
-  methodology_version: "2.0.0",
+  methodology_version: "2.1.0",
   adapter_fragments: [
     {
       source_id: "ubs_2024",
@@ -76,7 +76,7 @@ const baselineCanonical = CanonicalDataModel.build({
       payload_hash: "e5f6g7h8",
       metrics: {
         total_billionaires_count: 2891,
-        top_holder: { name: "Elon Musk", type: "person", estimated_net_worth_usd: 737500000000 }
+        top_holder: { name: "Elon Musk", type: "natural_person", estimated_net_worth_usd: 737500000000 }
       },
       strata_distribution: [
         { stratum_key: "billionaires", pedagogical_role: "EXTREMO", percentile_range: { from: 99.9997, to: 99.99999 }, population_percentage: 0.00003, net_worth_usd: { threshold_min: 1000000000, threshold_max: null, average: 1000000000 } },
@@ -96,7 +96,7 @@ async function runSuite() {
   console.log('Simulando evolución natural: mediana sube a $11,200 USD, cúspide alcanza $940B USD con 3,100 billonarios...');
 
   const incomingScenario1 = CanonicalDataModel.build({
-    methodology_version: "2.0.0",
+    methodology_version: "2.1.0",
     adapter_fragments: [
       {
         source_id: "ubs_2027",
@@ -126,7 +126,7 @@ async function runSuite() {
         payload_hash: "hash_s1_forbes",
         metrics: {
           total_billionaires_count: 3100,
-          top_holder: { name: "Bernard Arnault & Family", type: "person", estimated_net_worth_usd: 940000000000 }
+          top_holder: { name: "Bernard Arnault & Family", type: "natural_person", estimated_net_worth_usd: 940000000000 }
         },
         strata_distribution: [
           { stratum_key: "billionaires", pedagogical_role: "EXTREMO", percentile_range: { from: 99.9997, to: 99.99999 }, population_percentage: 0.00003, net_worth_usd: { threshold_min: 1000000000, threshold_max: null, average: 1200000000 } },
@@ -162,14 +162,14 @@ async function runSuite() {
   testsPassed++;
 
   // ------------------------------------------------------------------------------------------------
-  // ESCENARIO 2: METHODOLOGY & SEMANTIC DRIFT (NUEVAS DEFINICIONES, ENTIDAD FONDO, 6 ESTRATOS)
+  // ESCENARIO 2: METHODOLOGY & SEMANTIC DRIFT (NUEVA DEFINICIÓN PPP, 6 ESTRATOS DE PERSONAS NATURALES)
   // ------------------------------------------------------------------------------------------------
   logHeader('TEST 2: Escenario 2 — Data/Methodology/Semantic Drift');
-  console.log('Simulando cambio metodológico y semántico: "Patrimonio neto ajustado (PPP)", 6 estratos y Fondo Soberano en la cúspide...');
+  console.log('Simulando cambio metodológico y semántico: "Patrimonio neto ajustado (PPP)", 6 estratos y Persona Natural en la cúspide...');
 
   const incomingScenario2 = CanonicalDataModel.build({
     methodology_version: "3.0-PPP-Adjusted",
-    semantic_concept: "Patrimonio neto ajustado por poder adquisitivo (PPP)",
+    semantic_concept: "Patrimonio neto personal ajustado por poder adquisitivo (PPP)",
     adapter_fragments: [
       {
         source_id: "wid_academic_2028",
@@ -183,8 +183,8 @@ async function runSuite() {
           wealth_mean_usd: 110000,
           currency_basis: "USD_PPP_2028",
           top_holder: {
-            name: "Global Sovereign AI Wealth Fund",
-            type: "fund",
+            name: "Larry Ellison",
+            type: "natural_person",
             estimated_net_worth_usd: 1250000000000
           }
         },
@@ -194,7 +194,7 @@ async function runSuite() {
           { stratum_key: "middle_ppp", pedagogical_role: "CONTRASTE", percentile_range: { from: 55.0, to: 95.0 }, population_percentage: 40.0, net_worth_usd: { threshold_min: 15500, threshold_max: 450000, average: 180000 } },
           { stratum_key: "high_net_ppp", pedagogical_role: "CONTEXTO", percentile_range: { from: 95.0, to: 99.9 }, population_percentage: 4.9, net_worth_usd: { threshold_min: 450000, threshold_max: 10000000, average: 2500000 } },
           { stratum_key: "billionaires_tier", pedagogical_role: "EXTREMO", percentile_range: { from: 99.9, to: 99.9999 }, population_percentage: 0.0999, net_worth_usd: { threshold_min: 1000000000, threshold_max: null, average: 1500000000 } },
-          { stratum_key: "apex_fund", pedagogical_role: "EXTREMO", percentile_range: { from: 99.99999, to: 100 }, population_percentage: 0.00001, net_worth_usd: { threshold_min: 1100000000000, threshold_max: 1400000000000, average: 1250000000000 } }
+          { stratum_key: "apex_individual", pedagogical_role: "EXTREMO", percentile_range: { from: 99.99999, to: 100 }, population_percentage: 0.00001, net_worth_usd: { threshold_min: 1100000000000, threshold_max: 1400000000000, average: 1250000000000 } }
         ]
       }
     ]
@@ -222,9 +222,9 @@ async function runSuite() {
   assert.equal(dotButtons.length, 7, "La barra de navegación lateral debe contener exactamente 7 puntos");
 
   const s1Apex = doc2.querySelector('#s1 .headline');
-  assert.match(s1Apex.textContent, /Global Sovereign AI Wealth Fund/i, "El headline debe reflejar la nueva entidad tipo fondo");
+  assert.match(s1Apex.textContent, /Larry Ellison/i, "El headline debe reflejar a la persona natural en la cúspide");
 
-  logSuccess('Escenario 2 validado: Metodología y semántica adaptadas, 6 estratos generados dinámicamente.');
+  logSuccess('Escenario 2 validado: Metodología y semántica adaptadas, 6 estratos de personas naturales generados dinámicamente.');
   testsPassed++;
 
   // ------------------------------------------------------------------------------------------------
@@ -234,7 +234,8 @@ async function runSuite() {
   console.log('Simulando datos adversariales/corruptos: Mediana negativa de -$8,500 USD (deuda total)...');
 
   const incomingScenario3 = {
-    schema_version: "2.0.0",
+    schema_version: "2.1.0",
+    analysis_unit: "natural_person",
     dataset_id: "chaotic_payload_3",
     retrieved_at: new Date().toISOString(),
     methodology_version: "chaotic-v99",
@@ -242,7 +243,7 @@ async function runSuite() {
     global_metrics: {
       total_adult_population: 5000000000,
       wealth_median_usd: -8500, // Mediana negativa: rompe el anclaje físico de altura
-      top_holder: { name: "Void Entity", type: "other", estimated_net_worth_usd: -50000 }
+      top_holder: { name: "Void Person", type: "natural_person", estimated_net_worth_usd: -50000 }
     },
     distributions: [
       { stratum_key: "bad_s1", pedagogical_role: "BASE", percentile_range: { from: 0, to: 100 }, population_percentage: 100, net_worth_usd: { threshold_min: -8500, threshold_max: -8500, average: -8500 } }

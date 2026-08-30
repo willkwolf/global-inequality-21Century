@@ -39,14 +39,18 @@ export class VibiumLimitsEvaluator {
    */
   static evaluate({ medianWealth, maxWealth, minWealth, strata = [] }) {
     // 1. Evaluación de Límites Epistemológicos (EPISTEMIC LIMIT)
-    if (minWealth !== undefined && maxWealth !== undefined && minWealth === maxWealth) {
-      return {
-        status: "ABSTRACTION_LIMIT_REACHED",
-        limit_type: "EPISTEMIC_LIMIT",
-        reason: "Distribución perfectamente uniforme (varianza cero). La escala vertical pierde su función pedagógica de contraste.",
-        details: { minWealth, maxWealth },
-        recommendation: "Reemplazar temporalmente con una visualización de homogeneidad absoluta."
-      };
+    if (minWealth !== undefined && maxWealth !== undefined) {
+      const wealthRange = Math.abs(maxWealth - minWealth);
+      const denominator = medianWealth && medianWealth > 0 ? medianWealth : 1;
+      if (wealthRange / denominator < 0.001 || maxWealth === minWealth) {
+        return {
+          status: "ABSTRACTION_LIMIT_REACHED",
+          limit_type: "EPISTEMIC_LIMIT",
+          reason: "Distribución casi uniforme (varianza nula o insignificante). La escala vertical pierde su función pedagógica de contraste.",
+          details: { minWealth, maxWealth, relativeRange: wealthRange / denominator },
+          recommendation: "Reemplazar temporalmente con una visualización de homogeneidad absoluta."
+        };
+      }
     }
 
     if (medianWealth !== undefined && medianWealth < 0) {

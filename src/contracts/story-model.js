@@ -12,26 +12,30 @@ export class StoryModel {
   }
 
   generateStringsDictionary() {
+    const prov = this.doc.provenance || {};
+    const dateLabelEs = prov.date_label_es || "UBS · dic 2024 · v2.1";
+    const dateLabelEn = prov.date_label_en || "UBS · Dec 2024 · v2.1";
+
     const es = {
       skip_text: "Saltar al contenido principal",
       intro_h1: this.doc.title_es,
       intro_sub: this.doc.subtitle_es,
       metod_title: "Ficha técnica",
-      metod_lead: "Convertimos magnitud económica en altura física. Así de literal es la desigualdad.",
+      metod_lead: "Convertimos magnitud económica de personas naturales en altura física. Así de literal es la desigualdad.",
       metod_sum1: "Fuentes",
-      metod_p1: this.doc.provenance.summary_es,
+      metod_p1: prov.summary_es || "UBS Global Wealth Report y Forbes Real-Time Billionaires.",
       metod_sum2: "Metodología",
       metod_p2: `Para conocer en detalle la metodología de cálculo, la fórmula de escala utilizada y participar en la discusión técnica del modelo, consulta el <a href="https://github.com/willkwolf/global-inequality-21Century#metodolog%C3%ADa-de-visualizaci%C3%B3n--visualization-methodology" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:underline;">repositorio del proyecto en GitHub</a>.`,
       metod_sum3: "Limitaciones",
-      metod_li1: "Patrimonio ≠ ingreso ni efectivo disponible. Incluye vivienda, pensiones, deudas.",
-      metod_li2: "Las fortunas de billonarios fluctúan diariamente.",
-      metod_li3: "La escala es logarítmica: de centímetros a kilómetros en una sola pantalla.",
-      metod_li4: "Esta visualización expone estructura sistémica, no juzga mérito individual.",
+      metod_li1: "Patrimonio neto individual = activos reales y financieros personales menos deudas privadas.",
+      metod_li2: "Unidad de análisis exclusiva: Personas naturales adultas. Se excluyen personas jurídicas, estados y fondos.",
+      metod_li3: "Las fortunas en la cúspide fluctúan diariamente según las valoraciones de mercado.",
+      metod_li4: "La escala física es proporcional: desde centímetros en el suelo hasta miles de kilómetros en órbita.",
       footer_author: "© 2026 William Camilo Artunduaga Viana ·",
       footer_license: "CC BY 4.0",
       lang_btn: "EN",
       lang_aria: "Switch to English",
-      data_date: this.doc.provenance.date_label_es || "UBS · dic 2024",
+      data_date: dateLabelEs,
       scroll_cue: "Desliza para comenzar",
       a11y_toolbar_label: "Panel de accesibilidad",
       a11y_btn_aria: "Opciones de accesibilidad",
@@ -71,21 +75,21 @@ export class StoryModel {
       intro_h1: this.doc.title_en,
       intro_sub: this.doc.subtitle_en,
       metod_title: "Technical notes",
-      metod_lead: "We convert economic magnitude into physical height. That is how literal inequality is.",
+      metod_lead: "We convert individual net worth into physical height. That is how literal inequality is.",
       metod_sum1: "Sources",
-      metod_p1: this.doc.provenance.summary_en,
+      metod_p1: prov.summary_en || "UBS Global Wealth Report and Forbes Real-Time Billionaires.",
       metod_sum2: "Methodology",
       metod_p2: `For a detailed breakdown of the calculation methodology, the scaling formula used, and to join the technical discussion of the model, visit the <a href="https://github.com/willkwolf/global-inequality-21Century#metodolog%C3%ADa-de-visualizaci%C3%B3n--visualization-methodology" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:underline;">project repository on GitHub</a>.`,
       metod_sum3: "Limitations",
-      metod_li1: "Net worth ≠ income or liquid cash. Includes housing, pensions, debts.",
-      metod_li2: "Billionaire fortunes fluctuate daily.",
-      metod_li3: "The scale is logarithmic: from centimeters to kilometers on one screen.",
-      metod_li4: "This visualization exposes systemic structure; it does not judge individual merit.",
+      metod_li1: "Individual net worth = personal real and financial assets minus liabilities.",
+      metod_li2: "Exclusive analysis unit: Adult natural persons. Excludes corporations, states, and funds.",
+      metod_li3: "Apex individual fortunes fluctuate daily based on market valuations.",
+      metod_li4: "The physical scale is proportional: from centimeters on the ground to thousands of kilometers in orbit.",
       footer_author: "© 2026 William Camilo Artunduaga Viana ·",
       footer_license: "CC BY 4.0",
       lang_btn: "ES",
       lang_aria: "Cambiar a español",
-      data_date: this.doc.provenance.date_label_en || "UBS · Dec 2024",
+      data_date: dateLabelEn,
       scroll_cue: "Scroll to begin",
       a11y_toolbar_label: "Accessibility panel",
       a11y_btn_aria: "Accessibility options",
@@ -120,11 +124,16 @@ export class StoryModel {
       stepProject5: "Inequality in Colombia"
     };
 
-    // Inyectar limitaciones adicionales
-    if (this.doc.provenance.additional_limitations && Array.isArray(this.doc.provenance.additional_limitations)) {
-      this.doc.provenance.additional_limitations.forEach((lim, idx) => {
-        es[`metod_li_add_${idx}`] = lim.es;
-        en[`metod_li_add_${idx}`] = lim.en;
+    // Inyectar limitaciones estructuradas dinámicas
+    if (prov.limitations && Array.isArray(prov.limitations)) {
+      prov.limitations.forEach((lim, idx) => {
+        if (idx < 4) {
+          es[`metod_li${idx + 1}`] = lim.es;
+          en[`metod_li${idx + 1}`] = lim.en;
+        } else {
+          es[`metod_li_add_${idx - 4}`] = lim.es;
+          en[`metod_li_add_${idx - 4}`] = lim.en;
+        }
       });
     }
 
@@ -143,8 +152,8 @@ export class StoryModel {
     });
 
     // Inyectar fuentes
-    if (this.doc.provenance.sources && Array.isArray(this.doc.provenance.sources)) {
-      this.doc.provenance.sources.forEach((src, idx) => {
+    if (prov.sources && Array.isArray(prov.sources)) {
+      prov.sources.forEach((src, idx) => {
         es[`metod_source_${idx}`] = src.name_es || src.name;
         en[`metod_source_${idx}`] = src.name_en || src.name;
       });

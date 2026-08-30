@@ -69,7 +69,6 @@ body.light-mode #progress{background:rgba(20,16,10,.5)}
 
 /* ── Language toggle ────────────────────────────────────────────── */
 #lang-toggle{
-  min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;
   position:fixed;top:11px;right:14px;z-index:201;
   background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
   color:#fff;font-family:var(--font-body);font-size:11px;font-weight:700;
@@ -338,7 +337,6 @@ footer p{margin:0}
   font-family:var(--font-body);
 }
 .a11y-toggle-btn{
-  min-width:44px;min-height:44px;
   background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
   color:#fff;padding:6px;border-radius:50%;width:34px;height:34px;
   cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
@@ -520,8 +518,6 @@ body.light-mode .a11y-dot-nav {
   outline: none;
 }
 
-
-.a11y-dot::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);min-width:44px;min-height:44px;}
 .a11y-dot.active {
   background: #fff;
   border-color: #fff;
@@ -1000,32 +996,32 @@ body.light-mode .ecosystem-callout-btn:hover {
 
 <!-- Altitude Navigation Dots -->
 <nav id="a11y-dot-nav" class="a11y-dot-nav" aria-label="Navegación de secciones por altitud" data-i18n-label="a11y_nav_label">
-  <button class="a11y-dot active" data-target="s0" aria-label="Introducción: ¿A qué altura vives?. La distancia real entre la base y la cúspide es de 15,515.63 km" data-i18n-aria="s0_aria" aria-current="step" data-nav-name="Inicio" data-i18n-nav="s0_nav">
+  <button class="a11y-dot active" data-target="s0" aria-label="Introducción: ¿A qué altura vives?. La distancia real entre ricos y pobres es de 12,818.18 km" data-i18n-aria="s0_aria" aria-current="step" data-nav-name="Inicio" data-i18n-nav="s0_nav">
     <span class="a11y-tooltip" data-i18n="s0_nav">Inicio</span>
   </button>
-  <button class="a11y-dot" data-target="s1" aria-label="Françoise Bettencourt Meyers en órbita: 15.515,63 km" data-i18n-aria="s1_aria" data-nav-name="Satélite en órbita sintética 2032" data-i18n-nav="s1_nav">
-    <span class="a11y-tooltip" data-i18n="s1_nav">Satélite en órbita sintética 2032</span>
+  <button class="a11y-dot" data-target="s1" aria-label="Satélite en órbita terrestre media (Bernard Arnault & Family)" data-i18n-aria="s1_aria" data-nav-name="Satélite en órbita terrestre media (Bernard Arnault & Family)" data-i18n-nav="s1_nav">
+    <span class="a11y-tooltip" data-i18n="s1_nav">Satélite en órbita terrestre media (Bernard Arnault & Family)</span>
   </button>
-  <button class="a11y-dot" data-target="s2" aria-label="Billonarios: 18,75 km" data-i18n-aria="s2_aria" data-nav-name="Cohete en la estratosfera" data-i18n-nav="s2_nav">
+  <button class="a11y-dot" data-target="s2" aria-label="Cohete en la estratosfera" data-i18n-aria="s2_aria" data-nav-name="Cohete en la estratosfera" data-i18n-nav="s2_nav">
     <span class="a11y-tooltip" data-i18n="s2_nav">Cohete en la estratosfera</span>
   </button>
-  <button class="a11y-dot" data-target="s3" aria-label="Millonarios: 63,8 metros" data-i18n-aria="s3_aria" data-nav-name="Edificio de 20 pisos" data-i18n-nav="s3_nav">
-    <span class="a11y-tooltip" data-i18n="s3_nav">Edificio de 20 pisos</span>
+  <button class="a11y-dot" data-target="s3" aria-label="Edificio de 18 pisos" data-i18n-aria="s3_aria" data-nav-name="Edificio de 18 pisos" data-i18n-nav="s3_nav">
+    <span class="a11y-tooltip" data-i18n="s3_nav">Edificio de 18 pisos</span>
   </button>
-  <button class="a11y-dot" data-target="s4" aria-label="Umbral millonario: 18,8 metros" data-i18n-aria="s4_aria" data-nav-name="Escalera de 125 escalones" data-i18n-nav="s4_nav">
-    <span class="a11y-tooltip" data-i18n="s4_nav">Escalera de 125 escalones</span>
+  <button class="a11y-dot" data-target="s4" aria-label="Escalera de 109 escalones" data-i18n-aria="s4_aria" data-nav-name="Escalera de 109 escalones" data-i18n-nav="s4_nav">
+    <span class="a11y-tooltip" data-i18n="s4_nav">Escalera de 109 escalones</span>
   </button>
-  <button class="a11y-dot" data-target="s5" aria-label="Clase media alta: 5,1 metros" data-i18n-aria="s5_aria" data-nav-name="Casa residencial de dos pisos" data-i18n-nav="s5_nav">
+  <button class="a11y-dot" data-target="s5" aria-label="Casa residencial de dos pisos" data-i18n-aria="s5_aria" data-nav-name="Casa residencial de dos pisos" data-i18n-nav="s5_nav">
     <span class="a11y-tooltip" data-i18n="s5_nav">Casa residencial de dos pisos</span>
   </button>
-  <button class="a11y-dot" data-target="s6" aria-label="La mayoría: 65,6 centímetros" data-i18n-aria="s6_aria" data-nav-name="Silla alta de bar" data-i18n-nav="s6_nav">
+  <button class="a11y-dot" data-target="s6" aria-label="Silla alta de bar" data-i18n-aria="s6_aria" data-nav-name="Silla alta de bar" data-i18n-nav="s6_nav">
     <span class="a11y-tooltip" data-i18n="s6_nav">Silla alta de bar</span>
   </button>
-  <button class="a11y-dot" data-target="s7" aria-label="Mediana mundial: 16,5 centímetros" data-i18n-aria="s7_aria" data-nav-name="Un solo escalón de escalera" data-i18n-nav="s7_nav">
+  <button class="a11y-dot" data-target="s7" aria-label="Un solo escalón de escalera" data-i18n-aria="s7_aria" data-nav-name="Un solo escalón de escalera" data-i18n-nav="s7_nav">
     <span class="a11y-tooltip" data-i18n="s7_nav">Un solo escalón de escalera</span>
   </button>
-  <button class="a11y-dot" data-target="s8" aria-label="Base: 3,4 centímetros" data-i18n-aria="s8_aria" data-nav-name="Una roca pequeña" data-i18n-nav="s8_nav">
-    <span class="a11y-tooltip" data-i18n="s8_nav">Una roca pequeña</span>
+  <button class="a11y-dot" data-target="s8" aria-label="Una roca pequeña en el suelo" data-i18n-aria="s8_aria" data-nav-name="Una roca pequeña en el suelo" data-i18n-nav="s8_nav">
+    <span class="a11y-tooltip" data-i18n="s8_nav">Una roca pequeña en el suelo</span>
   </button>
 </nav>
 
@@ -1040,7 +1036,7 @@ body.light-mode .ecosystem-callout-btn:hover {
   <!-- 0 · Mobile splash -->
   <section class="snap" id="s0" aria-label="Introducción" data-i18n-aria="s0_aria">
     <h1 data-i18n="intro_h1">¿A qué altura vives?</h1>
-    <p data-i18n="intro_sub">La distancia real entre la base y la cúspide es de 15,515.63 km</p>
+    <p data-i18n="intro_sub">La distancia real entre ricos y pobres es de 12,818.18 km</p>
     <div class="scroll-cue" aria-hidden="true">
       <span data-i18n="scroll_cue">Desliza para comenzar</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1049,152 +1045,147 @@ body.light-mode .ecosystem-callout-btn:hover {
     </div>
   </section>
 
-  <!-- 1 · Satélite en órbita sintética 2032 -->
-  <section class="snap s1 active" id="s1" data-alt="15515625" data-label="15,515.63 km" aria-label="Françoise Bettencourt Meyers en órbita: 15.515,63 km">
+  <!-- 1 · Satélite en órbita terrestre media (Bernard Arnault & Family) -->
+  <section class="snap s1 active" id="s1" data-alt="12818181.818181818" data-label="12,818.18 km" aria-label="Satélite en órbita terrestre media (Bernard Arnault & Family)">
     <div class="intro">
       <h1 data-i18n="intro_h1">¿A qué altura vives?</h1>
-      <p data-i18n="intro_sub">La distancia real entre la base y la cúspide es de 15,515.63 km</p>
+      <p data-i18n="intro_sub">La distancia real entre ricos y pobres es de 12,818.18 km</p>
     </div>
     <div class="grid">
-      <div class="num" aria-hidden="true">15,515.63<span>km</span></div>
-      <h2 class="headline" data-i18n="s1_headline">Françoise Bettencourt Meyers vive en órbita</h2>
-      <p class="caption" data-i18n="s1_caption">Menos de 1 de cada 10 millones · USD $657B–$998B</p>
+      <div class="num" aria-hidden="true">12,818.18<span>km</span></div>
+      <h2 class="headline" data-i18n="s1_headline">Satélite en órbita terrestre media (Bernard Arnault & Family) (12,818.18 km)</h2>
+      <p class="caption" data-i18n="s1_caption">Estrato representativo con altura 12,818.18 km</p>
       <div class="icon" aria-hidden="true">
-        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="5" id="svg-s1">
-  <!-- Círculo dinámico de robustez sintética -->
-  <circle cx="60" cy="60" r="25" opacity=".5" stroke-dasharray="3 5" />
-  <ellipse cx="60" cy="60" rx="25" ry="17" fill="currentColor" opacity=".22" />
-  <path d="M20 100 h80 M60 20 v80" stroke-linecap="round" />
+        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4">
+  <circle cx="60" cy="60" r="42" stroke-dasharray="5 7" opacity=".6"/>
+  <circle cx="60" cy="22" r="7" fill="currentColor" stroke="none"/>
+  <path d="M60 29 v18 M42 60 h36" stroke-linecap="round"/>
 </svg>
       </div>
     </div>
-    <span class="data-date" data-i18n="data_date">UBS · dic 2031 · v2.1</span>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024</span>
   </section>
 
   <!-- 2 · Cohete en la estratosfera -->
-  <section class="snap s2" id="s2" data-alt="18750" data-label="18.75 km" aria-label="Billonarios: 18,75 km">
+  <section class="snap s2" id="s2" data-alt="13636.363636363636" data-label="13.64 km" aria-label="Cohete en la estratosfera">
     <div class="grid">
-      <div class="num" aria-hidden="true">18.75<span>km</span></div>
-      <h2 class="headline" data-i18n="s2_headline">Un billonario toca la estratosfera (2032)</h2>
-      <p class="caption" data-i18n="s2_caption">3 de cada 10 millones · Más de USD $1,000 millones</p>
+      <div class="num" aria-hidden="true">13.64<span>km</span></div>
+      <h2 class="headline" data-i18n="s2_headline">Cohete en la estratosfera (13.64 km)</h2>
+      <p class="caption" data-i18n="s2_caption">Estrato representativo con altura 13.64 km</p>
       <div class="icon" aria-hidden="true">
-        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4" id="svg-s2">
-  <!-- Círculo dinámico de robustez sintética -->
-  <circle cx="60" cy="60" r="35" opacity=".5" stroke-dasharray="3 5" />
-  <ellipse cx="60" cy="60" rx="35" ry="30" fill="currentColor" opacity=".22" />
-  <path d="M20 100 h80 M60 20 v80" stroke-linecap="round" />
+        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4">
+  <ellipse cx="60" cy="42" rx="20" ry="26" fill="currentColor" opacity=".95" stroke="none"/>
+  <path d="M60 68 v26 M50 94 h20" stroke-linecap="round"/>
 </svg>
       </div>
     </div>
-    <span class="data-date" data-i18n="data_date">UBS · dic 2031 · v2.1</span>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024</span>
   </section>
 
-  <!-- 3 · Edificio de 20 pisos -->
-  <section class="snap s3" id="s3" data-alt="63.75" data-label="63.75 m" aria-label="Millonarios: 63,8 metros">
+  <!-- 3 · Edificio de 18 pisos -->
+  <section class="snap s3" id="s3" data-alt="61.36363636363636" data-label="61.36 m" aria-label="Edificio de 18 pisos">
     <div class="grid">
-      <div class="num" aria-hidden="true">63.75<span>m</span></div>
-      <h2 class="headline" data-i18n="s3_headline">Los millonarios: un edificio de 20 pisos</h2>
-      <p class="caption" data-i18n="s3_caption">98 de cada 100 viven más abajo · Más de USD $1M (prom. $3.4M)</p>
+      <div class="num" aria-hidden="true">61.36<span>m</span></div>
+      <h2 class="headline" data-i18n="s3_headline">Edificio de 18 pisos (61.36 m)</h2>
+      <p class="caption" data-i18n="s3_caption">Estrato representativo con altura 61.36 m</p>
       <div class="icon" aria-hidden="true">
-        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3" id="svg-s3">
-  <!-- Círculo dinámico de robustez sintética -->
-  <circle cx="60" cy="60" r="33" opacity=".5" stroke-dasharray="3 5" />
-  <ellipse cx="60" cy="60" rx="33" ry="22" fill="currentColor" opacity=".22" />
-  <path d="M20 100 h80 M60 20 v80" stroke-linecap="round" />
+        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4">
+  <rect x="36" y="18" width="48" height="84" fill="currentColor" opacity=".18"/>
+  <path d="M36 18 h48 v84 H36 Z M46 32 h10 M64 32 h10 M46 46 h10 M64 46 h10 M46 60 h10 M64 60 h10 M46 74 h10 M64 74 h10 M46 88 h10 M64 88 h10"/>
 </svg>
       </div>
     </div>
-    <span class="data-date" data-i18n="data_date">UBS · dic 2031 · v2.1</span>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024</span>
   </section>
 
-  <!-- 4 · Escalera de 125 escalones -->
-  <section class="snap s4" id="s4" data-alt="18.75" data-label="18.75 m" aria-label="Umbral millonario: 18,8 metros">
+  <!-- 4 · Escalera de 109 escalones -->
+  <section class="snap s4" id="s4" data-alt="16.363636363636363" data-label="16.36 m" aria-label="Escalera de 109 escalones">
     <div class="grid">
-      <div class="num" aria-hidden="true">18.75<span>m</span></div>
-      <h2 class="headline" data-i18n="s4_headline">Para ser millonario: 125 escalones</h2>
-      <p class="caption" data-i18n="s4_caption">Solo el 1.6% del mundo · Umbral USD $1M</p>
+      <div class="num" aria-hidden="true">16.36<span>m</span></div>
+      <h2 class="headline" data-i18n="s4_headline">Escalera de 109 escalones (16.36 m)</h2>
+      <p class="caption" data-i18n="s4_caption">Estrato representativo con altura 16.36 m</p>
       <div class="icon" aria-hidden="true">
-        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3" id="svg-s4">
-  <!-- Círculo dinámico de robustez sintética -->
-  <circle cx="60" cy="60" r="24" opacity=".5" stroke-dasharray="3 5" />
-  <ellipse cx="60" cy="60" rx="24" ry="27" fill="currentColor" opacity=".22" />
-  <path d="M20 100 h80 M60 20 v80" stroke-linecap="round" />
+        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="square">
+  <path d="M18 96 h18 v-14 h18 v-14 h18 v-14 h18 v-14 h12" fill="none"/>
+  <rect x="18" y="96" width="18" height="7" fill="currentColor" stroke="none"/>
+  <rect x="36" y="82" width="18" height="7" fill="currentColor"/>
+  <rect x="54" y="68" width="18" height="7" fill="currentColor"/>
+  <rect x="72" y="54" width="18" height="7" fill="currentColor"/>
+  <rect x="90" y="40" width="12" height="7" fill="currentColor"/>
 </svg>
       </div>
     </div>
-    <span class="data-date" data-i18n="data_date">UBS · dic 2031 · v2.1</span>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024</span>
   </section>
 
   <!-- 5 · Casa residencial de dos pisos -->
-  <section class="snap s5" id="s5" data-alt="5.0625" data-label="5.06 m" aria-label="Clase media alta: 5,1 metros">
+  <section class="snap s5" id="s5" data-alt="4.363636363636363" data-label="4.36 m" aria-label="Casa residencial de dos pisos">
     <div class="grid">
-      <div class="num" aria-hidden="true">5.06<span>m</span></div>
-      <h2 class="headline" data-i18n="s5_headline">16.4%: a la altura de dos pisos (2032)</h2>
-      <p class="caption" data-i18n="s5_caption">82 de cada 100 viven más abajo · USD $270k promedio</p>
+      <div class="num" aria-hidden="true">4.36<span>m</span></div>
+      <h2 class="headline" data-i18n="s5_headline">Casa residencial de dos pisos (4.36 m)</h2>
+      <p class="caption" data-i18n="s5_caption">Estrato representativo con altura 4.36 m</p>
       <div class="icon" aria-hidden="true">
-        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4" id="svg-s5">
-  <!-- Círculo dinámico de robustez sintética -->
-  <circle cx="60" cy="60" r="34" opacity=".5" stroke-dasharray="3 5" />
-  <ellipse cx="60" cy="60" rx="34" ry="15" fill="currentColor" opacity=".22" />
-  <path d="M20 100 h80 M60 20 v80" stroke-linecap="round" />
+        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4">
+  <path d="M28 72 v32 h64 V72 L60 42 Z" fill="currentColor" opacity=".18"/>
+  <path d="M28 72 L60 42 L92 72 M28 104 h64 M28 72 v32 M92 72 v32 M60 72 v32 M46 86 h12 v18 H46z"/>
 </svg>
       </div>
     </div>
-    <span class="data-date" data-i18n="data_date">UBS · dic 2031 · v2.1</span>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024</span>
   </section>
 
   <!-- 6 · Silla alta de bar -->
-  <section class="snap s6" id="s6" data-alt="0.65625" data-label="65.6 cm" aria-label="La mayoría: 65,6 centímetros">
+  <section class="snap s6" id="s6" data-alt="0.5727272727272728" data-label="57.3 cm" aria-label="Silla alta de bar">
     <div class="grid">
-      <div class="num" aria-hidden="true">65.6<span>cm</span></div>
-      <h2 class="headline" data-i18n="s6_headline">La mayoría no llega a la silla de bar</h2>
-      <p class="caption" data-i18n="s6_caption">41 de cada 100 viven aquí o más abajo · USD $35k promedio</p>
+      <div class="num" aria-hidden="true">57.3<span>cm</span></div>
+      <h2 class="headline" data-i18n="s6_headline">Silla alta de bar (57.3 cm)</h2>
+      <p class="caption" data-i18n="s6_caption">Estrato representativo con altura 57.3 cm</p>
       <div class="icon" aria-hidden="true">
-        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3" id="svg-s6">
-  <!-- Círculo dinámico de robustez sintética -->
-  <circle cx="60" cy="60" r="33" opacity=".5" stroke-dasharray="3 5" />
-  <ellipse cx="60" cy="60" rx="33" ry="15" fill="currentColor" opacity=".22" />
-  <path d="M20 100 h80 M60 20 v80" stroke-linecap="round" />
+        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
+  <ellipse cx="60" cy="38" rx="30" ry="9" fill="currentColor" opacity=".85" stroke="none"/>
+  <ellipse cx="60" cy="38" rx="30" ry="9" opacity=".5"/>
+  <path d="M40 32 v-16 M80 32 v-16" stroke-width="3.5"/>
+  <path d="M36 16 h48 M36 24 h48" stroke-width="3"/>
+  <line x1="60" y1="47" x2="60" y2="86" stroke-width="5"/>
+  <path d="M36 92 h48" stroke-width="4"/>
+  <path d="M36 92 L28 106 M84 92 L92 106" stroke-width="3.5"/>
 </svg>
       </div>
     </div>
-    <span class="data-date" data-i18n="data_date">UBS · dic 2031 · v2.1</span>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024</span>
   </section>
 
   <!-- 7 · Un solo escalón de escalera -->
-  <section class="snap s7" id="s7" data-alt="0.16503749999999998" data-label="16.5 cm" aria-label="Mediana mundial: 16,5 centímetros">
+  <section class="snap s7" id="s7" data-alt="0.1527272727272727" data-label="15.3 cm" aria-label="Un solo escalón de escalera">
     <div class="grid">
-      <div class="num" aria-hidden="true">16.5<span>cm</span></div>
-      <h2 class="headline" data-i18n="s7_headline">La mitad del planeta: un solo escalón (2032)</h2>
-      <p class="caption" data-i18n="s7_caption">50 de cada 100 no superan este escalón · Mediana USD $8,602–$9,001</p>
+      <div class="num" aria-hidden="true">15.3<span>cm</span></div>
+      <h2 class="headline" data-i18n="s7_headline">Un solo escalón de escalera (15.3 cm)</h2>
+      <p class="caption" data-i18n="s7_caption">Estrato representativo con altura 15.3 cm</p>
       <div class="icon" aria-hidden="true">
-        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4" id="svg-s7">
-  <!-- Círculo dinámico de robustez sintética -->
-  <circle cx="60" cy="60" r="17" opacity=".5" stroke-dasharray="3 5" />
-  <ellipse cx="60" cy="60" rx="17" ry="35" fill="currentColor" opacity=".22" />
-  <path d="M20 100 h80 M60 20 v80" stroke-linecap="round" />
+        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="5">
+  <rect x="26" y="74" width="68" height="16" rx="3" fill="currentColor" opacity=".92"/>
+  <path d="M22 100 h76" opacity=".5"/>
 </svg>
       </div>
     </div>
-    <span class="data-date" data-i18n="data_date">UBS · dic 2031 · v2.1</span>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024</span>
   </section>
 
-  <!-- 8 · Una roca pequeña -->
-  <section class="snap s8" id="s8" data-alt="0.03375" data-label="3.4 cm" aria-label="Base: 3,4 centímetros">
+  <!-- 8 · Una roca pequeña en el suelo -->
+  <section class="snap s8" id="s8" data-alt="0.028636363636363637" data-label="2.9 cm" aria-label="Una roca pequeña en el suelo">
     <div class="grid">
-      <div class="num" aria-hidden="true">3.4<span>cm</span></div>
-      <h2 class="headline" data-i18n="s8_headline">La base del mundo: una roca en el suelo</h2>
-      <p class="caption" data-i18n="s8_caption">41 de cada 100 viven aquí o menos · USD $1,800 promedio</p>
+      <div class="num" aria-hidden="true">2.9<span>cm</span></div>
+      <h2 class="headline" data-i18n="s8_headline">Una roca pequeña en el suelo (2.9 cm)</h2>
+      <p class="caption" data-i18n="s8_caption">Estrato representativo con altura 2.9 cm</p>
       <div class="icon" aria-hidden="true">
-        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4" id="svg-s8">
-  <!-- Círculo dinámico de robustez sintética -->
-  <circle cx="60" cy="60" r="33" opacity=".5" stroke-dasharray="3 5" />
-  <ellipse cx="60" cy="60" rx="33" ry="34" fill="currentColor" opacity=".22" />
-  <path d="M20 100 h80 M60 20 v80" stroke-linecap="round" />
+        <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3.5">
+  <path d="M28 82 L38 54 L57 44 L80 48 L96 66 L90 82 Z" fill="currentColor" opacity=".82"/>
+  <path d="M38 54 L52 62 L57 44 M52 62 L80 48" opacity=".42" stroke-linecap="round"/>
+  <path d="M18 88 h84" stroke-linecap="round" opacity=".32"/>
 </svg>
       </div>
     </div>
-    <span class="data-date" data-i18n="data_date">UBS · dic 2031 · v2.1</span>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024</span>
   </section>
 
 </main>
@@ -1225,8 +1216,7 @@ body.light-mode .ecosystem-callout-btn:hover {
       <summary data-i18n="metod_sum1">Fuentes</summary>
       <p data-i18n="metod_p1">UBS Global Wealth Report 2024 (adultos, datos al 31 dic 2024). Forbes Real-Time Billionaires, mayo 2026: Elon Musk ($636B–$839B) y 2,891 billonarios confirmados. Población adulta mundial: 5,360 millones.</p>
       <ul id="sources-list" style="margin:.55rem 0;padding-left:1.1rem;">
-          <li style="margin:.4rem 0;"><a href="https://www.ubs.com/synthetic-2032" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:underline;" data-i18n="metod_source_0">Reporte Sintético UBS 2032</a></li>
-          <li style="margin:.4rem 0;"><a href="https://www.forbes.com/synthetic-2032" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:underline;" data-i18n="metod_source_1">Billonarios Forbes Sintético 2032</a></li>
+          <li style="margin:.4rem 0;"><a href="https://ubs.com" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:underline;" data-i18n="metod_source_0">UBS 2027</a></li>
         </ul>
     </details>
 
@@ -1238,12 +1228,12 @@ body.light-mode .ecosystem-callout-btn:hover {
     <details>
       <summary data-i18n="metod_sum3">Limitaciones</summary>
       <ul id="limitations-list">
-        <li data-i18n="metod_li1">Patrimonio neto individual = activos inmobiliarios y financieros personales menos deudas.</li>
-        <li data-i18n="metod_li2">Unidad de análisis exclusiva: Personas naturales adultas. Excluye corporaciones, estados y fondos.</li>
-        <li data-i18n="metod_li3">Las valoraciones de fortunas individuales fluctúan según los mercados.</li>
-        <li data-i18n="metod_li4">La escala física es proporcional: desde centímetros en el suelo hasta miles de kilómetros en órbita.</li>
-        <li data-i18n="metod_li_add_0">Limitación sintética adicional A para el año 2032</li>
-        <li data-i18n="metod_li_add_1">Limitación sintética adicional B para el año 2032</li>
+        <li data-i18n="metod_li1">Patrimonio ≠ ingreso ni efectivo disponible. Incluye vivienda, pensiones, deudas.</li>
+        <li data-i18n="metod_li2">Las fortunas de billonarios fluctúan diariamente.</li>
+        <li data-i18n="metod_li3">La escala es logarítmica: de centímetros a kilómetros en una sola pantalla.</li>
+        <li data-i18n="metod_li4">Esta visualización expone estructura sistémica, no juzga mérito individual.</li>
+        <li data-i18n="metod_li_add_0">Los datos excluyen activos no declarados o riqueza en paraísos fiscales fuera del radar oficial.</li>
+        <li data-i18n="metod_li_add_1">Los tipos de cambio aplicados reflejan promedios anuales ajustados para la homogeneización multirregional.</li>
       </ul>
     </details>
   </div>
@@ -1317,23 +1307,23 @@ const STRINGS = {
   "es": {
     "skip_text": "Saltar al contenido principal",
     "intro_h1": "¿A qué altura vives?",
-    "intro_sub": "La distancia real entre la base y la cúspide es de 15,515.63 km",
+    "intro_sub": "La distancia real entre ricos y pobres es de 12,818.18 km",
     "metod_title": "Ficha técnica",
-    "metod_lead": "Convertimos magnitud económica de personas naturales en altura física. Así de literal es la desigualdad.",
+    "metod_lead": "Convertimos magnitud económica en altura física. Así de literal es la desigualdad.",
     "metod_sum1": "Fuentes",
-    "metod_p1": "UBS Global Wealth Report 2031 (adultos, datos al 31 dic 2031). Forbes Real-Time Billionaires, mayo de 2032: Françoise Bettencourt Meyers ($657B–$998B) y 3558 billonarios confirmados. Población adulta mundial: 6,015 millones.",
+    "metod_p1": "Datos simulados escenario 1",
     "metod_sum2": "Metodología",
     "metod_p2": "Para conocer en detalle la metodología de cálculo, la fórmula de escala utilizada y participar en la discusión técnica del modelo, consulta el <a href=\"https://github.com/willkwolf/global-inequality-21Century#metodolog%C3%ADa-de-visualizaci%C3%B3n--visualization-methodology\" target=\"_blank\" rel=\"noopener\" style=\"color:#60a5fa;text-decoration:underline;\">repositorio del proyecto en GitHub</a>.",
     "metod_sum3": "Limitaciones",
-    "metod_li1": "Patrimonio neto individual = activos inmobiliarios y financieros personales menos deudas.",
-    "metod_li2": "Unidad de análisis exclusiva: Personas naturales adultas. Excluye corporaciones, estados y fondos.",
-    "metod_li3": "Las valoraciones de fortunas individuales fluctúan según los mercados.",
-    "metod_li4": "La escala física es proporcional: desde centímetros en el suelo hasta miles de kilómetros en órbita.",
+    "metod_li1": "Patrimonio ≠ ingreso ni efectivo disponible. Incluye vivienda, pensiones, deudas.",
+    "metod_li2": "Las fortunas de billonarios fluctúan diariamente.",
+    "metod_li3": "La escala es logarítmica: de centímetros a kilómetros en una sola pantalla.",
+    "metod_li4": "Esta visualización expone estructura sistémica, no juzga mérito individual.",
     "footer_author": "© 2026 William Camilo Artunduaga Viana ·",
     "footer_license": "CC BY 4.0",
     "lang_btn": "EN",
     "lang_aria": "Switch to English",
-    "data_date": "UBS · dic 2031 · v2.1",
+    "data_date": "UBS · dic 2024",
     "scroll_cue": "Desliza para comenzar",
     "a11y_toolbar_label": "Panel de accesibilidad",
     "a11y_btn_aria": "Opciones de accesibilidad",
@@ -1346,7 +1336,7 @@ const STRINGS = {
     "a11y_dyslexia": "Lectura",
     "a11y_nav_label": "Navegación de secciones por altitud",
     "a11y_announcement_prefix": "Sección actual: ",
-    "s0_aria": "Introducción: ¿A qué altura vives?. La distancia real entre la base y la cúspide es de 15,515.63 km",
+    "s0_aria": "Introducción: ¿A qué altura vives?. La distancia real entre ricos y pobres es de 12,818.18 km",
     "s0_nav": "Inicio",
     "metodEcosystemTag": "Ruta del Pensamiento Crítico · Paso 5",
     "metodEcosystemTitle": "Diferencias globales, realidades locales: Coeficiente de Palma",
@@ -1366,63 +1356,62 @@ const STRINGS = {
     "stepStatusHere": "Estás aquí",
     "stepTitle5": "Aterrizar",
     "stepProject5": "Desigualdad en Colombia",
-    "metod_li_add_0": "Limitación sintética adicional A para el año 2032",
-    "metod_li_add_1": "Limitación sintética adicional B para el año 2032",
-    "s1_headline": "Françoise Bettencourt Meyers vive en órbita",
-    "s1_caption": "Menos de 1 de cada 10 millones · USD $657B–$998B",
-    "s1_aria": "Françoise Bettencourt Meyers en órbita: 15.515,63 km",
-    "s1_nav": "Satélite en órbita sintética 2032",
-    "s2_headline": "Un billonario toca la estratosfera (2032)",
-    "s2_caption": "3 de cada 10 millones · Más de USD $1,000 millones",
-    "s2_aria": "Billonarios: 18,75 km",
+    "metod_li_add_0": "Limitación metodológica 1",
+    "metod_li_add_1": "Limitación metodológica 2",
+    "s1_headline": "Satélite en órbita terrestre media (Bernard Arnault & Family) (12,818.18 km)",
+    "s1_caption": "Estrato representativo con altura 12,818.18 km",
+    "s1_aria": "Satélite en órbita terrestre media (Bernard Arnault & Family)",
+    "s1_nav": "Satélite en órbita terrestre media (Bernard Arnault & Family)",
+    "s2_headline": "Cohete en la estratosfera (13.64 km)",
+    "s2_caption": "Estrato representativo con altura 13.64 km",
+    "s2_aria": "Cohete en la estratosfera",
     "s2_nav": "Cohete en la estratosfera",
-    "s3_headline": "Los millonarios: un edificio de 20 pisos",
-    "s3_caption": "98 de cada 100 viven más abajo · Más de USD $1M (prom. $3.4M)",
-    "s3_aria": "Millonarios: 63,8 metros",
-    "s3_nav": "Edificio de 20 pisos",
-    "s4_headline": "Para ser millonario: 125 escalones",
-    "s4_caption": "Solo el 1.6% del mundo · Umbral USD $1M",
-    "s4_aria": "Umbral millonario: 18,8 metros",
-    "s4_nav": "Escalera de 125 escalones",
-    "s5_headline": "16.4%: a la altura de dos pisos (2032)",
-    "s5_caption": "82 de cada 100 viven más abajo · USD $270k promedio",
-    "s5_aria": "Clase media alta: 5,1 metros",
+    "s3_headline": "Edificio de 18 pisos (61.36 m)",
+    "s3_caption": "Estrato representativo con altura 61.36 m",
+    "s3_aria": "Edificio de 18 pisos",
+    "s3_nav": "Edificio de 18 pisos",
+    "s4_headline": "Escalera de 109 escalones (16.36 m)",
+    "s4_caption": "Estrato representativo con altura 16.36 m",
+    "s4_aria": "Escalera de 109 escalones",
+    "s4_nav": "Escalera de 109 escalones",
+    "s5_headline": "Casa residencial de dos pisos (4.36 m)",
+    "s5_caption": "Estrato representativo con altura 4.36 m",
+    "s5_aria": "Casa residencial de dos pisos",
     "s5_nav": "Casa residencial de dos pisos",
-    "s6_headline": "La mayoría no llega a la silla de bar",
-    "s6_caption": "41 de cada 100 viven aquí o más abajo · USD $35k promedio",
-    "s6_aria": "La mayoría: 65,6 centímetros",
+    "s6_headline": "Silla alta de bar (57.3 cm)",
+    "s6_caption": "Estrato representativo con altura 57.3 cm",
+    "s6_aria": "Silla alta de bar",
     "s6_nav": "Silla alta de bar",
-    "s7_headline": "La mitad del planeta: un solo escalón (2032)",
-    "s7_caption": "50 de cada 100 no superan este escalón · Mediana USD $8,602–$9,001",
-    "s7_aria": "Mediana mundial: 16,5 centímetros",
+    "s7_headline": "Un solo escalón de escalera (15.3 cm)",
+    "s7_caption": "Estrato representativo con altura 15.3 cm",
+    "s7_aria": "Un solo escalón de escalera",
     "s7_nav": "Un solo escalón de escalera",
-    "s8_headline": "La base del mundo: una roca en el suelo",
-    "s8_caption": "41 de cada 100 viven aquí o menos · USD $1,800 promedio",
-    "s8_aria": "Base: 3,4 centímetros",
-    "s8_nav": "Una roca pequeña",
-    "metod_source_0": "Reporte Sintético UBS 2032",
-    "metod_source_1": "Billonarios Forbes Sintético 2032"
+    "s8_headline": "Una roca pequeña en el suelo (2.9 cm)",
+    "s8_caption": "Estrato representativo con altura 2.9 cm",
+    "s8_aria": "Una roca pequeña en el suelo",
+    "s8_nav": "Una roca pequeña en el suelo",
+    "metod_source_0": "UBS 2027"
   },
   "en": {
     "skip_text": "Skip to main content",
     "intro_h1": "How high do you stand?",
-    "intro_sub": "The real distance between base and apex is 15,515.63 km",
+    "intro_sub": "The real distance between rich and poor is 12,818.18 km",
     "metod_title": "Technical notes",
-    "metod_lead": "We convert individual net worth into physical height. That is how literal inequality is.",
+    "metod_lead": "We convert economic magnitude into physical height. That is how literal inequality is.",
     "metod_sum1": "Sources",
-    "metod_p1": "UBS Global Wealth Report 2031 (adults, data as of 31 Dec 2031). Forbes Real-Time Billionaires, May 2032: Françoise Bettencourt Meyers ($657B–$998B) and 3,558 confirmed billionaires. Global adult population: 6.015 billion.",
+    "metod_p1": "Simulated scenario 1 data",
     "metod_sum2": "Methodology",
     "metod_p2": "For a detailed breakdown of the calculation methodology, the scaling formula used, and to join the technical discussion of the model, visit the <a href=\"https://github.com/willkwolf/global-inequality-21Century#metodolog%C3%ADa-de-visualizaci%C3%B3n--visualization-methodology\" target=\"_blank\" rel=\"noopener\" style=\"color:#60a5fa;text-decoration:underline;\">project repository on GitHub</a>.",
     "metod_sum3": "Limitations",
-    "metod_li1": "Individual net worth = personal real and financial assets minus liabilities.",
-    "metod_li2": "Exclusive analysis unit: Adult natural persons. Excludes corporations, states, and funds.",
-    "metod_li3": "Individual fortune valuations fluctuate with global market prices.",
-    "metod_li4": "The physical scale is proportional: from centimeters on the ground to thousands of kilometers in orbit.",
+    "metod_li1": "Net worth ≠ income or liquid cash. Includes housing, pensions, debts.",
+    "metod_li2": "Billionaire fortunes fluctuate daily.",
+    "metod_li3": "The scale is logarithmic: from centimeters to kilometers on one screen.",
+    "metod_li4": "This visualization exposes systemic structure; it does not judge individual merit.",
     "footer_author": "© 2026 William Camilo Artunduaga Viana ·",
     "footer_license": "CC BY 4.0",
     "lang_btn": "ES",
     "lang_aria": "Cambiar a español",
-    "data_date": "UBS · Dec 2031 · v2.1",
+    "data_date": "UBS · Dec 2024",
     "scroll_cue": "Scroll to begin",
     "a11y_toolbar_label": "Accessibility panel",
     "a11y_btn_aria": "Accessibility options",
@@ -1435,7 +1424,7 @@ const STRINGS = {
     "a11y_dyslexia": "Dyslexic",
     "a11y_nav_label": "Section navigation by altitude",
     "a11y_announcement_prefix": "Current section: ",
-    "s0_aria": "Introduction: How high do you stand?. The real distance between base and apex is 15,515.63 km",
+    "s0_aria": "Introduction: How high do you stand?. The real distance between rich and poor is 12,818.18 km",
     "s0_nav": "Home",
     "metodEcosystemTag": "Critical Thinking Path · Step 5",
     "metodEcosystemTitle": "Global differences, local realities: The Palma Ratio",
@@ -1455,42 +1444,41 @@ const STRINGS = {
     "stepStatusHere": "You are here",
     "stepTitle5": "Land",
     "stepProject5": "Inequality in Colombia",
-    "metod_li_add_0": "Additional synthetic limitation A for the year 2032",
-    "metod_li_add_1": "Additional synthetic limitation B for the year 2032",
-    "s1_headline": "Françoise Bettencourt Meyers lives in orbit",
-    "s1_caption": "Fewer than 1 in 10 million · USD $657B–$998B",
-    "s1_aria": "Françoise Bettencourt Meyers in orbit: 15,515.63 km",
-    "s1_nav": "Satellite in synthetic orbit 2032",
-    "s2_headline": "A billionaire touches the stratosphere (2032)",
-    "s2_caption": "3 in 10 million · More than USD $1,000 million",
-    "s2_aria": "Billionaires: 18.75 km",
+    "metod_li_add_0": "Methodological limitation 1",
+    "metod_li_add_1": "Methodological limitation 2",
+    "s1_headline": "Satellite in medium Earth orbit (Bernard Arnault & Family) (12,818.18 km)",
+    "s1_caption": "Representative layer with height 12,818.18 km",
+    "s1_aria": "Satellite in medium Earth orbit (Bernard Arnault & Family)",
+    "s1_nav": "Satellite in medium Earth orbit (Bernard Arnault & Family)",
+    "s2_headline": "Rocket in the stratosphere (13.64 km)",
+    "s2_caption": "Representative layer with height 13.64 km",
+    "s2_aria": "Rocket in the stratosphere",
     "s2_nav": "Rocket in the stratosphere",
-    "s3_headline": "Millionaires: a 20-story building",
-    "s3_caption": "98 in 100 live below · More than USD $1M (avg. $3.4M)",
-    "s3_aria": "Millionaires: 63.8 meters",
-    "s3_nav": "20-story building",
-    "s4_headline": "To become a millionaire: 125 steps",
-    "s4_caption": "Only 1.6% of the world · Threshold USD $1M",
-    "s4_aria": "Millionaire threshold: 18.8 meters",
-    "s4_nav": "Staircase of 125 steps",
-    "s5_headline": "16.4%: at two-story height (2032)",
-    "s5_caption": "82 in 100 live below · USD $270k average",
-    "s5_aria": "Upper middle class: 5.1 meters",
+    "s3_headline": "18-story building (61.36 m)",
+    "s3_caption": "Representative layer with height 61.36 m",
+    "s3_aria": "18-story building",
+    "s3_nav": "18-story building",
+    "s4_headline": "Staircase of 109 steps (16.36 m)",
+    "s4_caption": "Representative layer with height 16.36 m",
+    "s4_aria": "Staircase of 109 steps",
+    "s4_nav": "Staircase of 109 steps",
+    "s5_headline": "Two-story residential house (4.36 m)",
+    "s5_caption": "Representative layer with height 4.36 m",
+    "s5_aria": "Two-story residential house",
     "s5_nav": "Two-story residential house",
-    "s6_headline": "The majority don't reach the bar stool",
-    "s6_caption": "41 in 100 live here or below · USD $35k average",
-    "s6_aria": "The majority: 65.6 centimeters",
+    "s6_headline": "Bar stool (57.3 cm)",
+    "s6_caption": "Representative layer with height 57.3 cm",
+    "s6_aria": "Bar stool",
     "s6_nav": "Bar stool",
-    "s7_headline": "Half the planet: one single step (2032)",
-    "s7_caption": "50 in 100 do not surpass this step · Median USD $8,602–$9,001",
-    "s7_aria": "World median: 16.5 centimeters",
+    "s7_headline": "A single stair step (15.3 cm)",
+    "s7_caption": "Representative layer with height 15.3 cm",
+    "s7_aria": "A single stair step",
     "s7_nav": "A single stair step",
-    "s8_headline": "The world base: a pebble on the ground",
-    "s8_caption": "41 in 100 live here or below · USD $1,800 average",
-    "s8_aria": "Base: 3.4 centimeters",
-    "s8_nav": "A small pebble",
-    "metod_source_0": "Synthetic UBS Report 2032",
-    "metod_source_1": "Synthetic Forbes Billionaires 2032"
+    "s8_headline": "A small pebble on the ground (2.9 cm)",
+    "s8_caption": "Representative layer with height 2.9 cm",
+    "s8_aria": "A small pebble on the ground",
+    "s8_nav": "A small pebble on the ground",
+    "metod_source_0": "UBS 2027"
   }
 };
 // STRINGS_END

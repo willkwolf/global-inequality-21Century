@@ -7,9 +7,11 @@
  * AUTOMATIZAR LA ADAPTACIÓN ≠ AUTOMATIZAR LA VERDAD.
  * 
  * Si el agente o los datos desafían la validez epistemológica de la visualización,
- * el sistema debe abortar la publicación emitiendo ADAPTATION_FAILED y solicitando
- * revisión humana, antes que publicar un artefacto pedagógicamente engañoso.
+ * o intentan violar la unidad de análisis de PERSONA NATURAL, el sistema aborta
+ * la publicación emitiendo ADAPTATION_FAILED y detiene el pipeline.
  */
+
+import { EntityFilter } from '../domain/domain-definition.js';
 
 export class Guardrails {
   /**
@@ -20,6 +22,42 @@ export class Guardrails {
 
     if (!canonicalData || !canonicalData.global_metrics) {
       return { can_proceed: false, failure_reason: "Dataset canónico incompleto o nulo.", warnings };
+    }
+
+    // 1. Validar unidad de análisis exclusiva: Persona Natural
+    if (canonicalData.analysis_unit && canonicalData.analysis_unit !== "natural_person" && canonicalData.analysis_unit !== "individual_adult") {
+      return {
+        can_proceed: false,
+        failure_reason: `GUARDRAIL_BLOCKED_NON_NATURAL_PERSON: Unidad de análisis '${canonicalData.analysis_unit}' prohibida. Solo se admiten personas naturales.`,
+        warnings
+      };
+    }
+
+    if (canonicalData.global_metrics.top_holder) {
+      const entityClass = EntityFilter.classifyEntity(canonicalData.global_metrics.top_holder);
+      if (!entityClass.is_natural_person) {
+        return {
+          can_proceed: false,
+          failure_reason: `GUARDRAIL_BLOCKED_NON_NATURAL_PERSON: La entidad en la cúspide '${canonicalData.global_metrics.top_holder.name}' fue rechazada: ${entityClass.reason}`,
+          warnings
+        };
+      }
+    }
+
+    // Validar entidades en distribuciones
+    if (Array.isArray(canonicalData.distributions)) {
+      for (const dist of canonicalData.distributions) {
+        if (dist.entity_reference) {
+          const entityCheck = EntityFilter.classifyEntity(dist.entity_reference);
+          if (!entityCheck.is_natural_person) {
+            return {
+              can_proceed: false,
+              failure_reason: `GUARDRAIL_BLOCKED_NON_NATURAL_PERSON: Estrato '${dist.stratum_key}' contiene entidad no admisible: ${entityCheck.reason}`,
+              warnings
+            };
+          }
+        }
+      }
     }
 
     const { wealth_median_usd, total_adult_population } = canonicalData.global_metrics;
@@ -44,7 +82,7 @@ export class Guardrails {
       };
     }
 
-    if (driftReport.epistemological_status === "ABSTRACTION_FAILURE") {
+    if (driftReport && driftReport.epistemological_status === "ABSTRACTION_FAILURE") {
       return {
         can_proceed: false,
         failure_reason: "Fallo crítico detectado en Drift Engine: la abstracción conceptual no es aplicable a este dataset.",
@@ -52,7 +90,7 @@ export class Guardrails {
       };
     }
 
-    if (driftReport.epistemological_status === "ARCHITECTURAL_WARNING") {
+    if (driftReport && driftReport.epistemological_status === "ARCHITECTURAL_WARNING") {
       warnings.push({
         code: "EXTREME_DRIFT_WARNING",
         message: "Se detectó un drift extremo en la distribución. La adaptación procede bajo supervisión de guardrails."
@@ -81,7 +119,7 @@ export class Guardrails {
       };
     }
 
-    // Comprobar orden estrictamente decreciente
+    // Comprobar orden estrictamente decreciente y consistencia semántica
     let prevHeight = Infinity;
     for (let i = 0; i < abstractionDoc.layers.length; i++) {
       const l = abstractionDoc.layers[i];
@@ -94,11 +132,19 @@ export class Guardrails {
       }
       prevHeight = l.physical_height_meters;
 
-      // Verificar que los textos no contengan cadenas de fallback rotas
+      // Verificar que los textos no contengan cadenas corruptas o estáticas obsoletas
       if (!l.narrative.headline_es || l.narrative.headline_es.includes("undefined") || l.narrative.headline_es.includes("NaN")) {
         return {
           passed: false,
           reason: `Texto corrupto en headline_es de estrato ${l.layer_id}`,
+          warnings
+        };
+      }
+
+      if (!l.narrative.caption_es || l.narrative.caption_es.includes("undefined") || l.narrative.caption_es.includes("NaN")) {
+        return {
+          passed: false,
+          reason: `Caption corrupto en caption_es de estrato ${l.layer_id}`,
           warnings
         };
       }

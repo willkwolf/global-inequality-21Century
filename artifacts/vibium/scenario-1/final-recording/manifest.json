@@ -1,0 +1,14 @@
+{
+  "scenario_id": "scenario-1",
+  "scenario_title": "Escenario 1: Normal / Probable Drift",
+  "decision": "PASS_WITH_ADAPTATION",
+  "abstraction_status": "WITHIN_LIMITS",
+  "timestamp": "2026-08-29T23:09:45.730Z",
+  "execution_time_ms": 350,
+  "strata_count": 8,
+  "step_usd_value": 11000,
+  "step_height_meters": 0.15,
+  "max_height_label": "12,818.18 km",
+  "drifts_count": 1,
+  "attempt": 1
+}

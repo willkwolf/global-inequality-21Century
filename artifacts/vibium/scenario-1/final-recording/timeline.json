@@ -1,0 +1,89 @@
+[
+  {
+    "step": 0,
+    "section_id": "s0",
+    "altitude_label": "0 m (Inicio)",
+    "role": "SPLASH_INTRO",
+    "opacity_stars": 1,
+    "active_dot": "s0"
+  },
+  {
+    "step": 1,
+    "section_id": "s1",
+    "altitude_label": "12,818.18 km",
+    "role": "EXTREMO",
+    "physical_analogy": "Satélite en órbita terrestre media (Bernard Arnault & Family)",
+    "active_dot": "s1",
+    "announced_aria": "Satélite en órbita terrestre media (Bernard Arnault & Family)"
+  },
+  {
+    "step": 2,
+    "section_id": "s2",
+    "altitude_label": "13.64 km",
+    "role": "CONTRASTE",
+    "physical_analogy": "Cohete en la estratosfera",
+    "active_dot": "s2",
+    "announced_aria": "Cohete en la estratosfera"
+  },
+  {
+    "step": 3,
+    "section_id": "s3",
+    "altitude_label": "61.36 m",
+    "role": "CONTRASTE",
+    "physical_analogy": "Edificio de 18 pisos",
+    "active_dot": "s3",
+    "announced_aria": "Edificio de 18 pisos"
+  },
+  {
+    "step": 4,
+    "section_id": "s4",
+    "altitude_label": "16.36 m",
+    "role": "CONTRASTE",
+    "physical_analogy": "Escalera de 109 escalones",
+    "active_dot": "s4",
+    "announced_aria": "Escalera de 109 escalones"
+  },
+  {
+    "step": 5,
+    "section_id": "s5",
+    "altitude_label": "4.36 m",
+    "role": "CONTRASTE",
+    "physical_analogy": "Casa residencial de dos pisos",
+    "active_dot": "s5",
+    "announced_aria": "Casa residencial de dos pisos"
+  },
+  {
+    "step": 6,
+    "section_id": "s6",
+    "altitude_label": "57.3 cm",
+    "role": "CONTRASTE",
+    "physical_analogy": "Silla alta de bar",
+    "active_dot": "s6",
+    "announced_aria": "Silla alta de bar"
+  },
+  {
+    "step": 7,
+    "section_id": "s7",
+    "altitude_label": "15.3 cm",
+    "role": "BASE",
+    "physical_analogy": "Un solo escalón de escalera",
+    "active_dot": "s7",
+    "announced_aria": "Un solo escalón de escalera"
+  },
+  {
+    "step": 8,
+    "section_id": "s8",
+    "altitude_label": "2.9 cm",
+    "role": "BASE",
+    "physical_analogy": "Una roca pequeña en el suelo",
+    "active_dot": "s8",
+    "announced_aria": "Una roca pequeña en el suelo"
+  },
+  {
+    "step": 9,
+    "section_id": "metodologia",
+    "altitude_label": "Ficha Técnica",
+    "role": "METHODOLOGY_FOOTER",
+    "active_dot": null
+  }
+]

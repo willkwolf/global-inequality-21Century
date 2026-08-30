@@ -4,8 +4,7 @@
  * PROPÓSITO:
  * Generar datos sintéticos aleatorios pero matemáticamente consistentes y lingüísticamente válidos
  * para simular encuestas de riqueza globales futuras (ej. años 2028, 2030, 2032).
- * Sirve para la suite de pruebas de robustez (100 ejecuciones aleatorias) para certificar
- * que el compilador y el visualizador nunca se rompen bajo cambios de datos.
+ * Representa EXCLUSIVAMENTE a Personas Naturales adultas.
  *
  * REGLAS DE CONSISTENCIA:
  * 1. 1 escalón = $8,000 USD = 15 cm (constantes de escala fijas).
@@ -19,25 +18,21 @@
 import fs from 'fs';
 import path from 'path';
 
-// Nombres y entidades sintéticas futuras
+// Nombres de personas naturales sintéticas futuras (Exclusivamente personas naturales)
 const WEALTH_HOLDERS = [
-  { name_es: 'Fundación Global de IA', name_en: 'Global AI Foundation', type: 'organization' },
-  { name_es: 'Bernard Arnault & familia', name_en: 'Bernard Arnault & family', type: 'person' },
-  { name_es: 'Consorcio Solar Planetario', name_en: 'Planetary Solar Consortium', type: 'organization' },
-  { name_es: 'Jeff Bezos', name_en: 'Jeff Bezos', type: 'person' },
-  { name_es: 'Alianza Tecnológica del Pacífico', name_en: 'Pacific Tech Alliance', type: 'organization' },
-  { name_es: 'Zhong Shanshan', name_en: 'Zhong Shanshan', type: 'person' },
-  { name_es: 'Sindicato de Fusión de Energía', name_en: 'Energy Fusion Syndicate', type: 'organization' }
+  { name_es: 'Elon Musk', name_en: 'Elon Musk', type: 'natural_person' },
+  { name_es: 'Bernard Arnault & familia', name_en: 'Bernard Arnault & family', type: 'natural_person' },
+  { name_es: 'Jeff Bezos', name_en: 'Jeff Bezos', type: 'natural_person' },
+  { name_es: 'Larry Ellison', name_en: 'Larry Ellison', type: 'natural_person' },
+  { name_es: 'Zhong Shanshan', name_en: 'Zhong Shanshan', type: 'natural_person' },
+  { name_es: 'Mark Zuckerberg', name_en: 'Mark Zuckerberg', type: 'natural_person' },
+  { name_es: 'Warren Buffett', name_en: 'Warren Buffett', type: 'natural_person' },
+  { name_es: 'Françoise Bettencourt Meyers', name_en: 'Françoise Bettencourt Meyers', type: 'natural_person' }
 ];
 
 // Helper para obtener un número entero aleatorio en un rango
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-// Helper para dar formato de millones / miles de millones
-function formatMillions(val) {
-  return Math.round(val / 1000000);
 }
 
 export function generateSyntheticData() {

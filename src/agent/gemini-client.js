@@ -3,12 +3,8 @@
  * 
  * CLIENTE SEGURO DE IA GEMINI CON MOTOR DETERMINISTA DE RESPALDO (FALLBACK)
  * 
- * REGLAS DE SEGURIDAD:
- * - Clave leída estrictamente desde process.env.GEMINI_API_KEY.
- * - NUNCA se expone en código, logs, commits, artefactos ni HTML generado.
- * - Opera bajo permisos mínimos.
- * - Si no hay clave API o falla la red, el cliente activa de forma transparente
- *   el motor determinista pedagógico para asegurar resiliencia total y ejecución offline de tests.
+ * Genera la narrativa bilingüe (ES/EN) apegada estrictamente a los contratos pedagógicos
+ * de cada sección y a la unidad de análisis de PERSONA NATURAL.
  */
 
 export class GeminiAdapterClient {
@@ -26,7 +22,6 @@ export class GeminiAdapterClient {
    * a partir del reporte de drift y los estratos recalibrados.
    */
   async adaptStorytelling({ driftReport, recalibratedLayers, globalMetrics, semanticConcept }) {
-    // Si tenemos clave y entorno adecuado, intentar llamada real a Gemini API
     if (this.hasApiKey()) {
       try {
         const prompt = this.buildPrompt({ driftReport, recalibratedLayers, globalMetrics, semanticConcept });
@@ -43,7 +38,6 @@ export class GeminiAdapterClient {
       }
     }
 
-    // Motor de respaldo determinista seguro (cero alucinación, estrictamente subordinado a la evidencia)
     return {
       success: true,
       source: "DETERMINISTIC_PEDAGOGICAL_ENGINE",
@@ -53,7 +47,7 @@ export class GeminiAdapterClient {
 
   buildPrompt({ driftReport, recalibratedLayers, globalMetrics, semanticConcept }) {
     return {
-      system_instruction: "Eres un agente pedagógico experto en visualización de datos de desigualdad económica. Tu misión es adaptar el storytelling bilingüe (ES/EN) a la abstracción existente ('¿A qué altura vives?'). NUNCA inventes datos ni alteres las magnitudes físicas o económicas.",
+      system_instruction: "Eres un agente pedagógico experto en visualización de datos de desigualdad económica. Tu misión es adaptar el storytelling bilingüe (ES/EN) a la abstracción existente ('¿A qué altura vives?') representando EXCLUSIVAMENTE a personas naturales adultas. NUNCA compares entidades jurídicas ni alteres las magnitudes matemáticas.",
       input_data: {
         concept: semanticConcept,
         metrics: globalMetrics,
@@ -64,7 +58,6 @@ export class GeminiAdapterClient {
   }
 
   async callGeminiApi(payload) {
-    // Llamada HTTPS estándar a la API de Gemini (Google AI Studio / Vertex)
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${this.modelName}:generateContent?key=${this.apiKey}`;
     const response = await fetch(endpoint, {
       method: "POST",
@@ -97,15 +90,14 @@ export class GeminiAdapterClient {
   generateDeterministicStory({ recalibratedLayers, globalMetrics, semanticConcept }) {
     const topLayer = recalibratedLayers[0];
     const topHeightLabel = topLayer?.formatted_height_label || "15,731 km";
-    const topHolderName = globalMetrics?.top_holder?.name || "Cúspide";
-    const isOrganization = globalMetrics?.top_holder?.type === 'organization' || globalMetrics?.top_holder?.type === 'fund';
+    const topHolderName = globalMetrics?.top_holder?.name || "Cúspide individual";
 
     const title_es = "¿A qué altura vives?";
     const title_en = "How high do you stand?";
     const subtitle_es = `La distancia real entre la base y la cúspide es de ${topHeightLabel}`;
     const subtitle_en = `The real distance between base and apex is ${topHeightLabel}`;
 
-    const adaptedLayers = recalibratedLayers.map((layer) => {
+    const adaptedLayers = recalibratedLayers.map((layer, index) => {
       const hLabel = layer.formatted_height_label;
       const refEs = layer.physical_reference.name_es;
       const refEn = layer.physical_reference.name_en;
@@ -115,22 +107,18 @@ export class GeminiAdapterClient {
       let headline_es, headline_en, caption_es, caption_en, aria_es, aria_en;
 
       if (layer.pedagogical_role === "EXTREMO") {
-        if (layer.layer_id === "s1") {
-          headline_es = isOrganization 
-            ? `${topHolderName} opera en órbita espacial` 
-            : `${topHolderName} vive en órbita`;
-          headline_en = isOrganization
-            ? `${topHolderName} operates in space orbit`
-            : `${topHolderName} lives in orbit`;
-          caption_es = `Menos de 1 de cada 10 millones · USD $${this.formatBillion(wealthVal)}B`;
-          caption_en = `Fewer than 1 in 10 million · USD $${this.formatBillion(wealthVal)}B`;
+        if (layer.layer_id === "s1" || index === 0) {
+          headline_es = `${topHolderName} vive en órbita`;
+          headline_en = `${topHolderName} stands in orbit`;
+          caption_es = `Menos de 1 de cada 10 millones · USD $${this.formatBillion(wealthVal)}B · Altura: ${hLabel}`;
+          caption_en = `Fewer than 1 in 10 million · USD $${this.formatBillion(wealthVal)}B · Altitude: ${hLabel}`;
           aria_es = `${topHolderName} en órbita: ${hLabel}`;
           aria_en = `${topHolderName} in orbit: ${hLabel}`;
         } else {
           headline_es = "Un billonario toca la estratosfera";
           headline_en = "A billionaire touches the stratosphere";
-          caption_es = "3 de cada 10 millones · Más de USD $1,000 millones";
-          caption_en = "3 in 10 million · More than USD $1,000 million";
+          caption_es = `3 de cada 10 millones · Más de USD $1,000M · Altura: ${hLabel}`;
+          caption_en = `3 in 10 million · More than USD $1,000M · Altitude: ${hLabel}`;
           aria_es = `Billonarios: ${hLabel}`;
           aria_en = `Billionaires: ${hLabel}`;
         }
@@ -145,8 +133,8 @@ export class GeminiAdapterClient {
         } else {
           headline_es = `Para ser millonario: ${refEs.toLowerCase()}`;
           headline_en = `To become a millionaire: ${refEn.toLowerCase()}`;
-          caption_es = `Solo el ${(pct || 1.6).toFixed(1)}% del mundo · Umbral USD $1M`;
-          caption_en = `Only ${(pct || 1.6).toFixed(1)}% of the world · Threshold USD $1M`;
+          caption_es = `Solo el ${(pct || 1.6).toFixed(1)}% de adultos · Umbral USD $1M`;
+          caption_en = `Only ${(pct || 1.6).toFixed(1)}% of adults · Threshold USD $1M`;
           aria_es = `Umbral millonario: ${hLabel}`;
           aria_en = `Millionaire threshold: ${hLabel}`;
         }
@@ -159,8 +147,8 @@ export class GeminiAdapterClient {
           aria_es = `Clase media alta: ${hLabel}`;
           aria_en = `Upper middle class: ${hLabel}`;
         } else {
-          headline_es = `${pct.toFixed(1)}% no llega a la ${refEs.toLowerCase()}`;
-          headline_en = `${pct.toFixed(1)}% don't reach the ${refEn.toLowerCase()}`;
+          headline_es = `La mayoría no llega a la ${refEs.toLowerCase()}`;
+          headline_en = `The majority doesn't reach the ${refEn.toLowerCase()}`;
           caption_es = `41 de cada 100 viven aquí o más abajo · USD $${Math.round(wealthVal/1000)}k promedio`;
           caption_en = `41 in 100 live here or below · USD $${Math.round(wealthVal/1000)}k average`;
           aria_es = `La mayoría: ${hLabel}`;
@@ -175,8 +163,8 @@ export class GeminiAdapterClient {
         aria_en = `World median: ${hLabel}`;
       } else {
         // BASE
-        headline_es = `${pct.toFixed(1)}% del mundo: ${refEs.toLowerCase()}`;
-        headline_en = `${pct.toFixed(1)}% of the world: ${refEn.toLowerCase()}`;
+        headline_es = `La base del mundo: ${refEs.toLowerCase()}`;
+        headline_en = `The world base: ${refEn.toLowerCase()}`;
         caption_es = `${Math.round(pct)} de cada 100 viven aquí o menos · USD $${Math.round(wealthVal).toLocaleString('en-US')} promedio`;
         caption_en = `${Math.round(pct)} in 100 live here or below · USD $${Math.round(wealthVal).toLocaleString('en-US')} average`;
         aria_es = `Base: ${hLabel}`;
@@ -201,8 +189,8 @@ export class GeminiAdapterClient {
       title_en,
       subtitle_es,
       subtitle_en,
-      semantic_concept_es: semanticConcept || "Patrimonio neto global",
-      semantic_concept_en: "Global net worth",
+      semantic_concept_es: semanticConcept || "Patrimonio neto personal por adulto (Net Worth per Adult)",
+      semantic_concept_en: "Personal net worth per adult",
       layers: adaptedLayers
     };
   }

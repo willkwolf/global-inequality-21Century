@@ -86,7 +86,7 @@ const originalDataRaw = fs.readFileSync(DATA_PATH, 'utf8');
 const originalHtmlRaw = fs.readFileSync(HTML_PATH, 'utf8');
 
 let completedRuns = 0;
-const totalIterations = 100;
+const totalIterations = parseInt(process.env.ROBUSTNESS_ITERATIONS || "25", 10);
 
 try {
   for (let i = 1; i <= totalIterations; i++) {

@@ -28,6 +28,8 @@ Bienvenido a **OpenWiki**, la fuente única de verdad (*Single Source of Truth*)
 12. [12. Resultados de la Suite de Tres Escenarios](./12_THREE_SCENARIO_RESULTS.md) — Verificación empírica de los escenarios Probable, Metodológico y Caótico.
 13. [13. Marco de Verificación Vibium](./13_VIBIUM_VERIFICATION_FRAMEWORK.md) — Capa transversal de verificación visual, funcional, semántica y de accesibilidad.
 14. [14. Límites Físicos de la Abstracción y Pruebas Cognitivas](./14_ABSTRACTION_LIMITS_AND_COGNITIVE_TESTS.md) — Regla de límites físicos/visuales/epistémicos y escenarios de contraste perceptivo.
+15. [15. Unidad de Análisis y Filtro Ontológico de Entidades](./15_UNIDAD_DE_ANALISIS_Y_FILTRO_DE_ENTIDADES.md) — Exclusividad de Personas Naturales y rechazo de personas jurídicas/estados.
+16. [16. Contratos Pedagógicos por Sección, Gramática Visual y Principios Tufte](./16_CONTRATOS_PEDAGOGICOS_Y_GRAMATICA_VISUAL.md) — Contrato de cada sección, dinamismo de copy y principios Tufte.
 
 ---
 

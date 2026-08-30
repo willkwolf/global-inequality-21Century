@@ -11,8 +11,10 @@
  * 2. SEMANTIC DRIFT: Cambio en significado, nomenclatura y etiquetas.
  * 3. METHODOLOGICAL DRIFT: Cambio en el método de cálculo / ruptura de serie.
  * 4. DOMAIN DRIFT: Cambio estructural del fenómeno global.
- * 5. CONCEPTUAL DRIFT: Cambio que desafía la validez de la metáfora de altura física.
+ * 5. CONCEPTUAL DRIFT: Cambio que cuestiona la unidad de análisis o la validez de la metáfora de altura.
  */
+
+import { EntityFilter } from '../domain/domain-definition.js';
 
 export class DriftEngine {
   /**
@@ -52,6 +54,23 @@ export class DriftEngine {
       return report;
     }
 
+    // 0. Validación de Unidad de Análisis (Persona Natural Exclusivamente)
+    if (incomingData.global_metrics?.top_holder) {
+      const entityClassification = EntityFilter.classifyEntity(incomingData.global_metrics.top_holder);
+      if (!entityClassification.is_natural_person) {
+        report.drift_summary.has_conceptual_drift = true;
+        report.epistemological_status = "ABSTRACTION_FAILURE";
+        report.recommended_action = "HUMAN_REVIEW_REQUIRED";
+        report.detected_drifts.push({
+          type: "CONCEPTUAL_DRIFT",
+          severity: "CRITICAL",
+          message: `Inconsistencia ontológica: Se intentó introducir una entidad no natural en la cúspide ('${incomingData.global_metrics.top_holder.name}'): ${entityClassification.reason}`
+        });
+        report.confidence = 0.0;
+        return report;
+      }
+    }
+
     // 1. Detección de METHODOLOGICAL DRIFT
     if (baselineData?.methodology_version && incomingData.methodology_version !== baselineData.methodology_version) {
       report.drift_summary.has_methodological_drift = true;
@@ -78,17 +97,6 @@ export class DriftEngine {
         type: "SEMANTIC_DRIFT",
         severity: "MEDIUM",
         message: `Cambio de concepto semántico: "${baselineData.semantic_concept}" → "${incomingData.semantic_concept}"`
-      });
-    }
-
-    const baselineTopType = baselineData?.global_metrics?.top_holder?.type;
-    const incomingTopType = incomingData.global_metrics?.top_holder?.type;
-    if (baselineTopType && incomingTopType && baselineTopType !== incomingTopType) {
-      report.drift_summary.has_semantic_drift = true;
-      report.detected_drifts.push({
-        type: "SEMANTIC_DRIFT",
-        severity: "MEDIUM",
-        message: `Cambio de tipo de entidad en la cúspide: ${baselineTopType} → ${incomingTopType}`
       });
     }
 
@@ -141,7 +149,7 @@ export class DriftEngine {
       });
     }
 
-    // Comprobar ratio de escala extrema (si la cúspide crece a valores que exceden la órbita de Plutón o caen al nivel del suelo)
+    // Comprobar ratio de escala extrema
     if (newTop && newMedian) {
       const ratio = newTop / newMedian;
       if (ratio > 1e12) {
