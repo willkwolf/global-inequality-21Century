@@ -40,9 +40,9 @@ assert.equal(preFewStrata.can_proceed, false);
 // 4. Post-adaptation rejection of non-monotonic heights
 const postNonMonotonic = Guardrails.evaluatePostAdaptation({
   layers: [
-    { layer_id: "s1", physical_height_meters: 100, narrative: { headline_es: "A", caption_es: "Cap A" } },
-    { layer_id: "s2", physical_height_meters: 150, narrative: { headline_es: "B", caption_es: "Cap B" } }, // Broken order
-    { layer_id: "s3", physical_height_meters: 10, narrative: { headline_es: "C", caption_es: "Cap C" } }
+    { layer_id: "s1", physical_height_meters: 100, narrative: { headline_es: "A", caption_es: "Cap A", headline_en: "A", caption_en: "Cap A" } },
+    { layer_id: "s2", physical_height_meters: 150, narrative: { headline_es: "B", caption_es: "Cap B", headline_en: "B", caption_en: "Cap B" } }, // Broken order
+    { layer_id: "s3", physical_height_meters: 10, narrative: { headline_es: "C", caption_es: "Cap C", headline_en: "C", caption_en: "Cap C" } }
   ]
 });
 assert.equal(postNonMonotonic.passed, false);
@@ -50,11 +50,22 @@ assert.equal(postNonMonotonic.passed, false);
 // 5. Post-adaptation rejection of corrupt captions
 const postCorruptCaption = Guardrails.evaluatePostAdaptation({
   layers: [
-    { layer_id: "s1", physical_height_meters: 100, narrative: { headline_es: "A", caption_es: "undefined NaN" } },
-    { layer_id: "s2", physical_height_meters: 50, narrative: { headline_es: "B", caption_es: "Cap B" } },
-    { layer_id: "s3", physical_height_meters: 10, narrative: { headline_es: "C", caption_es: "Cap C" } }
+    { layer_id: "s1", physical_height_meters: 100, narrative: { headline_es: "A", caption_es: "undefined NaN", headline_en: "A", caption_en: "NaN" } },
+    { layer_id: "s2", physical_height_meters: 50, narrative: { headline_es: "B", caption_es: "Cap B", headline_en: "B", caption_en: "Cap B" } },
+    { layer_id: "s3", physical_height_meters: 10, narrative: { headline_es: "C", caption_es: "Cap C", headline_en: "C", caption_en: "Cap C" } }
   ]
 });
 assert.equal(postCorruptCaption.passed, false);
+
+// 6. Post-adaptation rejection of moralizing/reifying copy
+const postMoralizing = Guardrails.evaluatePostAdaptation({
+  layers: [
+    { layer_id: "s1", physical_height_meters: 100, narrative: { headline_es: "Un ser humano superior", caption_es: "Cap A", headline_en: "Top", caption_en: "Cap A" } },
+    { layer_id: "s2", physical_height_meters: 50, narrative: { headline_es: "B", caption_es: "Cap B", headline_en: "B", caption_en: "Cap B" } },
+    { layer_id: "s3", physical_height_meters: 10, narrative: { headline_es: "C", caption_es: "Cap C", headline_en: "C", caption_en: "Cap C" } }
+  ]
+});
+assert.equal(postMoralizing.passed, false);
+assert.match(postMoralizing.reason, /GUARDRAIL_BLOCKED_MORALIZING_COPY/);
 
 console.log('✓ Unit Tests: Guardrails superados.');

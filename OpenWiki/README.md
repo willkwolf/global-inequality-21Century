@@ -31,6 +31,7 @@ Bienvenido a **OpenWiki**, la fuente única de verdad (*Single Source of Truth*)
 15. [15. Unidad de Análisis y Filtro Ontológico de Entidades](./15_UNIDAD_DE_ANALISIS_Y_FILTRO_DE_ENTIDADES.md) — Exclusividad de Personas Naturales y rechazo de personas jurídicas/estados.
 16. [16. Contratos Pedagógicos por Sección, Gramática Visual y Principios Tufte](./16_CONTRATOS_PEDAGOGICOS_Y_GRAMATICA_VISUAL.md) — Contrato de cada sección, dinamismo de copy y principios Tufte.
 17. [17. Auditoría Metodológica de la Línea Base, Fuentes y Análisis SWOT](./17_AUDITORIA_LINEA_BASE_Y_ANALISIS_SWOT.md) — Evaluación de fuentes (UBS/Forbes), rationale de Elon Musk, análisis FODA y catálogo de riesgos.
+18. [18. Límites Epistemológicos, Metodológicos y Éticos de la Abstracción Central](./18_EPISTEMOLOGICAL_BOUNDARIES_OF_THE_ABSTRACTION.md) — Validez multidimensional, prueba de 7 invariantes, riesgo de reificación, sesgos y dictamen formal `VALID_WITH_LIMITATIONS`.
 
 ---
 

@@ -1,17 +1,27 @@
 /**
  * src/guardrails/guardrails.js
  * 
- * SISTEMA DE GUARDRAILS Y SEGURIDAD EPISTEMOLÓGICA
+ * SISTEMA DE GUARDRAILS, SEGURIDAD EPISTEMOLÓGICA Y ÉTICA CONCEPTUAL
  * 
- * Regla de oro:
+ * Principio Rector:
  * AUTOMATIZAR LA ADAPTACIÓN ≠ AUTOMATIZAR LA VERDAD.
+ * OBJETIVO = max(EPISTEMIC_FIDELITY + VISUAL_CLARITY + PEDAGOGICAL_VALUE).
  * 
  * Si el agente o los datos desafían la validez epistemológica de la visualización,
- * o intentan violar la unidad de análisis de PERSONA NATURAL, el sistema aborta
- * la publicación emitiendo ADAPTATION_FAILED y detiene el pipeline.
+ * intentan violar la unidad de análisis de PERSONA NATURAL, o inducen juicios morales / clasistas,
+ * el sistema aborta la publicación emitiendo ADAPTATION_FAILED y detiene el pipeline.
  */
 
 import { EntityFilter } from '../domain/domain-definition.js';
+
+// Términos prohibidos que reifican riqueza como jerarquía moral o juicio humano
+const FORBIDDEN_MORALIZING_PATTERNS = [
+  /\b(superior|inferior)\s+(humano|persona|moral|dignidad|ser|raza)\b/i,
+  /\b(humano|persona|ser|ser\s+humano|raza)\s+(superior|inferior)\b/i,
+  /\b(fracasado|fracaso\s+moral|inútil|escoria|vago)\b/i,
+  /\b(merecedor|castigo\s+divino|éxito\s+moral|virtud\s+superior)\b/i,
+  /\b(mejor\s+persona|peor\s+persona|raza\s+superior|genéticamente)\b/i
+];
 
 export class Guardrails {
   /**
@@ -133,20 +143,24 @@ export class Guardrails {
       prevHeight = l.physical_height_meters;
 
       // Verificar que los textos no contengan cadenas corruptas o estáticas obsoletas
-      if (!l.narrative.headline_es || l.narrative.headline_es.includes("undefined") || l.narrative.headline_es.includes("NaN")) {
+      const textCorpus = `${l.narrative.headline_es} ${l.narrative.caption_es} ${l.narrative.headline_en} ${l.narrative.caption_en}`;
+      if (textCorpus.includes("undefined") || textCorpus.includes("NaN")) {
         return {
           passed: false,
-          reason: `Texto corrupto en headline_es de estrato ${l.layer_id}`,
+          reason: `Texto corrupto detectado en estrato ${l.layer_id}`,
           warnings
         };
       }
 
-      if (!l.narrative.caption_es || l.narrative.caption_es.includes("undefined") || l.narrative.caption_es.includes("NaN")) {
-        return {
-          passed: false,
-          reason: `Caption corrupto en caption_es de estrato ${l.layer_id}`,
-          warnings
-        };
+      // Guardrail Ético: Bloquear reificación moral o clasismo deshumanizante
+      for (const pattern of FORBIDDEN_MORALIZING_PATTERNS) {
+        if (pattern.test(textCorpus)) {
+          return {
+            passed: false,
+            reason: `GUARDRAIL_BLOCKED_MORALIZING_COPY: El texto del estrato ${l.layer_id} contiene expresiones que juzgan la dignidad o valor humano.`,
+            warnings
+          };
+        }
       }
     }
 
