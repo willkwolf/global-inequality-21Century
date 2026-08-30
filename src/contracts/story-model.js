@@ -4,7 +4,10 @@
  * STORY MODEL:
  * Representación intermedia lista para ser consumida por el compilador/renderizador HTML
  * y la suite de pruebas. Provee diccionarios i18n, definiciones de nodos DOM y metadatos.
+ * Integrado con NumberFormatter para año actual dinámico y formateo bilingüe estricto.
  */
+
+import { NumberFormatter } from '../i18n/number-formatter.js';
 
 export class StoryModel {
   constructor(abstractionDoc) {
@@ -13,8 +16,9 @@ export class StoryModel {
 
   generateStringsDictionary() {
     const prov = this.doc.provenance || {};
-    const dateLabelEs = prov.date_label_es || "UBS · dic 2024 · v2.1";
-    const dateLabelEn = prov.date_label_en || "UBS · Dec 2024 · v2.1";
+    const currentYear = NumberFormatter.getCurrentYear();
+    const dateLabelEs = prov.date_label_es || `UBS · dic 2024 · v2.1`;
+    const dateLabelEn = prov.date_label_en || `UBS · Dec 2024 · v2.1`;
 
     const es = {
       skip_text: "Saltar al contenido principal",
@@ -31,7 +35,7 @@ export class StoryModel {
       metod_li2: "Unidad de análisis exclusiva: Personas naturales adultas. Se excluyen personas jurídicas, estados y fondos.",
       metod_li3: "Las fortunas en la cúspide fluctúan diariamente según las valoraciones de mercado.",
       metod_li4: "La escala física es proporcional: desde centímetros en el suelo hasta miles de kilómetros en órbita.",
-      footer_author: "© 2026 William Camilo Artunduaga Viana ·",
+      footer_author: `© ${currentYear} William Camilo Artunduaga Viana ·`,
       footer_license: "CC BY 4.0",
       lang_btn: "EN",
       lang_aria: "Switch to English",
@@ -85,7 +89,7 @@ export class StoryModel {
       metod_li2: "Exclusive analysis unit: Adult natural persons. Excludes corporations, states, and funds.",
       metod_li3: "Apex individual fortunes fluctuate daily based on market valuations.",
       metod_li4: "The physical scale is proportional: from centimeters on the ground to thousands of kilometers in orbit.",
-      footer_author: "© 2026 William Camilo Artunduaga Viana ·",
+      footer_author: `© ${currentYear} William Camilo Artunduaga Viana ·`,
       footer_license: "CC BY 4.0",
       lang_btn: "ES",
       lang_aria: "Cambiar a español",
@@ -137,18 +141,27 @@ export class StoryModel {
       });
     }
 
-    // Inyectar traducciones dinámicas de cada capa
+    // Inyectar traducciones dinámicas y formateo numérico localizado de cada capa
     this.doc.layers.forEach((layer) => {
       const id = layer.layer_id;
+      const hEs = NumberFormatter.formatHeight(layer.physical_height_meters, 'es');
+      const hEn = NumberFormatter.formatHeight(layer.physical_height_meters, 'en');
+
       es[`${id}_headline`] = layer.narrative.headline_es;
       es[`${id}_caption`]  = layer.narrative.caption_es;
       es[`${id}_aria`]     = layer.narrative.aria_es;
       es[`${id}_nav`]      = layer.physical_reference.name_es;
+      es[`${id}_num`]      = hEs.value_formatted;
+      es[`${id}_unit`]     = hEs.unit;
+      es[`${id}_label`]    = hEs.full_label;
 
       en[`${id}_headline`] = layer.narrative.headline_en;
       en[`${id}_caption`]  = layer.narrative.caption_en;
       en[`${id}_aria`]     = layer.narrative.aria_en;
       en[`${id}_nav`]      = layer.physical_reference.name_en;
+      en[`${id}_num`]      = hEn.value_formatted;
+      en[`${id}_unit`]     = hEn.unit;
+      en[`${id}_label`]    = hEn.full_label;
     });
 
     // Inyectar fuentes

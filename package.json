@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node SPEC/scripts/validate-data.js && node tests/unit/canonical-model.test.mjs && node tests/unit/drift-engine.test.mjs && node tests/unit/scale-recalibrator.test.mjs && node tests/unit/guardrails.test.mjs && node tests/three-scenarios.test.mjs && node tests/vibium-verification.test.mjs && node tests/parallax-bug-condition.test.mjs && node tests/parallax-preservation.test.mjs && node tests/synthetic-robustness.test.mjs",
+    "test": "node SPEC/scripts/validate-data.js && node tests/unit/number-formatter.test.mjs && node tests/unit/temporal-normalization.test.mjs && node tests/unit/canonical-model.test.mjs && node tests/unit/drift-engine.test.mjs && node tests/unit/scale-recalibrator.test.mjs && node tests/unit/guardrails.test.mjs && node tests/three-scenarios.test.mjs && node tests/vibium-verification.test.mjs && node tests/parallax-bug-condition.test.mjs && node tests/parallax-preservation.test.mjs && node tests/synthetic-robustness.test.mjs",
     "test:vibium": "node tests/vibium-verification.test.mjs",
     "test:scenarios": "node tests/three-scenarios.test.mjs",
-    "test:unit": "node tests/unit/canonical-model.test.mjs && node tests/unit/drift-engine.test.mjs && node tests/unit/scale-recalibrator.test.mjs && node tests/unit/guardrails.test.mjs",
+    "test:unit": "node tests/unit/number-formatter.test.mjs && node tests/unit/temporal-normalization.test.mjs && node tests/unit/canonical-model.test.mjs && node tests/unit/drift-engine.test.mjs && node tests/unit/scale-recalibrator.test.mjs && node tests/unit/guardrails.test.mjs",
     "test:bug": "node tests/parallax-bug-condition.test.mjs",
     "test:robustness": "node tests/synthetic-robustness.test.mjs",
     "apply-spec": "node SPEC/scripts/apply-data.js",

@@ -17,6 +17,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import { NumberFormatter } from '../../src/i18n/number-formatter.js';
 
 // Nombres de personas naturales sintéticas futuras (Exclusivamente personas naturales)
 const WEALTH_HOLDERS = [
@@ -103,25 +104,16 @@ export function generateSyntheticData() {
   const s6_height = calculateHeight(s6_avg);
   const s7_height = calculateHeight(s7_avg);
   const s8_height = calculateHeight(s8_avg);
-
-  // Helper para formatear alturas para textos bilingües
+  // Helper para formatear alturas para textos bilingües con NumberFormatter
   function formatHeightLabel(meters) {
-    if (meters >= 1000) {
-      const km = Math.round(meters / 10) / 100;
-      return { es: `${km.toLocaleString('es-ES')} km`, en: `${km.toLocaleString('en-US')} km` };
-    } else if (meters >= 1) {
-      const m = Math.round(meters * 10) / 10;
-      return { es: `${m.toLocaleString('es-ES')} metros`, en: `${m.toLocaleString('en-US')} meters` };
-    } else {
-      const cm = Math.round(meters * 1000) / 10;
-      return { es: `${cm.toLocaleString('es-ES')} centímetros`, en: `${cm.toLocaleString('en-US')} centimeters` };
-    }
+    const hEs = NumberFormatter.formatHeight(meters, 'es');
+    const hEn = NumberFormatter.formatHeight(meters, 'en');
+    return { es: hEs.verbal_label, en: hEn.verbal_label };
   }
 
   // Helper de formato monetario para captions
-  function formatMoneyB(value) {
-    const b = value / 1000000000;
-    return b % 1 === 0 ? b.toString() : b.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 2 });
+  function formatMoneyB(value, locale = 'es') {
+    return NumberFormatter.formatMagnitude(value, locale);
   }
 
   // Generar iconos SVG sintéticos variables para verificar parsing robusto

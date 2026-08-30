@@ -2,7 +2,10 @@
  * src/agent/scale-recalibrator.js
  * 
  * SISTEMA DE RECALIBRACIÓN DINÁMICA DE ESCALAS Y PERCENTILES
+ * Integrado con NumberFormatter para formateo estético y bilingüe de alturas.
  */
+
+import { NumberFormatter } from '../i18n/number-formatter.js';
 
 export class ScaleRecalibrator {
   /**
@@ -38,7 +41,8 @@ export class ScaleRecalibrator {
       const layerId = `s${idx + 1}`;
 
       const physicalRef = ScaleRecalibrator.selectPhysicalReference(heightMeters, dist.pedagogical_role, dist.entity_reference);
-      const fHeight = ScaleRecalibrator.formatHeight(heightMeters);
+      const fHeightEs = NumberFormatter.formatHeight(heightMeters, 'es');
+      const fHeightEn = NumberFormatter.formatHeight(heightMeters, 'en');
 
       return {
         layer_id: layerId,
@@ -47,9 +51,10 @@ export class ScaleRecalibrator {
         magnitude_unit: "USD",
         net_worth_range: dist.net_worth_usd,
         physical_height_meters: heightMeters,
-        formatted_height_label: fHeight.label,
-        formatted_height_num: fHeight.num,
-        formatted_height_unit: fHeight.unit,
+        formatted_height_label: fHeightEs.full_label,
+        formatted_height_num: fHeightEs.value_formatted,
+        formatted_height_unit: fHeightEs.unit,
+        formatted_height_en: fHeightEn,
         population_share_percentage: dist.population_percentage,
         percentile_range: dist.percentile_range,
         physical_reference: physicalRef,
@@ -78,19 +83,9 @@ export class ScaleRecalibrator {
   /**
    * Helper para dar formato humano a alturas
    */
-  static formatHeight(meters) {
-    if (meters >= 1000) {
-      const km = meters / 1000;
-      const numStr = km % 1 === 0 ? km.toLocaleString('en-US') : km.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      return { num: numStr, unit: 'km', label: `${numStr} km` };
-    } else if (meters >= 1) {
-      const numStr = meters % 1 === 0 ? meters.toString() : meters.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 2 });
-      return { num: numStr, unit: 'm', label: `${numStr} m` };
-    } else {
-      const cm = Math.round(meters * 1000) / 10;
-      const numStr = cm.toString();
-      return { num: numStr, unit: 'cm', label: `${numStr} cm` };
-    }
+  static formatHeight(meters, locale = 'es') {
+    const res = NumberFormatter.formatHeight(meters, locale);
+    return { num: res.value_formatted, unit: res.unit, label: res.full_label };
   }
 
   /**

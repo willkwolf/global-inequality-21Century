@@ -92,3 +92,27 @@ Este registro documenta todas las alertas donde la evidencia de datos tensionó,
 - **Requiere Revisión Humana:** **SÍ (Publicación bloqueada)**
 
 ---
+
+### ⚠ Advertencia Arquitectónica: Mediana Negativa detectada en Escenario 3 (2026-08-30T04:14:46.535Z)
+- **Evento Disparador:** Test de Robustez Adversarial Escenario 3
+- **Descripción:** Mediana de riqueza ($-8500) es <= 0. La abstracción de altura física requiere un anclaje positivo en el suelo.
+- **Recomendación:** Conservar la publicación previa y abrir investigación metodológica con expertos.
+- **Requiere Revisión Humana:** **SÍ (Publicación bloqueada)**
+
+---
+
+### ⚠ Advertencia Arquitectónica: Mediana Negativa detectada en Escenario 3 (2026-08-30T04:15:12.880Z)
+- **Evento Disparador:** Test de Robustez Adversarial Escenario 3
+- **Descripción:** Mediana de riqueza ($-8500) es <= 0. La abstracción de altura física requiere un anclaje positivo en el suelo.
+- **Recomendación:** Conservar la publicación previa y abrir investigación metodológica con expertos.
+- **Requiere Revisión Humana:** **SÍ (Publicación bloqueada)**
+
+---
+
+### ⚠ Advertencia Arquitectónica: Mediana Negativa detectada en Escenario 3 (2026-08-30T04:16:48.689Z)
+- **Evento Disparador:** Test de Robustez Adversarial Escenario 3
+- **Descripción:** Mediana de riqueza ($-8500) es <= 0. La abstracción de altura física requiere un anclaje positivo en el suelo.
+- **Recomendación:** Conservar la publicación previa y abrir investigación metodológica con expertos.
+- **Requiere Revisión Humana:** **SÍ (Publicación bloqueada)**
+
+---

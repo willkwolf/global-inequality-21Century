@@ -4,7 +4,8 @@
  * PROPÓSITO:
  * Leer `SPEC/data.json` (o dataset canónico adaptado), procesar el Story Model
  * y compilar de forma quirúrgica y completamente dinámica `Escala-visual-de-riqueza-mundial.html`
- * garantizando que la unidad de análisis sea EXCLUSIVAMENTE PERSONA NATURAL.
+ * garantizando que la unidad de análisis sea EXCLUSIVAMENTE PERSONA NATURAL y aplicando
+ * los invariantes de normalización temporal (current_year()) y NumberFormatter i18n.
  */
 
 import fs from 'fs';
@@ -14,6 +15,7 @@ import { HtmlCompiler } from '../../src/renderer/html-compiler.js';
 import { StoryModel } from '../../src/contracts/story-model.js';
 import { ScaleRecalibrator } from '../../src/agent/scale-recalibrator.js';
 import { EntityFilter } from '../../src/domain/domain-definition.js';
+import { NumberFormatter } from '../../src/i18n/number-formatter.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -54,22 +56,22 @@ try {
   // Convertir data.json a formato AbstractionDocument
   const s1 = rawData.strata.find(s => s.id === 's1') || rawData.strata[0];
   const maxMeters = s1.physical_analogy.height_meters;
-  const fHeight = ScaleRecalibrator.formatHeight(maxMeters);
+  const fHeightEs = NumberFormatter.formatHeight(maxMeters, 'es');
+  const fHeightEn = NumberFormatter.formatHeight(maxMeters, 'en');
 
   const totalAdultsWorld = rawData.metadata.total_adults_world || 5360;
   const totalBillionaires = rawData.metadata.total_billionaires || 2891;
   const lastUpdated = rawData.metadata.last_updated_sources || { forbes_billionaires_date: "2026-05-01", ubs_report_date: "2024-12-31" };
 
-  const formattedAdultsES = (totalAdultsWorld / 1000).toLocaleString('es-ES', { minimumFractionDigits: 1, maximumFractionDigits: 3 }) + ' millones';
-  const formattedAdultsEN = (totalAdultsWorld / 1000).toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 3 }) + ' billion';
+  const formattedAdultsES = NumberFormatter.formatNumber(totalAdultsWorld / 1000, 'es', { minimumFractionDigits: 1, maximumFractionDigits: 3 }) + ' millones';
+  const formattedAdultsEN = NumberFormatter.formatNumber(totalAdultsWorld / 1000, 'en', { minimumFractionDigits: 1, maximumFractionDigits: 3 }) + ' billion';
 
-  const formattedBillionairesES = totalBillionaires.toLocaleString('es-ES');
-  const formattedBillionairesEN = totalBillionaires.toLocaleString('en-US');
+  const formattedBillionairesES = NumberFormatter.formatNumber(totalBillionaires, 'es');
+  const formattedBillionairesEN = NumberFormatter.formatNumber(totalBillionaires, 'en');
 
-  function formatBillion(value) {
+  function formatBillionMagnitude(value, locale) {
     if (value === null || value === undefined) return 'N/A';
-    const billions = value / 1000000000;
-    return billions % 1 === 0 ? billions.toString() : billions.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 2 });
+    return NumberFormatter.formatMagnitude(value, locale);
   }
 
   function formatForbesDate(dateStr, lang) {
@@ -87,13 +89,14 @@ try {
     }
   }
 
-  const rangeStr = `$${formatBillion(s1.net_worth_range_usd.min)}B–$${formatBillion(s1.net_worth_range_usd.max)}B`;
+  const rangeStrEs = `$${formatBillionMagnitude(s1.net_worth_range_usd.min, 'es')}–$${formatBillionMagnitude(s1.net_worth_range_usd.max, 'es')}`;
+  const rangeStrEn = `$${formatBillionMagnitude(s1.net_worth_range_usd.min, 'en')}–$${formatBillionMagnitude(s1.net_worth_range_usd.max, 'en')}`;
   const reportYear = lastUpdated.ubs_report_date ? lastUpdated.ubs_report_date.split('-')[0] : "2024";
   const dateLabelEs = `UBS · dic ${reportYear} · v2.1`;
   const dateLabelEn = `UBS · Dec ${reportYear} · v2.1`;
 
-  const summary_es = `UBS Global Wealth Report ${reportYear} (adultos, datos al 31 dic ${reportYear}). Forbes Real-Time Billionaires, ${formatForbesDate(lastUpdated.forbes_billionaires_date, 'es')}: ${topHolder.name_es} (${rangeStr}) y ${formattedBillionairesES} billonarios confirmados. Población adulta mundial: ${formattedAdultsES}.`;
-  const summary_en = `UBS Global Wealth Report ${reportYear} (adults, data as of 31 Dec ${reportYear}). Forbes Real-Time Billionaires, ${formatForbesDate(lastUpdated.forbes_billionaires_date, 'en')}: ${topHolder.name_en} (${rangeStr}) and ${formattedBillionairesEN} confirmed billionaires. Global adult population: ${formattedAdultsEN}.`;
+  const summary_es = `UBS Global Wealth Report ${reportYear} (adultos, datos al 31 dic ${reportYear}). Forbes Real-Time Billionaires, ${formatForbesDate(lastUpdated.forbes_billionaires_date, 'es')}: ${topHolder.name_es} (${rangeStrEs}) y ${formattedBillionairesES} billonarios confirmados. Población adulta mundial: ${formattedAdultsES}.`;
+  const summary_en = `UBS Global Wealth Report ${reportYear} (adults, data as of 31 Dec ${reportYear}). Forbes Real-Time Billionaires, ${formatForbesDate(lastUpdated.forbes_billionaires_date, 'en')}: ${topHolder.name_en} (${rangeStrEn}) and ${formattedBillionairesEN} confirmed billionaires. Global adult population: ${formattedAdultsEN}.`;
 
   const defaultLimitations = [
     { code: "VALUATION", es: "Patrimonio neto individual = activos inmobiliarios y financieros personales menos deudas.", en: "Individual net worth = personal real and financial assets minus liabilities." },
@@ -114,16 +117,19 @@ try {
 
   const layers = rawData.strata.map((s, idx) => {
     const height = s.physical_analogy.height_meters;
-    const formatted = ScaleRecalibrator.formatHeight(height);
+    const hEs = NumberFormatter.formatHeight(height, 'es');
+    const hEn = NumberFormatter.formatHeight(height, 'en');
+
     return {
       layer_id: s.id || `s${idx + 1}`,
       pedagogical_role: s.pedagogical_role || (idx === 0 ? "EXTREMO" : (idx === rawData.strata.length - 1 ? "BASE" : "CONTRASTE")),
       raw_magnitude: s.net_worth_range_usd.average || s.net_worth_range_usd.min || 0,
       magnitude_unit: "USD",
       physical_height_meters: height,
-      formatted_height_label: formatted.label,
-      formatted_height_num: formatted.num,
-      formatted_height_unit: formatted.unit,
+      formatted_height_label: hEs.full_label,
+      formatted_height_num: hEs.value_formatted,
+      formatted_height_unit: hEs.unit,
+      formatted_height_en: hEn,
       population_share_percentage: s.population_ratio?.percentage ? s.population_ratio.percentage * 100 : 0,
       physical_reference: {
         name_es: s.physical_analogy.name_es,
@@ -146,8 +152,8 @@ try {
     analysis_unit: "natural_person",
     title_es: "¿A qué altura vives?",
     title_en: "How high do you stand?",
-    subtitle_es: `La distancia real entre la base y la cúspide es de ${fHeight.label}`,
-    subtitle_en: `The real distance between base and apex is ${fHeight.label}`,
+    subtitle_es: `La distancia real entre la base y la cúspide es de ${fHeightEs.full_label}`,
+    subtitle_en: `The real distance between base and apex is ${fHeightEn.full_label}`,
     semantic_concept_es: "Patrimonio neto personal por adulto (Net Worth per Adult)",
     semantic_concept_en: "Personal net worth per adult",
     scale_formula: {

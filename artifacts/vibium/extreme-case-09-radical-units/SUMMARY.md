@@ -2,11 +2,11 @@
 
 - **Escenario:** `extreme-case-09-radical-units`
 - **Estado de Verificación:** **`PASS_WITH_ADAPTATION`**
-- **Timestamp:** `2026-08-30T01:03:55.723Z`
+- **Timestamp:** `2026-08-30T04:16:50.566Z`
 - **Abstracción:** WITHIN_LIMITS
 - **Escala:** 1 escalón = `$15000 USD` (`0.15 m`)
 - **Total Estratos Renderizados:** `3`
-- **Altura Máxima Cúspide:** `8,500 km`
+- **Altura Máxima Cúspide:** `8.500 km`
 
 ---
 
@@ -34,6 +34,6 @@
 ---
 
 ## 4. Pruebas Cognitivas Pedagógicas
-- **Escenario A ("Soy muy rico"):** El usuario en percentil 95 ($1M USD, 18.75m) observa que está a nivel de una escalera doméstica frente a la cúspide en 8,500 km.
+- **Escenario A ("Soy muy rico"):** El usuario en percentil 95 ($1M USD, 18.75m) observa que está a nivel de una escalera doméstica frente a la cúspide en 8.500 km.
 - **Escenario B ("Soy muy pobre"):** El usuario en situación vulnerable ($1,700 USD, 3.3cm) observa que 40% del planeta comparte el mismo estrato del guijarro.
 - **Escenario C ("Soy clase media"):** El usuario que se autoidentifica como clase media ($36,000 USD, 68cm) descubre que está en la altura de una silla de bar respecto a los rascacielos superiores.
