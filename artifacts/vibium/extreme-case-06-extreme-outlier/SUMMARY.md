@@ -2,7 +2,7 @@
 
 - **Escenario:** `extreme-case-06-extreme-outlier`
 - **Estado de Verificación:** **`ABSTRACTION_LIMIT_REACHED`**
-- **Timestamp:** `2026-08-30T06:37:36.473Z`
+- **Timestamp:** `2026-08-30T06:50:03.258Z`
 - **Abstracción:** LIMIT_BREACHED
 - **Escala:** 1 escalón = `$8000 USD` (`0.15 m`)
 - **Total Estratos Renderizados:** `2`

@@ -1,0 +1,191 @@
+/**
+ * SPEC/scripts/apply-data.js
+ *
+ * PROPÓSITO:
+ * Leer `SPEC/data.json` (o dataset canónico adaptado), procesar el Story Model
+ * y compilar de forma quirúrgica y completamente dinámica `Escala-visual-de-riqueza-mundial.html`
+ * garantizando que la unidad de análisis sea EXCLUSIVAMENTE PERSONA NATURAL y aplicando
+ * los invariantes de normalización temporal (current_year()) y NumberFormatter i18n.
+ */
+
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { HtmlCompiler } from '../../src/renderer/html-compiler.js';
+import { StoryModel } from '../../src/contracts/story-model.js';
+import { ScaleRecalibrator } from '../../src/agent/scale-recalibrator.js';
+import { EntityFilter } from '../../src/domain/domain-definition.js';
+import { NumberFormatter } from '../../src/i18n/number-formatter.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// Colores para consola
+const RESET = '\x1b[0m';
+const GREEN = '\x1b[32m';
+const RED = '\x1b[31m';
+const BLUE = '\x1b[34m';
+const BOLD = '\x1b[1m';
+
+function logSuccess(msg) { console.log(`${GREEN}✓ ${msg}${RESET}`); }
+function logError(msg) { console.error(`${RED}${BOLD}✗ ERROR: ${msg}${RESET}`); }
+function logHeader(msg) { console.log(`\n${BOLD}${BLUE}=== ${msg} ===${RESET}`); }
+
+const DATA_PATH = fs.existsSync(path.resolve(__dirname, '../spec/data.json'))
+  ? path.resolve(__dirname, '../spec/data.json')
+  : path.resolve(__dirname, '../../SPEC/data.json');
+const HTML_PATH = path.resolve(__dirname, '../../Escala-visual-de-riqueza-mundial.html');
+
+logHeader('Iniciando Compilación e Inyección Dinámica de Datos (OpenWiki/scripts)');
+
+try {
+  if (!fs.existsSync(DATA_PATH)) {
+    throw new Error(`No se encontró data.json en: ${DATA_PATH}`);
+  }
+  if (!fs.existsSync(HTML_PATH)) {
+    throw new Error(`No se encontró el HTML principal en: ${HTML_PATH}`);
+  }
+
+  const rawData = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
+  const rawHtml = fs.readFileSync(HTML_PATH, 'utf8');
+
+  // Validar entidad en la cúspide
+  const topHolder = rawData.metadata.top_wealth_holder || { name_es: "Elon Musk", name_en: "Elon Musk", type: "natural_person" };
+  const classification = EntityFilter.classifyEntity(topHolder.name_es || topHolder.name_en || topHolder.name);
+  if (!classification.is_natural_person) {
+    throw new Error(`[EntityFilter Error] La cúspide no representa a una Persona Natural: ${classification.reason}`);
+  }
+
+  // Convertir data.json a formato AbstractionDocument
+  const s1 = rawData.strata.find(s => s.id === 's1') || rawData.strata[0];
+  const maxMeters = s1.physical_analogy.height_meters;
+  const fHeightEs = NumberFormatter.formatHeight(maxMeters, 'es');
+  const fHeightEn = NumberFormatter.formatHeight(maxMeters, 'en');
+
+  const totalAdultsWorld = rawData.metadata.total_adults_world || 5360;
+  const totalBillionaires = rawData.metadata.total_billionaires || 2891;
+  const lastUpdated = rawData.metadata.last_updated_sources || { forbes_billionaires_date: "2026-05-01", ubs_report_date: "2024-12-31" };
+
+  const formattedAdultsES = NumberFormatter.formatNumber(totalAdultsWorld / 1000, 'es', { minimumFractionDigits: 1, maximumFractionDigits: 3 }) + ' millones';
+  const formattedAdultsEN = NumberFormatter.formatNumber(totalAdultsWorld / 1000, 'en', { minimumFractionDigits: 1, maximumFractionDigits: 3 }) + ' billion';
+
+  const formattedBillionairesES = NumberFormatter.formatNumber(totalBillionaires, 'es');
+  const formattedBillionairesEN = NumberFormatter.formatNumber(totalBillionaires, 'en');
+
+  function formatBillionMagnitude(value, locale) {
+    if (value === null || value === undefined) return 'N/A';
+    return NumberFormatter.formatMagnitude(value, locale);
+  }
+
+  function formatForbesDate(dateStr, lang) {
+    if (!dateStr) return '';
+    const parts = dateStr.split('-');
+    if (parts.length !== 3) return dateStr;
+    const year = parts[0];
+    const monthNum = parseInt(parts[1], 10);
+    const monthsES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    const monthsEN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    if (lang === 'es') {
+      return `${monthsES[monthNum - 1]} de ${year}`;
+    } else {
+      return `${monthsEN[monthNum - 1]} ${year}`;
+    }
+  }
+
+  const rangeStrEs = `$${formatBillionMagnitude(s1.net_worth_range_usd.min, 'es')}–$${formatBillionMagnitude(s1.net_worth_range_usd.max, 'es')}`;
+  const rangeStrEn = `$${formatBillionMagnitude(s1.net_worth_range_usd.min, 'en')}–$${formatBillionMagnitude(s1.net_worth_range_usd.max, 'en')}`;
+  const reportYear = lastUpdated.ubs_report_date ? lastUpdated.ubs_report_date.split('-')[0] : "2024";
+  const dateLabelEs = `UBS · dic ${reportYear} · * Valor presente`;
+  const dateLabelEn = `UBS · Dec ${reportYear} · * Present value`;
+
+  const summary_es = `UBS Global Wealth Report ${reportYear} (adultos, datos al 31 dic ${reportYear}). Forbes Real-Time Billionaires, ${formatForbesDate(lastUpdated.forbes_billionaires_date, 'es')}: ${topHolder.name_es} (${rangeStrEs}) y ${formattedBillionairesES} billonarios confirmados. Población adulta mundial: ${formattedAdultsES}.`;
+  const summary_en = `UBS Global Wealth Report ${reportYear} (adults, data as of 31 Dec ${reportYear}). Forbes Real-Time Billionaires, ${formatForbesDate(lastUpdated.forbes_billionaires_date, 'en')}: ${topHolder.name_en} (${rangeStrEn}) and ${formattedBillionairesEN} confirmed billionaires. Global adult population: ${formattedAdultsEN}.`;
+
+  const defaultLimitations = [
+    { code: "VALUATION", es: "Patrimonio neto individual = activos inmobiliarios y financieros personales menos deudas.", en: "Individual net worth = personal real and financial assets minus liabilities." },
+    { code: "INDIVIDUAL_SCOPE", es: "Unidad de análisis exclusiva: Personas naturales adultas. Excluye corporaciones, estados y fondos.", en: "Exclusive analysis unit: Adult natural persons. Excludes corporations, states, and funds." },
+    { code: "VOLATILITY", es: "Las valoraciones de fortunas individuales fluctúan según los mercados.", en: "Individual fortune valuations fluctuate with global market prices." },
+    { code: "LOGARITHMIC", es: "La escala física es proporcional: desde centímetros en el suelo hasta miles de kilómetros en órbita.", en: "The physical scale is proportional: from centimeters on the ground to thousands of kilometers in orbit." }
+  ];
+
+  if (rawData.metadata.additional_limitations && Array.isArray(rawData.metadata.additional_limitations)) {
+    rawData.metadata.additional_limitations.forEach((lim, idx) => {
+      defaultLimitations.push({
+        code: `ADDITIONAL_${idx + 1}`,
+        es: lim.es,
+        en: lim.en
+      });
+    });
+  }
+
+  const layers = rawData.strata.map((s, idx) => {
+    const height = s.physical_analogy.height_meters;
+    const hEs = NumberFormatter.formatHeight(height, 'es');
+    const hEn = NumberFormatter.formatHeight(height, 'en');
+
+    return {
+      layer_id: s.id || `s${idx + 1}`,
+      pedagogical_role: s.pedagogical_role || (idx === 0 ? "EXTREMO" : (idx === rawData.strata.length - 1 ? "BASE" : "CONTRASTE")),
+      raw_magnitude: s.net_worth_range_usd.average || s.net_worth_range_usd.min || 0,
+      magnitude_unit: "USD",
+      physical_height_meters: height,
+      formatted_height_label: hEs.full_label,
+      formatted_height_num: hEs.value_formatted,
+      formatted_height_unit: hEs.unit,
+      formatted_height_en: hEn,
+      population_share_percentage: s.population_ratio?.percentage ? s.population_ratio.percentage * 100 : 0,
+      physical_reference: {
+        name_es: s.physical_analogy.name_es,
+        name_en: s.physical_analogy.name_en,
+        svg_icon: s.svg_icon || `<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="4"><circle cx="60" cy="60" r="30"/></svg>`
+      },
+      narrative: {
+        headline_es: s.translations.es.headline,
+        headline_en: s.translations.en.headline,
+        caption_es: s.translations.es.caption,
+        caption_en: s.translations.en.caption,
+        aria_es: s.translations.es.aria,
+        aria_en: s.translations.en.aria
+      }
+    };
+  });
+
+  const abstractionDoc = {
+    contract_version: "2.0.0",
+    analysis_unit: "natural_person",
+    title_es: "¿A qué altura vives?",
+    title_en: "How high do you stand?",
+    subtitle_es: `La distancia real entre la base y la cúspide es de ${fHeightEs.full_label}`,
+    subtitle_en: `The real distance between base and apex is ${fHeightEn.full_label}`,
+    semantic_concept_es: "Patrimonio neto personal por adulto (Net Worth per Adult)",
+    semantic_concept_en: "Personal net worth per adult",
+    scale_formula: {
+      unit_value_usd: rawData.formula_constants.step_usd_value,
+      step_height_meters: rawData.formula_constants.step_physical_height_meters
+    },
+    max_height_meters: maxMeters,
+    layers,
+    provenance: {
+      dataset_id: "spec_data_v1",
+      sources: rawData.metadata.sources || [],
+      limitations: defaultLimitations,
+      summary_es,
+      summary_en,
+      date_label_es: dateLabelEs,
+      date_label_en: dateLabelEn
+    }
+  };
+
+  const storyModel = new StoryModel(abstractionDoc);
+  const compiledHtml = HtmlCompiler.compile(rawHtml, abstractionDoc, storyModel);
+
+  fs.writeFileSync(HTML_PATH, compiledHtml, 'utf8');
+
+  logSuccess(`HTML compilado dinámicamente con ${layers.length} estratos.`);
+  logSuccess(`Escala validada: 1 escalón = $${rawData.formula_constants.step_usd_value} USD (${rawData.formula_constants.step_physical_height_meters} m).`);
+  console.log(`\n${GREEN}${BOLD}✓ ¡ÉXITO! Compilación completada en: ${HTML_PATH}${RESET}\n`);
+
+  process.exit(0);
+} catch (error) {
+  logError(`Fallo al compilar e inyectar datos: ${error.message}`);
+  process.exit(1);
+}

@@ -24,7 +24,7 @@ import { HtmlCompiler } from '../src/renderer/html-compiler.js';
 import { StoryModel } from '../src/contracts/story-model.js';
 import { ScaleRecalibrator } from '../src/agent/scale-recalibrator.js';
 import { EntityFilter } from '../src/domain/domain-definition.js';
-import { generateSyntheticData } from '../SPEC/scripts/generate-synthetic-data.js';
+import { generateSyntheticData } from '../OpenWiki/scripts/generate-synthetic-data.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,7 +43,9 @@ function logError(msg) { console.error(`${RED}${BOLD}✗ ERROR: ${msg}${RESET}`)
 function logHeader(msg) { console.log(`\n${BOLD}${BLUE}=== ${msg} ===${RESET}`); }
 
 // Rutas de archivos
-const DATA_PATH = path.resolve(__dirname, '../SPEC/data.json');
+const DATA_PATH = fs.existsSync(path.resolve(__dirname, '../OpenWiki/spec/data.json'))
+  ? path.resolve(__dirname, '../OpenWiki/spec/data.json')
+  : path.resolve(__dirname, '../SPEC/data.json');
 const HTML_PATH = path.resolve(__dirname, '../Escala-visual-de-riqueza-mundial.html');
 
 // Helper para dar formato a alturas centralizado con NumberFormatter

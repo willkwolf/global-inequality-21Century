@@ -13,8 +13,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const DATA_PATH = path.resolve(__dirname, '../../SPEC/data.json');
+const DATA_PATH = fs.existsSync(path.resolve(__dirname, '../../OpenWiki/spec/data.json'))
+  ? path.resolve(__dirname, '../../OpenWiki/spec/data.json')
+  : path.resolve(__dirname, '../../SPEC/data.json');
 
 test('InflationAdjuster.getInflationFactor — Cálculo correcto de factores acumulados', () => {
   // Mismo año -> Factor 1.0
