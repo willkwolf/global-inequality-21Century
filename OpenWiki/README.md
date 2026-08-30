@@ -12,7 +12,7 @@ Bienvenido a **OpenWiki**, la fuente única de verdad (*Single Source of Truth*)
 
 ---
 
-## 📚 Índice Maestro de Documentación y Gobernanza (25 Documentos)
+## 📚 Índice Maestro de Documentación y Gobernanza (26 Documentos)
 
 1. [01. Dominio y Abstracción Conceptual](./01_DOMINIO_Y_ABSTRACCION.md) — Definición ontológica, metáfora espacial y estabilidad de abstracción.
 2. [02. Contrato de Abstracción](./02_CONTRATO_DE_ABSTRACCION.md) — Desacoplamiento estricto entre fuentes de datos y la interfaz visual.
@@ -39,6 +39,7 @@ Bienvenido a **OpenWiki**, la fuente única de verdad (*Single Source of Truth*)
 23. [23. Arquitectura Champion / Challenger y Sandboxes Aislados de Prueba](./23_ARQUITECTURA_CHAMPION_CHALLENGER_Y_SANDBOX_DE_PRUEBAS.md) — Paradigma Champion/Challenger (A/B), aislamiento total de producción en pruebas y retención ante conceptual drifts extremos.
 24. [24. Toggle Estético de Valor Presente (UI Frosted Glass) y Normalización Inflacionaria](./24_TOGGLE_VALOR_PRESENTE_Y_NORMALIZACION_INFLACIONARIA.md) — Conmutación dinámica entre datos nominales de la fuente original y valor presente ajustado por inflación CPI-U con asterisco dinámico USD*.
 25. [25. Auditoría Epistemológica, Matemática y Arquitectónica del Escalón Patrón](./25_AUDITORIA_EPISTEMOLOGICA_DEL_ESCALON_PATRON_Y_CALIBRACION_DINAMICA.md) — Separación ontológica (Constante física 15 cm vs Dato empírico contingente), análisis SWOT, 6 métodos de calibración, pruebas de estrés y atemporalidad de la escala.
+26. [26. Certificación Formal de Fase 0 y Firma del Champion en Producción](./26_CERTIFICACION_FASE_0_Y_FIRMA_DEL_CHAMPION.md) — Acta oficial de certificación de Baseline v0.9, resultados de verificación 100%, firmas de homologación y protocolo de cuarentena de estabilidad.
 
 ---
 
