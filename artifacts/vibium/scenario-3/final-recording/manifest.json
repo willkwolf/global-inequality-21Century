@@ -1,0 +1,12 @@
+{
+  "scenario_id": "scenario-3",
+  "scenario_title": "Escenario 3: Chaotic / Adversarial Drift",
+  "decision": "ABSTRACTION_LIMIT_REACHED",
+  "abstraction_status": "LIMIT_BREACHED",
+  "limit_reached_type": "EPISTEMIC_LIMIT",
+  "limit_reason": "Mediana global con deuda destructiva (-$50000000 USD). La metáfora física sobre el suelo es epistemológicamente insostenible.",
+  "recommendation": "Activar modo de crisis ontológica o bifurcar hacia visualización de balances de deuda soberana.",
+  "timestamp": "2026-08-29T23:49:35.289Z",
+  "execution_time_ms": 0,
+  "strata_count": 0
+}

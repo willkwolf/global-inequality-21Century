@@ -1,0 +1,71 @@
+[
+  {
+    "step": 0,
+    "section_id": "s0",
+    "altitude_label": "0 m (Inicio)",
+    "role": "SPLASH_INTRO",
+    "opacity_stars": 1,
+    "active_dot": "s0"
+  },
+  {
+    "step": 1,
+    "section_id": "s1",
+    "altitude_label": "18,000 km",
+    "role": "EXTREMO",
+    "physical_analogy": "Satélite en órbita terrestre media (Larry Ellison)",
+    "active_dot": "s1",
+    "announced_aria": "Satélite en órbita terrestre media (Larry Ellison): 18,000 km"
+  },
+  {
+    "step": 2,
+    "section_id": "s2",
+    "altitude_label": "250 m",
+    "role": "CONTRASTE",
+    "physical_analogy": "Edificio de 71 pisos",
+    "active_dot": "s2",
+    "announced_aria": "Edificio de 71 pisos: 250 m"
+  },
+  {
+    "step": 3,
+    "section_id": "s3",
+    "altitude_label": "21 m",
+    "role": "CONTRASTE",
+    "physical_analogy": "Escalera de 140 escalones",
+    "active_dot": "s3",
+    "announced_aria": "Escalera de 140 escalones: 21 m"
+  },
+  {
+    "step": 4,
+    "section_id": "s4",
+    "altitude_label": "3.5 m",
+    "role": "CONTRASTE",
+    "physical_analogy": "Casa residencial de dos pisos",
+    "active_dot": "s4",
+    "announced_aria": "Casa residencial de dos pisos: 3.5 m"
+  },
+  {
+    "step": 5,
+    "section_id": "s5",
+    "altitude_label": "15.4 cm",
+    "role": "BASE",
+    "physical_analogy": "Un solo escalón de escalera",
+    "active_dot": "s5",
+    "announced_aria": "Un solo escalón de escalera: 15.4 cm"
+  },
+  {
+    "step": 6,
+    "section_id": "s6",
+    "altitude_label": "2.5 cm",
+    "role": "BASE",
+    "physical_analogy": "Una roca pequeña en el suelo",
+    "active_dot": "s6",
+    "announced_aria": "Una roca pequeña en el suelo: 2.5 cm"
+  },
+  {
+    "step": 7,
+    "section_id": "metodologia",
+    "altitude_label": "Ficha Técnica",
+    "role": "METHODOLOGY_FOOTER",
+    "active_dot": null
+  }
+]

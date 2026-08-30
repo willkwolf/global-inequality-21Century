@@ -1,0 +1,12 @@
+{
+  "scenario_id": "extreme-case-03-extreme-inequality",
+  "scenario_title": "3. Distribución extremadamente desigual (Distancia astronómica > Luna)",
+  "decision": "ABSTRACTION_LIMIT_REACHED",
+  "abstraction_status": "LIMIT_BREACHED",
+  "limit_reached_type": "PHYSICAL_LIMIT",
+  "limit_reason": "Altura física calculada (15,000,000,000,000,000 km) excede la distancia a la Luna. La metáfora física pierde anclaje comprensible.",
+  "recommendation": "Aplicar compresión logarítmica astronómica o advertir el límite del modelo.",
+  "timestamp": "2026-08-29T23:49:35.584Z",
+  "execution_time_ms": 0,
+  "strata_count": 3
+}

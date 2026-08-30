@@ -3,7 +3,8 @@
  * 
  * CANONICAL DATA MODEL FACTORY & CONVERTER
  * Ensambla los datos normalizados de diferentes adaptadores primarios en una estructura canónica única,
- * restringiendo la unidad de análisis exclusivamente a PERSONAS NATURALES ADULTAS.
+ * restringiendo la unidad de análisis exclusivamente a PERSONAS NATURALES ADULTAS y enriqueciendo
+ * el catálogo de limitaciones metodológicas y epistemológicas.
  */
 
 import crypto from 'crypto';
@@ -79,10 +80,46 @@ export class CanonicalDataModel {
     all_distributions.sort((a, b) => a.percentile_range.from - b.percentile_range.from);
 
     const defaultLimitations = limitations || [
-      { code: "VALUATION_BASIS", es: "Patrimonio neto = activos reales y financieros personales menos deudas.", en: "Net worth = personal real and financial assets minus liabilities." },
-      { code: "INDIVIDUAL_SCOPE", es: "Unidad de análisis exclusiva: Personas naturales adultas.", en: "Exclusive analysis unit: Adult natural persons." },
-      { code: "VOLATILITY", es: "Las fortunas de personas en la cúspide fluctúan según el mercado.", en: "Fortunes of individuals at the apex fluctuate with market valuations." },
-      { code: "LOGARITHMIC_SCALE", es: "Escala vertical proporcional: de centímetros a miles de kilómetros.", en: "Proportional vertical scale: from centimeters to thousands of kilometers." }
+      {
+        code: "VALUATION_BASIS",
+        es: "Patrimonio neto personal = activos reales y financieros privados menos deudas individuales.",
+        en: "Personal net worth = individual real and financial assets minus private liabilities."
+      },
+      {
+        code: "INDIVIDUAL_SCOPE",
+        es: "Unidad de análisis exclusiva: Personas naturales adultas (>=20 años). Excluye corporaciones y estados.",
+        en: "Exclusive analysis unit: Adult natural persons (>=20 years). Excludes corporations and sovereign entities."
+      },
+      {
+        code: "VOLATILITY_AND_ILLIQUIDITY",
+        es: "La cúspide (Elon Musk) refleja valoración de participaciones empresariales (Tesla, SpaceX) no monetizables de inmediato en efectivo.",
+        en: "The apex (Elon Musk) reflects corporate equity valuations (Tesla, SpaceX) not immediately liquid in cash."
+      },
+      {
+        code: "CURRENCY_AND_PPP",
+        es: "Medición en USD nominales como denominador estándar común; el poder adquisitivo real (PPP) varía geográficamente.",
+        en: "Measured in nominal USD as a common standard; real purchasing power (PPP) varies geographically."
+      },
+      {
+        code: "STEP_EQUIVALENCE",
+        es: "La escala fija 1 escalón (15 cm) ≈ $8,000 USD, aproximando la mediana empírica UBS ($8,910 USD ≈ 16.7 cm).",
+        en: "The scale anchors 1 step (15 cm) ≈ $8,000 USD, approximating the empirical UBS median ($8,910 USD ≈ 16.7 cm)."
+      },
+      {
+        code: "OFFSHORE_AND_INFORMAL",
+        es: "Las estadísticas globales enfrentan limitaciones para registrar riqueza en paraísos fiscales y activos informales.",
+        en: "Global statistics face limitations tracking wealth in offshore havens and informal assets."
+      },
+      {
+        code: "STOCK_VS_FLOW",
+        es: "El patrimonio neto mide riqueza acumulada (stock), no ingresos anuales de flujo corriente.",
+        en: "Net worth measures accumulated wealth (stock), not annual flow income."
+      },
+      {
+        code: "LINEAR_SCALE",
+        es: "La escala vertical es estrictamente lineal (Lie Factor = 1.0) sin compresión logarítmica artificial.",
+        en: "The vertical scale is strictly linear (Lie Factor = 1.0) without artificial logarithmic compression."
+      }
     ];
 
     const serializedContent = JSON.stringify({ raw_sources, global_metrics, all_distributions });

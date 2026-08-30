@@ -1,0 +1,12 @@
+{
+  "scenario_id": "extreme-case-07-incomplete-data",
+  "scenario_title": "7. Datos incompletos (Solo 1 percentil)",
+  "decision": "ABSTRACTION_LIMIT_REACHED",
+  "abstraction_status": "LIMIT_BREACHED",
+  "limit_reached_type": "EPISTEMIC_LIMIT",
+  "limit_reason": "Distribución casi uniforme (varianza nula o insignificante). La escala vertical pierde su función pedagógica de contraste.",
+  "recommendation": "Reemplazar temporalmente con una visualización de homogeneidad absoluta.",
+  "timestamp": "2026-08-29T23:49:35.730Z",
+  "execution_time_ms": 0,
+  "strata_count": 1
+}

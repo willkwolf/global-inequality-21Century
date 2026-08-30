@@ -14,7 +14,7 @@
     "role": "EXTREMO",
     "physical_analogy": "Satélite en órbita terrestre media (Bernard Arnault & Family)",
     "active_dot": "s1",
-    "announced_aria": "Satélite en órbita terrestre media (Bernard Arnault & Family)"
+    "announced_aria": "Satélite en órbita terrestre media (Bernard Arnault & Family): 12,818.18 km"
   },
   {
     "step": 2,
@@ -23,7 +23,7 @@
     "role": "CONTRASTE",
     "physical_analogy": "Cohete en la estratosfera",
     "active_dot": "s2",
-    "announced_aria": "Cohete en la estratosfera"
+    "announced_aria": "Cohete en la estratosfera: 13.64 km"
   },
   {
     "step": 3,
@@ -32,7 +32,7 @@
     "role": "CONTRASTE",
     "physical_analogy": "Edificio de 18 pisos",
     "active_dot": "s3",
-    "announced_aria": "Edificio de 18 pisos"
+    "announced_aria": "Edificio de 18 pisos: 61.36 m"
   },
   {
     "step": 4,
@@ -41,7 +41,7 @@
     "role": "CONTRASTE",
     "physical_analogy": "Escalera de 109 escalones",
     "active_dot": "s4",
-    "announced_aria": "Escalera de 109 escalones"
+    "announced_aria": "Escalera de 109 escalones: 16.36 m"
   },
   {
     "step": 5,
@@ -50,7 +50,7 @@
     "role": "CONTRASTE",
     "physical_analogy": "Casa residencial de dos pisos",
     "active_dot": "s5",
-    "announced_aria": "Casa residencial de dos pisos"
+    "announced_aria": "Casa residencial de dos pisos: 4.36 m"
   },
   {
     "step": 6,
@@ -59,7 +59,7 @@
     "role": "CONTRASTE",
     "physical_analogy": "Silla alta de bar",
     "active_dot": "s6",
-    "announced_aria": "Silla alta de bar"
+    "announced_aria": "Silla alta de bar: 57.3 cm"
   },
   {
     "step": 7,
@@ -68,7 +68,7 @@
     "role": "BASE",
     "physical_analogy": "Un solo escalón de escalera",
     "active_dot": "s7",
-    "announced_aria": "Un solo escalón de escalera"
+    "announced_aria": "Un solo escalón de escalera: 15.3 cm"
   },
   {
     "step": 8,
@@ -77,7 +77,7 @@
     "role": "BASE",
     "physical_analogy": "Una roca pequeña en el suelo",
     "active_dot": "s8",
-    "announced_aria": "Una roca pequeña en el suelo"
+    "announced_aria": "Una roca pequeña en el suelo: 2.9 cm"
   },
   {
     "step": 9,

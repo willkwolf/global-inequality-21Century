@@ -1,0 +1,18 @@
+{
+  "scenario_id": "scenario-2",
+  "scenario_title": "Escenario 2: Methodological & Semantic Drift",
+  "decision": "PASS_WITH_ADAPTATION",
+  "abstraction_status": "WITHIN_LIMITS",
+  "tested_viewports": [
+    "MOBILE (390x844)",
+    "DESKTOP (1920x1080)"
+  ],
+  "timestamp": "2026-08-29T23:49:35.280Z",
+  "execution_time_ms": 226,
+  "strata_count": 6,
+  "step_usd_value": 15000,
+  "step_height_meters": 0.15,
+  "max_height_label": "18,000 km",
+  "drifts_count": 2,
+  "attempt": 1
+}

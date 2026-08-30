@@ -75,10 +75,46 @@ export class AiAdaptationAgent {
     const summary_en = `${primarySource} (adults, data as of ${reportDate}). Forbes Billionaires: ${topPerson} and ${billionairesCount} confirmed billionaires. World adult population: ${totalAdultsB} billion.`;
 
     const limitations = incomingData.limitations || [
-      { code: "VALUATION", es: "Patrimonio neto individual = activos inmobiliarios y financieros personales menos deudas.", en: "Individual net worth = personal real and financial assets minus liabilities." },
-      { code: "INDIVIDUAL_SCOPE", es: "Unidad de análisis exclusiva: Personas naturales adultas. Excluye activos corporativos e instituciones.", en: "Exclusive analysis unit: Adult natural persons. Excludes corporate assets and institutions." },
-      { code: "VOLATILITY", es: "Las valoraciones de fortunas individuales fluctúan según los mercados.", en: "Individual fortune valuations fluctuate with global market prices." },
-      { code: "LOGARITHMIC", es: "La escala física es proporcional: desde centímetros en el suelo hasta miles de kilómetros en órbita.", en: "The physical scale is proportional: from centimeters on the ground to thousands of kilometers in orbit." }
+      {
+        code: "VALUATION_BASIS",
+        es: "Patrimonio neto personal = activos reales y financieros privados menos deudas individuales.",
+        en: "Personal net worth = individual real and financial assets minus private liabilities."
+      },
+      {
+        code: "INDIVIDUAL_SCOPE",
+        es: "Unidad de análisis exclusiva: Personas naturales adultas (>=20 años). Excluye corporaciones y estados.",
+        en: "Exclusive analysis unit: Adult natural persons (>=20 years). Excludes corporations and sovereign entities."
+      },
+      {
+        code: "VOLATILITY_AND_ILLIQUIDITY",
+        es: "La cúspide (Elon Musk) refleja valoración de participaciones empresariales (Tesla, SpaceX) no monetizables de inmediato en efectivo.",
+        en: "The apex (Elon Musk) reflects corporate equity valuations (Tesla, SpaceX) not immediately liquid in cash."
+      },
+      {
+        code: "CURRENCY_AND_PPP",
+        es: "Medición en USD nominales como denominador estándar común; el poder adquisitivo real (PPP) varía geográficamente.",
+        en: "Measured in nominal USD as a common standard; real purchasing power (PPP) varies geographically."
+      },
+      {
+        code: "STEP_EQUIVALENCE",
+        es: "La escala fija 1 escalón (15 cm) ≈ $8,000 USD, aproximando la mediana empírica UBS ($8,910 USD ≈ 16.7 cm).",
+        en: "The scale anchors 1 step (15 cm) ≈ $8,000 USD, approximating the empirical UBS median ($8,910 USD ≈ 16.7 cm)."
+      },
+      {
+        code: "OFFSHORE_AND_INFORMAL",
+        es: "Las estadísticas globales enfrentan limitaciones para registrar riqueza en paraísos fiscales y activos informales.",
+        en: "Global statistics face limitations tracking wealth in offshore havens and informal assets."
+      },
+      {
+        code: "STOCK_VS_FLOW",
+        es: "El patrimonio neto mide riqueza acumulada (stock), no ingresos anuales de flujo corriente.",
+        en: "Net worth measures accumulated wealth (stock), not annual flow income."
+      },
+      {
+        code: "LINEAR_SCALE",
+        es: "La escala vertical es estrictamente lineal (Lie Factor = 1.0) sin compresión logarítmica artificial.",
+        en: "The vertical scale is strictly linear (Lie Factor = 1.0) without artificial logarithmic compression."
+      }
     ];
 
     const abstractionDoc = {
