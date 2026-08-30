@@ -10,32 +10,33 @@
 [![Vibium Verification](https://img.shields.io/badge/Vibium_Verification-passed-46c117?style=for-the-badge)](https://github.com/VibiumDev/vibium)
 [![Unidad de Análisis: Persona Natural](https://img.shields.io/badge/Unidad_Análisis-Persona_Natural-orange?style=for-the-badge)](./OpenWiki/15_UNIDAD_DE_ANALISIS_Y_FILTRO_DE_ENTIDADES.md)
 [![Invariante i18n & Año Dinámico](https://img.shields.io/badge/Invariante-i18n_&_Año_Dinámico-teal?style=for-the-badge)](./OpenWiki/21_INVARIANTES_TEMPORALES_Y_FORMATO_NUMERICO_I18N.md)
-[![Fase 0: Estabilización Baseline](https://img.shields.io/badge/Fase_0-Baseline_Stabilization-blueviolet?style=for-the-badge)](./OpenWiki/19_BASELINE_OFICIAL_Y_FASE_0_ESTABILIZACION.md)
+[![Fase 0: Certificada & Congelada](https://img.shields.io/badge/Fase_0-Certified_%26_Frozen-blueviolet?style=for-the-badge)](./OpenWiki/26_CERTIFICACION_FASE_0_Y_FIRMA_DEL_CHAMPION.md)
 [![Licencia CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg?style=for-the-badge)](https://creativecommons.org/licenses/by/4.0/)
 
 ---
 
-## 📌 Estado del Sistema y Gobernanza: Baseline Oficial v0.9
-- **Fase Actual:** **`FASE 0 — BASELINE STABILIZATION (HIGH HUMAN-IN-THE-LOOP)`**
-- **Versión:** `BASELINE v0.9 (Vibium Verified & Strict Natural Person Model)`
-- **Fecha de Publicación:** `Agosto 2026`
-- **Unidad de Análisis Inmutable:** **EXCLUSIVAMENTE PERSONAS NATURALES (ADULTOS)**. Se prohíbe la inclusión o comparación con empresas, personas jurídicas, fundaciones, corporaciones, estados o fondos soberanos.
-- **Invariantes Globales:**
-  1. **Año Objetivo Dinámico:** `target_year = current_year()` derivado en runtime. Cero años hardcodeados.
-  2. **Formato Numérico Centralizado:** `NUMERIC VALUE` (cálculo de alta precisión) $\neq$ `DISPLAY VALUE` (redondeo estético + `Intl.NumberFormat`), respetando `CURRENCY (USD) ≠ LOCALE (es / en)`.
-- **Fuentes Primarias:** *UBS Global Wealth Report 2024*, *Forbes Real-Time Billionaires* (corte mayo 2026), *World Inequality Database (WID.world)*.
-- **Metodología de Escala:** Jan Pen Parade (1971) actualizado; $1\text{ escalón} (15\text{ cm}) \approx \text{Mediana global de riqueza } (\$8,000\text{ USD})$.
-- **Estado de la Abstracción:** `VALID_WITH_LIMITATIONS` (Certificado por Vibium Verification Engine en Mobile y Desktop).
+## 📌 Estado del Sistema: Champion de Producción (Fase 0 Concluida)
+
+* **Fase Actual:** **`PHASE 0 — BASELINE STABILIZATION (CERTIFIED & FROZEN CHAMPION)`**
+* **Versión Oficial:** `BASELINE v0.9 (Champion en Producción)`
+* **Período:** `En cuarentena de estabilidad pasiva previa a Fase 1 (Deterministic CI)`
+* **Unidad de Análisis Inmutable:** **EXCLUSIVAMENTE PERSONAS NATURALES (ADULTOS)**. Prohibición estricta de personas jurídicas, corporaciones, fondos soberanos o estados.
+* **Invariantes Globales:**
+  1. **Año Objetivo Dinámico:** `target_year = current_year()` obtenido en tiempo de ejecución.
+  2. **Formateo Numérico Centralizado:** Separación estricta entre valor numérico exacto de cálculo y valor presentado (`Intl.NumberFormat`), respetando `CURRENCY (USD) ≠ LOCALE (es / en)`.
+  3. **Desacoplamiento del Escalón:** La constante física corporal ($15\text{ cm}$) es un invariante de diseño; la calibración económica ($W_{\text{ref}}$) es un parámetro empírico dinámico derivado de la mediana ($W_{50}$).
+  4. **Toggle Dual Nominal / Valor Presente:** Switch estético frosted glass que conmuta instantáneamente entre datos históricos originales de la fuente y cifras a valor presente ajustadas por inflación CPI-U ($+5.4\%$).
+* **Fuentes Primarias:** *UBS Global Wealth Report 2024* (datos al 31 dic 2024) y *Forbes Real-Time Billionaires* (corte mayo 2026).
 
 ---
 
 ## 🌐 Demo en Vivo / Live Demo
-**👉 [Ver en vivo en GitHub Pages](https://willkwolf.github.io/global-inequality-21Century/)**
+**👉 [Ver visualizador en vivo en GitHub Pages](https://willkwolf.github.io/global-inequality-21Century/)**
 
 ---
 
 ## 🧭 La Ruta del Pensamiento Crítico (El Ecosistema)
-Este proyecto forma parte de **"La Ruta del Pensamiento Crítico"**, una red interactiva de 5 webs estáticas de `@willkwolf` que conectan teoría económica, dilemas políticos, brechas materiales y contextos locales:
+Este proyecto forma parte de **"La Ruta del Pensamiento Crítico"**, una red interactiva de 5 aplicaciones web estáticas de `@willkwolf` que conectan teoría económica, dilemas políticos, brechas materiales y realidades locales:
 
 ```mermaid
 graph TD
@@ -48,40 +49,33 @@ graph TD
 
 ---
 
-## 🏛 Arquitectura de Desacoplamiento: Qué Cambia y Qué Permanece
+## 🏛 Arquitectura y Matriz de Gobernanza: Qué Cambia y Qué Permanece
 
-Para garantizar que el sistema sea autoactualizable mediante agentes de IA sin romper la abstracción pedagógica, los componentes se rigen por la siguiente matriz de gobernanza:
-
-| Categoría | Componentes | Descripción y Regla de Gobernanza |
+| Categoría | Componentes | Regla de Gobernanza |
 |---|---|---|
-| 🟢 **CONSERVADO** | **Metáfora de altura espacial**, Scrollytelling vertical, Contrato de Abstracción, **Unidad de análisis exclusiva de Persona Natural**, **Invariantes temporales e i18n**, Accesibilidad WCAG 2.1 AAA, Integridad matemática (*Lie Factor* = 1.0). | Inmutables. Ningún agente puede alterar la regla de Jan Pen ni comparar personas con corporaciones o estados. |
-| 🟡 **ADAPTABLE** | **Valor del escalón ($USD)**, Altura máxima de la cúspide, Captions derivados matemáticamente, Textos y titulares bilingües (ES/EN), Iconos SVG de estratos, Fechas de fuentes y versiones metodológicas (`SOURCE · PERIOD · VERSION`). | Recalibrados automáticamente por el agente ante **Data Drift** o **Semantic Drift**. |
-| 🔵 **CAMBIADO** | **Renderizado dinámico de $N$ estratos**, Desacoplamiento total del DOM, Filtro Ontológico de Entidades (`EntityFilter`), Módulo Central de Formato Numérico (`NumberFormatter`), Capa de Verificación Vibium (Dual: Mobile + Desktop). | Arquitectura modular en `src/` con validación en servidor local y navegador real. |
-| 🔴 **DEPRECATED** | Loops estáticos de 8 estratos fijos, Captions hardcodeados desactualizados, Entidades no naturales en la cúspide, Strings con años fijos en lógica de cálculo. | Eliminados por completo del codebase. |
+| 🟢 **CONSERVADO** | **Metáfora de altura física**, scrollytelling vertical, contrato de Jan Pen (*Lie Factor* = 1.0), **Persona Natural exclusiva**, accesibilidad WCAG 2.1 AAA. | Inmutables. Ningún agente puede alterar la regla de escala vertical ni incluir entidades no naturales. |
+| 🟡 **ADAPTABLE** | **Valor del escalón ($USD)** derivado de la mediana, altura de la cúspide, captions bilingües (ES/EN), badges de procedencia temporal, iconos SVG. | Recalibrados automáticamente ante **Data Drift** o **Semantic Drift**. |
+| 🔵 **CAMBIADO** | **Compilación dinámica de $N$ estratos**, desacoplamiento total del DOM, centralización en `OpenWiki/`, módulo `InflationAdjuster`, suite Vibium dual. | Arquitectura modular en `src/` y contratos formales bajo `OpenWiki/`. |
+| 🔴 **DEPRECATED** | Denominadores hardcodeados, loops fijos de 8 estratos, textos estáticos dependientes de datos, años fijos en lógica. | Eliminados definitivamente del codebase. |
 
 ---
 
-## 🔬 Capa de Verificación Vibium (Vibium Verification Layer)
+## 🔬 Verificación Vibium & Suites de Calidad (100% Passing)
 
-Vibium opera como verificador autónomo independiente sobre la aplicación servida en tiempo real (`http://127.0.0.1:8088`), validando simultáneamente en resoluciones **Mobile-First (390x844)** y **Desktop (1920x1080)**:
-
-```
-DATA → ENTITY FILTER → CANONICAL MODEL → AI ADAPTATION → BUILD → LOCAL SERVER → VIBIUM DUAL VERIFICATION → GITHUB PAGES
-```
-
-### Resultados de la Suite de Verificación
-1. **Escenario 1 (Data Drift Probable):** Mediana sube a $\$11,200\text{ USD}$, cúspide a $\$940\text{B USD}$ con Bernard Arnault $\to$ **`PASS_WITH_ADAPTATION`** (*Evidencia:* `artifacts/vibium/scenario-1/final-recording.zip`).
-2. **Escenario 2 (Methodological & Semantic Drift):** Metodología PPP, 6 estratos dinámicos, Larry Ellison en la cúspide $\to$ **`PASS_WITH_ADAPTATION`** (*Evidencia:* `artifacts/vibium/scenario-2/final-recording.zip`).
-3. **Escenario 3 (Chaotic / Adversarial Drift):** Mediana negativa destructiva de $-\$50\text{M USD}$ $\to$ **`ABSTRACTION_LIMIT_REACHED`** (Publicación detenida de forma segura, *Evidencia:* `artifacts/vibium/scenario-3/final-recording.zip`).
-4. **12 Pruebas Sintéticas Extremas:** Cobertura de valores ínfimos, hiperinflación, varianza nula, deuda subterránea, outliers astronómicos, rechazo de fondos/estados (`Case 10`), feeds corruptos y datasets incompletos (12/12 Superadas).
+El sistema cuenta con un marco de verificación transversal determinista:
+1. **Suite Unitaria y DOM (`tests/unit/`):** 8 suites probando formateo numérico, normalización temporal, modelo canónico, drift, escalón y toggle interactivo.
+2. **Suite Vibium Dual:** Verificación en navegadores reales en resolución **Mobile-First (390x844)** y **Desktop (1920x1080)** con cero desbordes ni regresiones de contraste.
+3. **Suite de 3 Escenarios de Drift:** Validación de resiliencia ante Data Drift Probable, Methodological Drift y Chaotic Drift con activación de guardrails (`ABSTRACTION_LIMIT_REACHED`).
+4. **Suite Sintética Challenger (25 iteraciones):** Simulación Monte Carlo en sandboxes en memoria sin mutar la producción.
+5. **Suite de Estrés de Calibración:** Evaluación en 10 regímenes macroeconómicos extremos (hiperinflación, deflación, sociedades igualitarias, feudalismo digital).
 
 ---
 
-## 🗺️ Roadmap de Automatización Progresiva (Fases 0 a 7)
+## 🗺️ Roadmap de Automatización Progresiva (7 Fases)
 
 ```mermaid
 graph LR
-    F0["Fase 0: Baseline Stabilization<br><b>[ESTADO ACTUAL]</b>"] --> F1["Fase 1: Deterministic CI"]
+    F0["Fase 0: Baseline Stabilization<br><b>[CERTIFICADA & CONGELADA]</b>"] --> F1["Fase 1: Deterministic CI"]
     F1 --> F2["Fase 2: Drift Detection"]
     F2 --> F3["Fase 3: Agentic Adaptation"]
     F3 --> F4["Fase 4: Closed-Loop Tuning"]
@@ -90,49 +84,33 @@ graph LR
     F6 --> F7["Fase 7: DAO-Like Operation"]
 ```
 
-Consulta los detalles de cada fase en [`OpenWiki/20_ROADMAP_AUTOMATIZACION_PROGRESIVA_Y_GOBERNANZA_DAO.md`](./OpenWiki/20_ROADMAP_AUTOMATIZACION_PROGRESIVA_Y_GOBERNANZA_DAO.md).
+Consulta los detalles del roadmap en [`OpenWiki/20_ROADMAP_AUTOMATIZACION_PROGRESIVA_Y_GOBERNANZA_DAO.md`](./OpenWiki/20_ROADMAP_AUTOMATIZACION_PROGRESIVA_Y_GOBERNANZA_DAO.md).
 
 ---
 
-## 🤓 La Fórmula de Escala
-$$\text{Altura física (m)} = \left(\frac{\text{Patrimonio Neto Personal (USD)}}{\$8,000}\right) \times 0.15\text{ m}$$
+## 🛠️ Instalación y Comandos Operativos
 
----
-
-## 🛠️ Instalación y Ejecución Local
-
-### Requisitos
-* **Node.js** 20+
-* **Vibium** (CLI global o runner local)
-
-### Instalación de Vibium y Skill
 ```bash
-# Instalación global de Vibium
-npm install -g vibium
-
-# Instalación del skill Vibium Vibe-Check
-npx skills add https://github.com/VibiumDev/vibium --skill vibe-check
-
-# Instalación de dependencias del repositorio
+# Instalar dependencias
 npm install
-```
 
-### Ejecutar Suite Completa de Tests y Verificación Vibium
-```bash
-# Compilar e inyectar datos del SPEC
+# Compilar e inyectar datos del SPEC oficial
 npm run apply-spec
 
-# Ejecutar verificación completa (SPEC + Unitarios + 3 Escenarios + Vibium + Parallax + Robustez)
+# Ejecutar la suite completa de pruebas determinísticas
 npm test
 
-# Ejecutar exclusivamente la suite de verificación Vibium
-npm run test:vibium
+# Ejecutar la suite de estrés macroeconómico del escalón
+npm run test:stress
+
+# Validar integridad del esquema JSON de datos
+npm run validate-spec
 ```
 
 ---
 
-## 📚 Documentación y Gobernanza en OpenWiki
-Para consultar el registro inmutable de decisiones, bitácora de advertencias y modelos ontológicos, visita el directorio [`OpenWiki/`](./OpenWiki/README.md) con sus **21 documentos de verdad documental**.
+## 📚 Documentación y Verdad Documental en OpenWiki
+Toda la documentación, contratos formales, actas de auditoría y modelos de gobernanza residen en [`OpenWiki/`](./OpenWiki/README.md) (**26 Documentos de Gobernanza**).
 
 ---
 
