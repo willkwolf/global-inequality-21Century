@@ -67,10 +67,65 @@ body.light-mode :focus-visible{outline-color:rgba(0,0,0,.7)}
 }
 body.light-mode #progress{background:rgba(20,16,10,.5)}
 
-/* ── Language toggle ────────────────────────────────────────────── */
+/* ── Top right controls cluster ─────────────────────────────────── */
+.top-right-controls{
+  position:fixed;top:11px;right:14px;z-index:201;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.pv-toggle-btn{
+  min-width:44px;min-height:44px;
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
+  color:#fff;font-family:var(--font-body);font-size:11px;font-weight:700;
+  letter-spacing:.06em;padding:5px 12px;border-radius:20px;
+  cursor:pointer;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select:none;
+}
+.pv-toggle-btn:hover{
+  background:rgba(255,255,255,.22);
+  border-color:rgba(255,255,255,.4);
+  transform:scale(1.03);
+}
+.pv-toggle-btn:focus-visible{
+  outline:2px solid #60a5fa;outline-offset:2px;
+}
+.pv-toggle-btn.active{
+  background:rgba(59,130,246,.25);
+  border-color:rgba(96,165,250,.75);
+  color:#93c5fd;
+  box-shadow:0 0 14px rgba(59,130,246,.35);
+}
+.pv-led{
+  width:7px;height:7px;border-radius:50%;
+  background:rgba(255,255,255,.35);
+  transition:background .25s, box-shadow .25s;
+}
+.pv-toggle-btn.active .pv-led{
+  background:#60a5fa;
+  box-shadow:0 0 8px #60a5fa;
+}
+body.light-mode .pv-toggle-btn{
+  background:rgba(0,0,0,.08);border-color:rgba(0,0,0,.18);color:#1a1408;
+}
+body.light-mode .pv-toggle-btn.active{
+  background:rgba(37,99,235,.15);border-color:rgba(37,99,235,.6);color:#1d4ed8;
+}
+body.light-mode .pv-toggle-btn.active .pv-led{
+  background:#2563eb;box-shadow:0 0 6px rgba(37,99,235,.6);
+}
+body.a11y-high-contrast .pv-toggle-btn{
+  background:#000 !important;border:2px solid #fff !important;color:#fff !important;
+}
+body.a11y-high-contrast .pv-toggle-btn.active{
+  border-color:#ffff00 !important;color:#ffff00 !important;
+}
+body.a11y-high-contrast .pv-toggle-btn.active .pv-led{
+  background:#ffff00 !important;box-shadow:none !important;
+}
+
 #lang-toggle{
   min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;
-  position:fixed;top:11px;right:14px;z-index:201;
   background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
   color:#fff;font-family:var(--font-body);font-size:11px;font-weight:700;
   letter-spacing:.12em;padding:5px 12px;border-radius:20px;
@@ -1029,8 +1084,14 @@ body.light-mode .ecosystem-callout-btn:hover {
   </button>
 </nav>
 
-<!-- Language toggle -->
-<button id="lang-toggle" aria-label="Switch to English">EN</button>
+<!-- Top right controls: Present Value Toggle & Language toggle -->
+<div class="top-right-controls">
+  <button id="pv-toggle" class="pv-toggle-btn active" role="switch" aria-checked="true" aria-label="Modo de valor presente activado" data-i18n-aria="pv_btn_aria" title="Alternar entre Valor Presente (USD* 2026) y Nominal (USD 2024)">
+    <span class="pv-led" aria-hidden="true"></span>
+    <span id="pv-toggle-label" class="pv-label" data-i18n="pv_btn_label">USD* 2026</span>
+  </button>
+  <button id="lang-toggle" aria-label="Switch to English">EN</button>
+</div>
 
 <!-- Stars background -->
 <div id="stars" aria-hidden="true"></div>
@@ -1069,7 +1130,7 @@ body.light-mode .ecosystem-callout-btn:hover {
 </svg>
       </div>
     </div>
-    <span class="data-date" data-i18n="data_date">UBS · dic 2024 · * Valor presente</span>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024 · * Valor presente (2026)</span>
   </section>
 
   <!-- 2 · Cohete en la estratosfera -->
@@ -1089,7 +1150,7 @@ body.light-mode .ecosystem-callout-btn:hover {
 </svg>
       </div>
     </div>
-    <span class="data-date" data-i18n="data_date">UBS · dic 2024 · * Valor presente</span>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024 · * Valor presente (2026)</span>
   </section>
 
   <!-- 3 · Edificio de 20 pisos -->
@@ -1113,7 +1174,7 @@ body.light-mode .ecosystem-callout-btn:hover {
 </svg>
       </div>
     </div>
-    <span class="data-date" data-i18n="data_date">UBS · dic 2024 · * Valor presente</span>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024 · * Valor presente (2026)</span>
   </section>
 
   <!-- 4 · Escalera de 125 escalones -->
@@ -1134,7 +1195,7 @@ body.light-mode .ecosystem-callout-btn:hover {
 </svg>
       </div>
     </div>
-    <span class="data-date" data-i18n="data_date">UBS · dic 2024 · * Valor presente</span>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024 · * Valor presente (2026)</span>
   </section>
 
   <!-- 5 · Casa de dos pisos -->
@@ -1154,7 +1215,7 @@ body.light-mode .ecosystem-callout-btn:hover {
 </svg>
       </div>
     </div>
-    <span class="data-date" data-i18n="data_date">UBS · dic 2024 · * Valor presente</span>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024 · * Valor presente (2026)</span>
   </section>
 
   <!-- 6 · Silla alta de bar -->
@@ -1174,7 +1235,7 @@ body.light-mode .ecosystem-callout-btn:hover {
 </svg>
       </div>
     </div>
-    <span class="data-date" data-i18n="data_date">UBS · dic 2024 · * Valor presente</span>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024 · * Valor presente (2026)</span>
   </section>
 
   <!-- 7 · Un solo escalón de escalera -->
@@ -1192,7 +1253,7 @@ body.light-mode .ecosystem-callout-btn:hover {
 </svg>
       </div>
     </div>
-    <span class="data-date" data-i18n="data_date">UBS · dic 2024 · * Valor presente</span>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024 · * Valor presente (2026)</span>
   </section>
 
   <!-- 8 · Una roca pequeña -->
@@ -1210,7 +1271,7 @@ body.light-mode .ecosystem-callout-btn:hover {
 </svg>
       </div>
     </div>
-    <span class="data-date" data-i18n="data_date">UBS · dic 2024 · * Valor presente</span>
+    <span class="data-date" data-i18n="data_date">UBS · dic 2024 · * Valor presente (2026)</span>
   </section>
 
 </main>
@@ -1351,7 +1412,14 @@ const STRINGS = {
     "footer_license": "CC BY 4.0",
     "lang_btn": "EN",
     "lang_aria": "Switch to English",
-    "data_date": "UBS · dic 2024 · * Valor presente",
+    "data_date": "UBS · dic 2024 · * Valor presente (2026)",
+    "data_date_nominal": "UBS · dic 2024 · Nominal",
+    "data_date_pv": "UBS · dic 2024 · * Valor presente (2026)",
+    "pv_btn_label": "USD* 2026",
+    "pv_btn_label_nominal": "USD 2024",
+    "pv_btn_aria": "Alternar entre valores nominales de 2024 y valores normalizados al presente (2026)",
+    "pv_announcer_on": "Modo Valor Presente activado (+5.4% de inflación acumulada a 2026).",
+    "pv_announcer_off": "Modo Nominal activado. Mostrando cifras históricas originales de UBS 2024.",
     "scroll_cue": "Desliza para comenzar",
     "a11y_toolbar_label": "Panel de accesibilidad",
     "a11y_btn_aria": "Opciones de accesibilidad",
@@ -1390,6 +1458,8 @@ const STRINGS = {
     "metod_li_add_3": "Las estadísticas globales enfrentan limitaciones para registrar riqueza en paraísos fiscales y activos informales.",
     "s1_headline": "Elon Musk vive en órbita",
     "s1_caption": "Menos de 1 de cada 10 millones · USD* $636B–$839B",
+    "s1_caption_nominal": "Menos de 1 de cada 10 millones · USD $636B–$839B",
+    "s1_caption_pv": "Menos de 1 de cada 10 millones · USD* $636B–$839B",
     "s1_aria": "Elon Musk en órbita: 13.828,13 km",
     "s1_nav": "Satélite en órbita",
     "s1_num": "13.828,13",
@@ -1397,6 +1467,8 @@ const STRINGS = {
     "s1_label": "13.828,13 km",
     "s2_headline": "Un billonario toca la estratosfera",
     "s2_caption": "3 de cada 10 millones · Más de USD* $1,000 millones",
+    "s2_caption_nominal": "3 de cada 10 millones · Más de USD $1,000 millones",
+    "s2_caption_pv": "3 de cada 10 millones · Más de USD* $1,000 millones",
     "s2_aria": "Billonarios: 18,75 km",
     "s2_nav": "Cohete en la estratosfera",
     "s2_num": "18,75",
@@ -1404,6 +1476,8 @@ const STRINGS = {
     "s2_label": "18,75 km",
     "s3_headline": "Los millonarios: un edificio de 20 pisos",
     "s3_caption": "98 de cada 100 viven más abajo · Promedio USD* $3.7M",
+    "s3_caption_nominal": "98 de cada 100 viven más abajo · Promedio USD $3.7M",
+    "s3_caption_pv": "98 de cada 100 viven más abajo · Promedio USD* $3.7M",
     "s3_aria": "Millonarios: 69,38 metros",
     "s3_nav": "Edificio de 20 pisos",
     "s3_num": "69,38",
@@ -1411,6 +1485,8 @@ const STRINGS = {
     "s3_label": "69,38 m",
     "s4_headline": "Para ser millonario: 125 escalones",
     "s4_caption": "Solo el 1.6% del mundo · Umbral USD* $1M",
+    "s4_caption_nominal": "Solo el 1.6% del mundo · Umbral USD $1M",
+    "s4_caption_pv": "Solo el 1.6% del mundo · Umbral USD* $1M",
     "s4_aria": "Umbral millonario: 18,75 metros",
     "s4_nav": "Escalera de 125 escalones",
     "s4_num": "18,75",
@@ -1418,6 +1494,8 @@ const STRINGS = {
     "s4_label": "18,75 m",
     "s5_headline": "16.4%: a la altura de dos pisos",
     "s5_caption": "82 de cada 100 viven más abajo · USD* $293k promedio",
+    "s5_caption_nominal": "82 de cada 100 viven más abajo · USD $293k promedio",
+    "s5_caption_pv": "82 de cada 100 viven más abajo · USD* $293k promedio",
     "s5_aria": "Clase media alta: 5,49 metros",
     "s5_nav": "Casa de dos pisos",
     "s5_num": "5,49",
@@ -1425,6 +1503,8 @@ const STRINGS = {
     "s5_label": "5,49 m",
     "s6_headline": "La mayoría no llega a la silla de bar",
     "s6_caption": "41 de cada 100 viven aquí o más abajo · USD* $36k promedio",
+    "s6_caption_nominal": "41 de cada 100 viven aquí o más abajo · USD $36k promedio",
+    "s6_caption_pv": "41 de cada 100 viven aquí o más abajo · USD* $36k promedio",
     "s6_aria": "La mayoría: 67,5 centímetros",
     "s6_nav": "Silla alta de bar",
     "s6_num": "67,5",
@@ -1432,6 +1512,8 @@ const STRINGS = {
     "s6_label": "67,5 cm",
     "s7_headline": "La mitad del planeta: un solo escalón",
     "s7_caption": "50 de cada 100 no superan este escalón · Mediana USD* $8,910",
+    "s7_caption_nominal": "50 de cada 100 no superan este escalón · Mediana USD $8,910",
+    "s7_caption_pv": "50 de cada 100 no superan este escalón · Mediana USD* $8,910",
     "s7_aria": "Mediana mundial: 16,7 centímetros",
     "s7_nav": "Un solo escalón de escalera",
     "s7_num": "16,7",
@@ -1439,6 +1521,8 @@ const STRINGS = {
     "s7_label": "16,7 cm",
     "s8_headline": "La base del mundo: una roca en el suelo",
     "s8_caption": "41 de cada 100 viven aquí o menos · USD* $1,748 promedio",
+    "s8_caption_nominal": "41 de cada 100 viven aquí o menos · USD $1,748 promedio",
+    "s8_caption_pv": "41 de cada 100 viven aquí o menos · USD* $1,748 promedio",
     "s8_aria": "Base: 3,3 centímetros",
     "s8_nav": "Una roca pequeña",
     "s8_num": "3,3",
@@ -1466,7 +1550,14 @@ const STRINGS = {
     "footer_license": "CC BY 4.0",
     "lang_btn": "ES",
     "lang_aria": "Cambiar a español",
-    "data_date": "UBS · Dec 2024 · * Present value",
+    "data_date": "UBS · Dec 2024 · * Present value (2026)",
+    "data_date_nominal": "UBS · Dec 2024 · Nominal",
+    "data_date_pv": "UBS · Dec 2024 · * Present value (2026)",
+    "pv_btn_label": "USD* 2026",
+    "pv_btn_label_nominal": "USD 2024",
+    "pv_btn_aria": "Toggle between 2024 nominal values and present normalized values (2026)",
+    "pv_announcer_on": "Present Value mode activated (+5.4% cumulative inflation to 2026).",
+    "pv_announcer_off": "Nominal mode activated. Showing direct historical UBS 2024 figures.",
     "scroll_cue": "Scroll to begin",
     "a11y_toolbar_label": "Accessibility panel",
     "a11y_btn_aria": "Accessibility options",
@@ -1505,6 +1596,8 @@ const STRINGS = {
     "metod_li_add_3": "Global statistics face limitations tracking wealth in offshore havens and informal assets.",
     "s1_headline": "Elon Musk lives in orbit",
     "s1_caption": "Fewer than 1 in 10 million · USD* $636B–$839B",
+    "s1_caption_nominal": "Fewer than 1 in 10 million · USD $636B–$839B",
+    "s1_caption_pv": "Fewer than 1 in 10 million · USD* $636B–$839B",
     "s1_aria": "Elon Musk in orbit: 13,828.13 km",
     "s1_nav": "Satellite in orbit",
     "s1_num": "13,828.13",
@@ -1512,6 +1605,8 @@ const STRINGS = {
     "s1_label": "13,828.13 km",
     "s2_headline": "A billionaire touches the stratosphere",
     "s2_caption": "3 in 10 million · More than USD* $1,000 million",
+    "s2_caption_nominal": "3 in 10 million · More than USD $1,000 million",
+    "s2_caption_pv": "3 in 10 million · More than USD* $1,000 million",
     "s2_aria": "Billionaires: 18.75 km",
     "s2_nav": "Rocket in the stratosphere",
     "s2_num": "18.75",
@@ -1519,6 +1614,8 @@ const STRINGS = {
     "s2_label": "18.75 km",
     "s3_headline": "Millionaires: a 20-story building",
     "s3_caption": "98 in 100 live below · Average USD* $3.7M",
+    "s3_caption_nominal": "98 in 100 live below · Average USD $3.7M",
+    "s3_caption_pv": "98 in 100 live below · Average USD* $3.7M",
     "s3_aria": "Millionaires: 69.38 meters",
     "s3_nav": "20-story building",
     "s3_num": "69.38",
@@ -1526,6 +1623,8 @@ const STRINGS = {
     "s3_label": "69.38 m",
     "s4_headline": "To become a millionaire: 125 steps",
     "s4_caption": "Only 1.6% of the world · Threshold USD* $1M",
+    "s4_caption_nominal": "Only 1.6% of the world · Threshold USD $1M",
+    "s4_caption_pv": "Only 1.6% of the world · Threshold USD* $1M",
     "s4_aria": "Millionaire threshold: 18.75 meters",
     "s4_nav": "Staircase of 125 steps",
     "s4_num": "18.75",
@@ -1533,6 +1632,8 @@ const STRINGS = {
     "s4_label": "18.75 m",
     "s5_headline": "16.4%: at two-story height",
     "s5_caption": "82 in 100 live below · USD* $293k average",
+    "s5_caption_nominal": "82 in 100 live below · USD $293k average",
+    "s5_caption_pv": "82 in 100 live below · USD* $293k average",
     "s5_aria": "Upper middle class: 5.49 meters",
     "s5_nav": "Two-story house",
     "s5_num": "5.49",
@@ -1540,6 +1641,8 @@ const STRINGS = {
     "s5_label": "5.49 m",
     "s6_headline": "The majority don't reach the bar stool",
     "s6_caption": "41 in 100 live here or below · USD* $36k average",
+    "s6_caption_nominal": "41 in 100 live here or below · USD $36k average",
+    "s6_caption_pv": "41 in 100 live here or below · USD* $36k average",
     "s6_aria": "The majority: 67.5 centimeters",
     "s6_nav": "Bar stool",
     "s6_num": "67.5",
@@ -1547,6 +1650,8 @@ const STRINGS = {
     "s6_label": "67.5 cm",
     "s7_headline": "Half the planet: one single step",
     "s7_caption": "50 in 100 do not surpass this step · Median USD* $8,910",
+    "s7_caption_nominal": "50 in 100 do not surpass this step · Median USD $8,910",
+    "s7_caption_pv": "50 in 100 do not surpass this step · Median USD* $8,910",
     "s7_aria": "World median: 16.7 centimeters",
     "s7_nav": "A single stair step",
     "s7_num": "16.7",
@@ -1554,6 +1659,8 @@ const STRINGS = {
     "s7_label": "16.7 cm",
     "s8_headline": "The world base: a pebble on the ground",
     "s8_caption": "41 in 100 live here or below · USD* $1,748 average",
+    "s8_caption_nominal": "41 in 100 live here or below · USD $1,748 average",
+    "s8_caption_pv": "41 in 100 live here or below · USD* $1,748 average",
     "s8_aria": "Base: 3.3 centimeters",
     "s8_nav": "A small pebble",
     "s8_num": "3.3",
@@ -1656,6 +1763,97 @@ function applyLang(lang) {
   if (a11yToggle && t.a11y_btn_aria) {
     a11yToggle.setAttribute('aria-label', t.a11y_btn_aria);
   }
+
+  // Update Present Value button label and aria
+  const pvLabel = document.getElementById('pv-toggle-label');
+  if (pvLabel) {
+    pvLabel.textContent = isPresentValue ? t.pv_btn_label : t.pv_btn_label_nominal;
+  }
+  const pvBtn = document.getElementById('pv-toggle');
+  if (pvBtn && t.pv_btn_aria) {
+    pvBtn.setAttribute('title', t.pv_btn_aria);
+  }
+
+  // Update captions & data-dates according to isPresentValue
+  for (let i = 1; i <= 8; i++) {
+    const sId = 's' + i;
+    const section = document.getElementById(sId);
+    if (!section) continue;
+
+    const captionEl = section.querySelector('.caption');
+    if (captionEl) {
+      const captionKey = isPresentValue ? `${sId}_caption_pv` : `${sId}_caption_nominal`;
+      if (t[captionKey]) {
+        captionEl.textContent = t[captionKey];
+      }
+    }
+
+    const dataDateEl = section.querySelector('.data-date');
+    if (dataDateEl) {
+      dataDateEl.textContent = isPresentValue ? (t.data_date_pv || t.data_date) : (t.data_date_nominal || t.data_date.replace(' * Valor presente', ' · Nominal').replace(' * Present value', ' · Nominal'));
+    }
+  }
+}
+
+let isPresentValue = true; // Valor presente activado por defecto
+
+function togglePresentValue(forceState) {
+  if (typeof forceState === 'boolean') {
+    isPresentValue = forceState;
+  } else {
+    isPresentValue = !isPresentValue;
+  }
+
+  const pvBtn = document.getElementById('pv-toggle');
+  const pvLabel = document.getElementById('pv-toggle-label');
+  const t = STRINGS[currentLang];
+
+  if (pvBtn) {
+    pvBtn.classList.toggle('active', isPresentValue);
+    pvBtn.setAttribute('aria-checked', isPresentValue ? 'true' : 'false');
+    pvBtn.setAttribute('aria-label', isPresentValue 
+      ? (currentLang === 'es' ? 'Modo de valor presente activado' : 'Present value mode activated')
+      : (currentLang === 'es' ? 'Modo nominal activado' : 'Nominal mode activated'));
+  }
+
+  if (pvLabel) {
+    pvLabel.textContent = isPresentValue ? t.pv_btn_label : t.pv_btn_label_nominal;
+  }
+
+  // Actualizar captions y fecha de procedencia en cada estrato
+  for (let i = 1; i <= 8; i++) {
+    const sId = 's' + i;
+    const section = document.getElementById(sId);
+    if (!section) continue;
+
+    const captionEl = section.querySelector('.caption');
+    if (captionEl) {
+      const captionKey = isPresentValue ? `${sId}_caption_pv` : `${sId}_caption_nominal`;
+      if (t[captionKey]) {
+        captionEl.textContent = t[captionKey];
+      } else if (t[`${sId}_caption`]) {
+        captionEl.textContent = isPresentValue ? t[`${sId}_caption`] : t[`${sId}_caption`].replace('USD*', 'USD');
+      }
+    }
+
+    const dataDateEl = section.querySelector('.data-date');
+    if (dataDateEl) {
+      dataDateEl.textContent = isPresentValue ? (t.data_date_pv || t.data_date) : (t.data_date_nominal || t.data_date.replace(' * Valor presente', ' · Nominal').replace(' * Present value', ' · Nominal'));
+    }
+  }
+
+  // Anunciar cambio a lectores de pantalla (WCAG 2.1 AA)
+  const announcer = document.getElementById('a11y-announcer');
+  if (announcer) {
+    announcer.textContent = isPresentValue ? t.pv_announcer_on : t.pv_announcer_off;
+  }
+}
+
+const pvToggleBtn = document.getElementById('pv-toggle');
+if (pvToggleBtn) {
+  pvToggleBtn.addEventListener('click', () => {
+    togglePresentValue();
+  });
 }
 
 document.getElementById('lang-toggle').addEventListener('click', () => {

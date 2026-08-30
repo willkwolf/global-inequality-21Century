@@ -4,10 +4,11 @@
  * STORY MODEL:
  * Representación intermedia lista para ser consumida por el compilador/renderizador HTML
  * y la suite de pruebas. Provee diccionarios i18n, definiciones de nodos DOM y metadatos.
- * Integrado con NumberFormatter para año actual dinámico y formateo bilingüe estricto.
+ * Integrado con NumberFormatter e InflationAdjuster para normalización dinámica bilingüe.
  */
 
 import { NumberFormatter } from '../i18n/number-formatter.js';
+import { InflationAdjuster } from '../i18n/inflation-adjuster.js';
 
 export class StoryModel {
   constructor(abstractionDoc) {
@@ -17,8 +18,16 @@ export class StoryModel {
   generateStringsDictionary() {
     const prov = this.doc.provenance || {};
     const currentYear = NumberFormatter.getCurrentYear();
-    const dateLabelEs = prov.date_label_es || `UBS · dic 2024 · * Valor presente`;
-    const dateLabelEn = prov.date_label_en || `UBS · Dec 2024 · * Present value`;
+    const sourceYear = prov.date_label_es && prov.date_label_es.includes('202')
+      ? parseInt(prov.date_label_es.match(/202\d/)[0], 10)
+      : 2024;
+    const factor = InflationAdjuster.getInflationFactor(sourceYear, currentYear);
+    const inflationPct = `+${((factor - 1) * 100).toFixed(1)}%`;
+
+    const dateLabelNominalEs = `UBS · dic ${sourceYear} · Nominal`;
+    const dateLabelNominalEn = `UBS · Dec ${sourceYear} · Nominal`;
+    const dateLabelPvEs = `UBS · dic ${sourceYear} · * Valor presente (${currentYear})`;
+    const dateLabelPvEn = `UBS · Dec ${sourceYear} · * Present value (${currentYear})`;
 
     const es = {
       skip_text: "Saltar al contenido principal",
@@ -39,7 +48,14 @@ export class StoryModel {
       footer_license: "CC BY 4.0",
       lang_btn: "EN",
       lang_aria: "Switch to English",
-      data_date: dateLabelEs,
+      data_date: dateLabelPvEs,
+      data_date_nominal: dateLabelNominalEs,
+      data_date_pv: dateLabelPvEs,
+      pv_btn_label: `USD* ${currentYear}`,
+      pv_btn_label_nominal: `USD ${sourceYear}`,
+      pv_btn_aria: `Alternar entre valores nominales de ${sourceYear} y valores normalizados al presente (${currentYear})`,
+      pv_announcer_on: `Modo Valor Presente activado (${inflationPct} de inflación acumulada a ${currentYear}).`,
+      pv_announcer_off: `Modo Nominal activado. Mostrando cifras históricas originales de UBS ${sourceYear}.`,
       scroll_cue: "Desliza para comenzar",
       a11y_toolbar_label: "Panel de accesibilidad",
       a11y_btn_aria: "Opciones de accesibilidad",
@@ -93,7 +109,14 @@ export class StoryModel {
       footer_license: "CC BY 4.0",
       lang_btn: "ES",
       lang_aria: "Cambiar a español",
-      data_date: dateLabelEn,
+      data_date: dateLabelPvEn,
+      data_date_nominal: dateLabelNominalEn,
+      data_date_pv: dateLabelPvEn,
+      pv_btn_label: `USD* ${currentYear}`,
+      pv_btn_label_nominal: `USD ${sourceYear}`,
+      pv_btn_aria: `Toggle between ${sourceYear} nominal values and present normalized values (${currentYear})`,
+      pv_announcer_on: `Present Value mode activated (${inflationPct} cumulative inflation to ${currentYear}).`,
+      pv_announcer_off: `Nominal mode activated. Showing direct historical UBS ${sourceYear} figures.`,
       scroll_cue: "Scroll to begin",
       a11y_toolbar_label: "Accessibility panel",
       a11y_btn_aria: "Accessibility options",
@@ -147,8 +170,16 @@ export class StoryModel {
       const hEs = NumberFormatter.formatHeight(layer.physical_height_meters, 'es');
       const hEn = NumberFormatter.formatHeight(layer.physical_height_meters, 'en');
 
+      // Nominal vs Present Value captions y alturas
+      const captionEsNominal = layer.narrative.caption_es ? layer.narrative.caption_es.replace('USD*', 'USD') : '';
+      const captionEnNominal = layer.narrative.caption_en ? layer.narrative.caption_en.replace('USD*', 'USD') : '';
+      const captionEsPv = layer.narrative.caption_es;
+      const captionEnPv = layer.narrative.caption_en;
+
       es[`${id}_headline`] = layer.narrative.headline_es;
-      es[`${id}_caption`]  = layer.narrative.caption_es;
+      es[`${id}_caption`]  = captionEsPv;
+      es[`${id}_caption_nominal`] = captionEsNominal;
+      es[`${id}_caption_pv`] = captionEsPv;
       es[`${id}_aria`]     = layer.narrative.aria_es;
       es[`${id}_nav`]      = layer.physical_reference.name_es;
       es[`${id}_num`]      = hEs.value_formatted;
@@ -156,7 +187,9 @@ export class StoryModel {
       es[`${id}_label`]    = hEs.full_label;
 
       en[`${id}_headline`] = layer.narrative.headline_en;
-      en[`${id}_caption`]  = layer.narrative.caption_en;
+      en[`${id}_caption`]  = captionEnPv;
+      en[`${id}_caption_nominal`] = captionEnNominal;
+      en[`${id}_caption_pv`] = captionEnPv;
       en[`${id}_aria`]     = layer.narrative.aria_en;
       en[`${id}_nav`]      = layer.physical_reference.name_en;
       en[`${id}_num`]      = hEn.value_formatted;

@@ -37,6 +37,7 @@ Bienvenido a **OpenWiki**, la fuente única de verdad (*Single Source of Truth*)
 21. [21. Invariantes Globales: Año Objetivo Dinámico y Formato Numérico i18n Centralizado](./21_INVARIANTES_TEMPORALES_Y_FORMATO_NUMERICO_I18N.md) — Año presente dinámico (`current_year()`), separación de cálculo y presentación, y formateo numérico localizado (ES/EN).
 22. [22. Inventario Canónico de Assets Visuales y Guardrails de Iconos SVG](./22_INVENTARIO_DE_ASSETS_VISUALES_Y_GUARDRAILS_DE_ICONOS.md) — Inventario inmutable de iconos vectoriales, reutilización obligatoria y protección de assets visuales.
 23. [23. Arquitectura Champion / Challenger y Sandboxes Aislados de Prueba](./23_ARQUITECTURA_CHAMPION_CHALLENGER_Y_SANDBOX_DE_PRUEBAS.md) — Paradigma Champion/Challenger (A/B), aislamiento total de producción en pruebas y retención ante conceptual drifts extremos.
+24. [24. Toggle Estético de Valor Presente (UI Frosted Glass) y Normalización Inflacionaria](./24_TOGGLE_VALOR_PRESENTE_Y_NORMALIZACION_INFLACIONARIA.md) — Conmutación dinámica entre datos nominales de la fuente original y valor presente ajustado por inflación CPI-U con asterisco dinámico USD*.
 
 ---
 
