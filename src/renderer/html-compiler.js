@@ -38,7 +38,7 @@ export class HtmlCompiler {
     
     layers.forEach((layer) => {
       const id = layer.layer_id;
-      const aria = strings.es[`${id}_aria`];
+      const aria = strings.es[`${id}_aria_pv`] || strings.es[`${id}_aria`];
       const navName = strings.es[`${id}_nav`];
       dotNavItems += `\n  <button class="a11y-dot" data-target="${id}" aria-label="${aria}" data-i18n-aria="${id}_aria" data-nav-name="${navName}" data-i18n-nav="${id}_nav">\n    <span class="a11y-tooltip" data-i18n="${id}_nav">${navName}</span>\n  </button>`;
     });
@@ -55,25 +55,26 @@ export class HtmlCompiler {
       throw new Error('No se encontró el contenedor <main id="main-content"> en el HTML');
     }
 
-    let strataSectionsHtml = `\n  <!-- 0 · Mobile splash -->\n  <section class="snap" id="s0" aria-label="Introducción" data-i18n-aria="s0_aria">\n    <h1 data-i18n="intro_h1">${strings.es.intro_h1}</h1>\n    <p data-i18n="intro_sub">${strings.es.intro_sub}</p>\n    <div class="scroll-cue" aria-hidden="true">\n      <span data-i18n="scroll_cue">${strings.es.scroll_cue}</span>\n      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">\n        <path d="M12 5v14M5 12l7 7 7-7"/>\n      </svg>\n    </div>\n  </section>\n`;
+    let strataSectionsHtml = `\n  <!-- 0 · Mobile splash -->\n  <section class="snap" id="s0" aria-label="Introducción" data-i18n-aria="s0_aria">\n    <h1 data-i18n="intro_h1">${strings.es.intro_h1}</h1>\n    <p data-i18n="intro_sub">${strings.es.intro_sub_pv || strings.es.intro_sub}</p>\n    <div class="scroll-cue" aria-hidden="true">\n      <span data-i18n="scroll_cue">${strings.es.scroll_cue}</span>\n      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">\n        <path d="M12 5v14M5 12l7 7 7-7"/>\n      </svg>\n    </div>\n  </section>\n`;
 
     layers.forEach((layer, idx) => {
       const id = layer.layer_id;
       const isFirst = idx === 0;
-      const fNum = layer.formatted_height_num;
-      const fUnit = layer.formatted_height_unit;
-      const fLabel = layer.formatted_height_label;
-      const aria = strings.es[`${id}_aria`];
+      const fNum = strings.es[`${id}_num_pv`] || layer.formatted_height_num;
+      const fUnit = strings.es[`${id}_unit_pv`] || layer.formatted_height_unit;
+      const fLabel = strings.es[`${id}_label_pv`] || layer.formatted_height_label;
+      const altMeters = strings.es[`${id}_alt_pv`] || layer.physical_height_meters;
+      const aria = strings.es[`${id}_aria_pv`] || strings.es[`${id}_aria`];
       const headline = strings.es[`${id}_headline`];
-      const caption = strings.es[`${id}_caption`];
+      const caption = strings.es[`${id}_caption_pv`] || strings.es[`${id}_caption`];
       const svgIcon = layer.physical_reference.svg_icon;
-      const dataDate = strings.es.data_date;
+      const dataDate = strings.es.data_date_pv || strings.es.data_date;
 
       strataSectionsHtml += `\n  <!-- ${idx + 1} · ${layer.physical_reference.name_es} -->\n`;
-      strataSectionsHtml += `  <section class="snap ${id}${isFirst ? ' active' : ''}" id="${id}" data-alt="${layer.physical_height_meters}" data-label="${fLabel}" aria-label="${aria}">\n`;
+      strataSectionsHtml += `  <section class="snap ${id}${isFirst ? ' active' : ''}" id="${id}" data-alt="${altMeters}" data-label="${fLabel}" aria-label="${aria}">\n`;
       
       if (isFirst) {
-        strataSectionsHtml += `    <div class="intro">\n      <h1 data-i18n="intro_h1">${strings.es.intro_h1}</h1>\n      <p data-i18n="intro_sub">${strings.es.intro_sub}</p>\n    </div>\n`;
+        strataSectionsHtml += `    <div class="intro">\n      <h1 data-i18n="intro_h1">${strings.es.intro_h1}</h1>\n      <p data-i18n="intro_sub">${strings.es.intro_sub_pv || strings.es.intro_sub}</p>\n    </div>\n`;
       }
 
       strataSectionsHtml += `    <div class="grid">\n`;

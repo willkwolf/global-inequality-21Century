@@ -12,7 +12,7 @@
  * 1. El dato nominal de origen es inmutable (Factor = 1.0 en modo nominal).
  * 2. En modo valor presente, el multiplicador ajusta proporcionalmente todas las
  *    magnitudes monetarias y alturas físicas.
- * 3. En modo valor presente, se añade el asterisco dinámico USD*.
+ * 3. En modo valor presente, se añade el asterisco dinámico USD* y las cifras se actualizan.
  */
 
 import { NumberFormatter } from './number-formatter.js';
@@ -60,6 +60,71 @@ export class InflationAdjuster {
   }
 
   /**
+   * Genera el texto del caption exacto formateado para cada estrato según el modo.
+   */
+  static formatStratumCaption(stratumId, isPV, factor, locale = 'es') {
+    const p = isPV ? 'USD*' : 'USD';
+    const isEs = locale === 'es';
+
+    switch (stratumId) {
+      case 's1': {
+        const minB = isPV ? Math.round(636 * factor) : 636;
+        const maxB = isPV ? Math.round(839 * factor) : 839;
+        return isEs
+          ? `Menos de 1 de cada 10 millones · ${p} $${minB}B–$${maxB}B`
+          : `Fewer than 1 in 10 million · ${p} $${minB}B–$${maxB}B`;
+      }
+      case 's2': {
+        const bAmount = isPV ? Math.round(1000 * factor) : 1000;
+        const formattedB = isEs ? NumberFormatter.formatNumber(bAmount, 'es') : NumberFormatter.formatNumber(bAmount, 'en');
+        return isEs
+          ? `3 de cada 10 millones · Más de ${p} $${formattedB} millones`
+          : `3 in 10 million · More than ${p} $${formattedB} million`;
+      }
+      case 's3': {
+        const mAmount = isPV ? (3.7 * factor).toFixed(1) : '3.7';
+        return isEs
+          ? `98 de cada 100 viven más abajo · Promedio ${p} $${mAmount}M`
+          : `98 in 100 live below · Average ${p} $${mAmount}M`;
+      }
+      case 's4': {
+        const mAmount = isPV ? (1.0 * factor).toFixed(2).replace(/\.?0+$/, '') : '1';
+        return isEs
+          ? `Solo el 1.6% del mundo · Umbral ${p} $${mAmount}M`
+          : `Only 1.6% of the world · Threshold ${p} $${mAmount}M`;
+      }
+      case 's5': {
+        const kAmount = isPV ? Math.round(293 * factor) : 293;
+        return isEs
+          ? `82 de cada 100 viven más abajo · ${p} $${kAmount}k promedio`
+          : `82 in 100 live below · ${p} $${kAmount}k average`;
+      }
+      case 's6': {
+        const kAmount = isPV ? Math.round(36 * factor) : 36;
+        return isEs
+          ? `41 de cada 100 viven aquí o más abajo · ${p} $${kAmount}k promedio`
+          : `41 in 100 live here or below · ${p} $${kAmount}k average`;
+      }
+      case 's7': {
+        const medAmount = isPV ? Math.round(8910 * factor) : 8910;
+        const fMed = isEs ? NumberFormatter.formatNumber(medAmount, 'es') : NumberFormatter.formatNumber(medAmount, 'en');
+        return isEs
+          ? `50 de cada 100 no superan este escalón · Mediana ${p} $${fMed}`
+          : `50 in 100 do not surpass this step · Median ${p} $${fMed}`;
+      }
+      case 's8': {
+        const baseAmount = isPV ? Math.round(1748 * factor) : 1748;
+        const fBase = isEs ? NumberFormatter.formatNumber(baseAmount, 'es') : NumberFormatter.formatNumber(baseAmount, 'en');
+        return isEs
+          ? `41 de cada 100 viven aquí o menos · ${p} $${fBase} promedio`
+          : `41 in 100 live here or below · ${p} $${fBase} average`;
+      }
+      default:
+        return '';
+    }
+  }
+
+  /**
    * Genera el modelo completo de datos para ambos modos (Nominal y Valor Presente).
    * @param {Object} rawData Dataset canónico de SPEC/data.json
    * @param {number} targetYear Año objetivo de normalización
@@ -75,7 +140,7 @@ export class InflationAdjuster {
     const step_usd = rawData.formula_constants?.step_usd_value || 8000;
     const step_height = rawData.formula_constants?.step_physical_height_meters || 0.15;
 
-    function buildStrata(isPV) {
+    const buildStrata = (isPV) => {
       const currentFactor = isPV ? factor : 1.0;
       const currencyPrefix = isPV ? "USD*" : "USD";
       const badgeSuffixEs = isPV ? `* Valor presente (${target})` : "Nominal";
@@ -99,12 +164,17 @@ export class InflationAdjuster {
         const fHeightEs = NumberFormatter.formatHeight(heightMeters, 'es');
         const fHeightEn = NumberFormatter.formatHeight(heightMeters, 'en');
 
+        const captionEs = this.formatStratumCaption(s.id, isPV, currentFactor, 'es');
+        const captionEn = this.formatStratumCaption(s.id, isPV, currentFactor, 'en');
+
         return {
           id: s.id,
           pedagogical_role: s.pedagogical_role,
           height_meters: heightMeters,
           formatted_height_es: fHeightEs,
           formatted_height_en: fHeightEn,
+          caption_es: captionEs,
+          caption_en: captionEn,
           net_worth_usd: {
             min: minAdjusted,
             max: maxAdjusted,
@@ -122,7 +192,7 @@ export class InflationAdjuster {
         factor: currentFactor,
         strata
       };
-    }
+    };
 
     return {
       source_year: sourceYear,

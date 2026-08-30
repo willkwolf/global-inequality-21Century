@@ -167,6 +167,7 @@ try {
 
     // C. Compilación aislada en memoria mediante HtmlCompiler
     const storyModel = new StoryModel(abstractionDoc);
+    const strings = storyModel.generateStringsDictionary();
     const compiledHtml = HtmlCompiler.compile(templateHtml, abstractionDoc, storyModel);
 
     // D. Inspección y validación del DOM en memoria mediante JSDOM
@@ -200,7 +201,10 @@ try {
       const stratum = syntheticData.strata.find(s => s.id === sectionId);
       assert.ok(stratum, `El estrato ${sectionId} debe existir en el JSON sintético.`);
 
-      const fHeight = formatHeight(stratum.physical_analogy.height_meters, 'es');
+      const expectedAlt = strings.es[`${sectionId}_alt_pv`].toString();
+      const expectedLabel = strings.es[`${sectionId}_label_pv`];
+      const expectedNum = strings.es[`${sectionId}_num_pv`];
+      const expectedUnit = strings.es[`${sectionId}_unit_pv`];
 
       // Comprobar atributos data-* de escalado
       const dataAlt = section.getAttribute('data-alt');
@@ -208,14 +212,14 @@ try {
       
       assert.equal(
         dataAlt,
-        stratum.physical_analogy.height_meters.toString(),
-        `La sección #${sectionId} tiene data-alt "${dataAlt}", pero se esperaba "${stratum.physical_analogy.height_meters}"`
+        expectedAlt,
+        `La sección #${sectionId} tiene data-alt "${dataAlt}", pero se esperaba "${expectedAlt}"`
       );
 
       assert.equal(
         dataLabel,
-        fHeight.label,
-        `La sección #${sectionId} tiene data-label "${dataLabel}", pero se esperaba "${fHeight.label}"`
+        expectedLabel,
+        `La sección #${sectionId} tiene data-label "${dataLabel}", pero se esperaba "${expectedLabel}"`
       );
 
       // Comprobar inyección de alturas visuales en <div class="num">
@@ -223,7 +227,7 @@ try {
       assert.ok(numDiv, `La sección #${sectionId} debe contener un elemento con clase .num`);
       assert.equal(
         numDiv.innerHTML.replace(/\s+/g, ''),
-        `${fHeight.num}<span>${fHeight.unit}</span>`.replace(/\s+/g, ''),
+        `${expectedNum}<span>${expectedUnit}</span>`.replace(/\s+/g, ''),
         `El HTML del .num de #${sectionId} no coincide. Se obtuvo "${numDiv.innerHTML}"`
       );
 

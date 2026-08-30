@@ -165,36 +165,76 @@ export class StoryModel {
     }
 
     // Inyectar traducciones dinámicas y formateo numérico localizado de cada capa
+    const maxNominalMeters = this.doc.layers[0]?.physical_height_meters || 13828125;
+    const maxPvMeters = maxNominalMeters * factor;
+    const maxHEsNominal = NumberFormatter.formatHeight(maxNominalMeters, 'es');
+    const maxHEnNominal = NumberFormatter.formatHeight(maxNominalMeters, 'en');
+    const maxHEsPv = NumberFormatter.formatHeight(maxPvMeters, 'es');
+    const maxHEnPv = NumberFormatter.formatHeight(maxPvMeters, 'en');
+
+    es.intro_sub = `La distancia real entre la base y la cúspide es de ${maxHEsPv.full_label}`;
+    es.intro_sub_nominal = `La distancia real entre la base y la cúspide es de ${maxHEsNominal.full_label}`;
+    es.intro_sub_pv = `La distancia real entre la base y la cúspide es de ${maxHEsPv.full_label}`;
+
+    en.intro_sub = `The real distance between base and apex is ${maxHEnPv.full_label}`;
+    en.intro_sub_nominal = `The real distance between base and apex is ${maxHEnNominal.full_label}`;
+    en.intro_sub_pv = `The real distance between base and apex is ${maxHEnPv.full_label}`;
+
     this.doc.layers.forEach((layer) => {
       const id = layer.layer_id;
-      const hEs = NumberFormatter.formatHeight(layer.physical_height_meters, 'es');
-      const hEn = NumberFormatter.formatHeight(layer.physical_height_meters, 'en');
+      
+      const nominalMeters = layer.physical_height_meters;
+      const pvMeters = nominalMeters * factor;
 
-      // Nominal vs Present Value captions y alturas
-      const captionEsNominal = layer.narrative.caption_es ? layer.narrative.caption_es.replace('USD*', 'USD') : '';
-      const captionEnNominal = layer.narrative.caption_en ? layer.narrative.caption_en.replace('USD*', 'USD') : '';
-      const captionEsPv = layer.narrative.caption_es;
-      const captionEnPv = layer.narrative.caption_en;
+      const hEsNominal = NumberFormatter.formatHeight(nominalMeters, 'es');
+      const hEnNominal = NumberFormatter.formatHeight(nominalMeters, 'en');
+      const hEsPv = NumberFormatter.formatHeight(pvMeters, 'es');
+      const hEnPv = NumberFormatter.formatHeight(pvMeters, 'en');
+
+      const captionEsNominal = InflationAdjuster.formatStratumCaption(id, false, 1.0, 'es');
+      const captionEnNominal = InflationAdjuster.formatStratumCaption(id, false, 1.0, 'en');
+      const captionEsPv = InflationAdjuster.formatStratumCaption(id, true, factor, 'es');
+      const captionEnPv = InflationAdjuster.formatStratumCaption(id, true, factor, 'en');
 
       es[`${id}_headline`] = layer.narrative.headline_es;
       es[`${id}_caption`]  = captionEsPv;
       es[`${id}_caption_nominal`] = captionEsNominal;
       es[`${id}_caption_pv`] = captionEsPv;
-      es[`${id}_aria`]     = layer.narrative.aria_es;
+      es[`${id}_aria`]     = `${layer.physical_reference.name_es}: ${hEsPv.full_label}`;
+      es[`${id}_aria_nominal`] = `${layer.physical_reference.name_es}: ${hEsNominal.full_label}`;
+      es[`${id}_aria_pv`] = `${layer.physical_reference.name_es}: ${hEsPv.full_label}`;
       es[`${id}_nav`]      = layer.physical_reference.name_es;
-      es[`${id}_num`]      = hEs.value_formatted;
-      es[`${id}_unit`]     = hEs.unit;
-      es[`${id}_label`]    = hEs.full_label;
+      es[`${id}_num`]      = hEsPv.value_formatted;
+      es[`${id}_unit`]     = hEsPv.unit;
+      es[`${id}_label`]    = hEsPv.full_label;
+      es[`${id}_num_nominal`] = hEsNominal.value_formatted;
+      es[`${id}_unit_nominal`] = hEsNominal.unit;
+      es[`${id}_label_nominal`] = hEsNominal.full_label;
+      es[`${id}_num_pv`] = hEsPv.value_formatted;
+      es[`${id}_unit_pv`] = hEsPv.unit;
+      es[`${id}_label_pv`] = hEsPv.full_label;
+      es[`${id}_alt_nominal`] = nominalMeters;
+      es[`${id}_alt_pv`] = pvMeters;
 
       en[`${id}_headline`] = layer.narrative.headline_en;
       en[`${id}_caption`]  = captionEnPv;
       en[`${id}_caption_nominal`] = captionEnNominal;
       en[`${id}_caption_pv`] = captionEnPv;
-      en[`${id}_aria`]     = layer.narrative.aria_en;
+      en[`${id}_aria`]     = `${layer.physical_reference.name_en}: ${hEnPv.full_label}`;
+      en[`${id}_aria_nominal`] = `${layer.physical_reference.name_en}: ${hEnNominal.full_label}`;
+      en[`${id}_aria_pv`] = `${layer.physical_reference.name_en}: ${hEnPv.full_label}`;
       en[`${id}_nav`]      = layer.physical_reference.name_en;
-      en[`${id}_num`]      = hEn.value_formatted;
-      en[`${id}_unit`]     = hEn.unit;
-      en[`${id}_label`]    = hEn.full_label;
+      en[`${id}_num`]      = hEnPv.value_formatted;
+      en[`${id}_unit`]     = hEnPv.unit;
+      en[`${id}_label`]    = hEnPv.full_label;
+      en[`${id}_num_nominal`] = hEnNominal.value_formatted;
+      en[`${id}_unit_nominal`] = hEnNominal.unit;
+      en[`${id}_label_nominal`] = hEnNominal.full_label;
+      en[`${id}_num_pv`] = hEnPv.value_formatted;
+      en[`${id}_unit_pv`] = hEnPv.unit;
+      en[`${id}_label_pv`] = hEnPv.full_label;
+      en[`${id}_alt_nominal`] = nominalMeters;
+      en[`${id}_alt_pv`] = pvMeters;
     });
 
     // Inyectar fuentes

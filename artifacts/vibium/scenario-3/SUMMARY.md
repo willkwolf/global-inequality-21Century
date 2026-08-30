@@ -2,7 +2,7 @@
 
 - **Escenario:** `scenario-3`
 - **Estado de Verificación:** **`ABSTRACTION_LIMIT_REACHED`**
-- **Timestamp:** `2026-08-30T05:38:37.197Z`
+- **Timestamp:** `2026-08-30T05:46:20.761Z`
 - **Abstracción:** LIMIT_BREACHED
 - **Escala:** 1 escalón = `$8000 USD` (`0.15 m`)
 - **Total Estratos Renderizados:** `0`
