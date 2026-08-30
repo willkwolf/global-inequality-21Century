@@ -2,7 +2,7 @@
 
 - **Escenario:** `extreme-case-05-negative-debt`
 - **Estado de Verificación:** **`PASS_WITH_ADAPTATION`**
-- **Timestamp:** `2026-08-30T07:17:00.446Z`
+- **Timestamp:** `2026-08-30T07:20:10.954Z`
 - **Abstracción:** WITHIN_LIMITS
 - **Escala:** 1 escalón = `$9000 USD` (`0.15 m`)
 - **Total Estratos Renderizados:** `3`

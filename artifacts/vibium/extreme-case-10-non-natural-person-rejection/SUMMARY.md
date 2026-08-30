@@ -2,7 +2,7 @@
 
 - **Escenario:** `extreme-case-10-non-natural-person-rejection`
 - **Estado de Verificación:** **`ABSTRACTION_LIMIT_REACHED`**
-- **Timestamp:** `2026-08-30T07:17:00.633Z`
+- **Timestamp:** `2026-08-30T07:20:11.170Z`
 - **Abstracción:** NON_NATURAL_PERSON_BLOCKED
 - **Escala:** 1 escalón = `$8000 USD` (`0.15 m`)
 - **Total Estratos Renderizados:** `3`
