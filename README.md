@@ -9,17 +9,19 @@
 [![Ecosistema: Paso 4](https://img.shields.io/badge/Ruta_Pensamiento_Crítico-Paso_4-blue?style=for-the-badge)](https://github.com/willkwolf/global-inequality-21Century)
 [![Vibium Verification](https://img.shields.io/badge/Vibium_Verification-passed-46c117?style=for-the-badge)](https://github.com/VibiumDev/vibium)
 [![Unidad de Análisis: Persona Natural](https://img.shields.io/badge/Unidad_Análisis-Persona_Natural-orange?style=for-the-badge)](./OpenWiki/15_UNIDAD_DE_ANALISIS_Y_FILTRO_DE_ENTIDADES.md)
+[![Fase 0: Estabilización Baseline](https://img.shields.io/badge/Fase_0-Baseline_Stabilization-blueviolet?style=for-the-badge)](./OpenWiki/19_BASELINE_OFICIAL_Y_FASE_0_ESTABILIZACION.md)
 [![Licencia CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg?style=for-the-badge)](https://creativecommons.org/licenses/by/4.0/)
 
 ---
 
-## 📌 Estado del Sistema y Gobernanza (Versión 2.1.0)
-- **Versión:** `v2.1.0 (Vibium Verified & Strict Natural Person Model)`
+## 📌 Estado del Sistema y Gobernanza: Baseline Oficial v0.9
+- **Fase Actual:** **`FASE 0 — BASELINE STABILIZATION (HIGH HUMAN-IN-THE-LOOP)`**
+- **Versión:** `BASELINE v0.9 (Vibium Verified & Strict Natural Person Model)`
 - **Fecha de Publicación:** `Agosto 2026`
 - **Unidad de Análisis Inmutable:** **EXCLUSIVAMENTE PERSONAS NATURALES (ADULTOS)**. Se prohíbe la inclusión o comparación con empresas, personas jurídicas, fundaciones, corporaciones, estados o fondos soberanos.
-- **Fuentes Primarias:** *UBS Global Wealth Report 2024*, *Forbes Real-Time Billionaires* (mayo 2026), *World Inequality Database (WID.world)*.
+- **Fuentes Primarias:** *UBS Global Wealth Report 2024*, *Forbes Real-Time Billionaires* (corte mayo 2026), *World Inequality Database (WID.world)*.
 - **Metodología de Escala:** Jan Pen Parade (1971) actualizado; $1\text{ escalón} (15\text{ cm}) \approx \text{Mediana global de riqueza } (\$8,000\text{ USD})$.
-- **Estado de la Abstracción:** `VALID_ABSTRACTION` (Certificado por Vibium Verification Engine en Mobile y Desktop).
+- **Estado de la Abstracción:** `VALID_WITH_LIMITATIONS` (Certificado por Vibium Verification Engine en Mobile y Desktop).
 
 ---
 
@@ -44,11 +46,11 @@ graph TD
 
 ## 🏛 Arquitectura de Desacoplamiento: Qué Cambia y Qué Permanece
 
-Para garantizar que el sistema sea autoactualizable mediante agentes de IA sin romper la abstracción pedagógica, los componentes se rigen por la siguiente matriz:
+Para garantizar que el sistema sea autoactualizable mediante agentes de IA sin romper la abstracción pedagógica, los componentes se rigen por la siguiente matriz de gobernanza:
 
 | Categoría | Componentes | Descripción y Regla de Gobernanza |
 |---|---|---|
-| 🟢 **CONSERVADO** | **Metáfora de altura espacial**, Scrollytelling vertical, Contrato de Abstracción, **Unidad de análisis exclusiva de Persona Natural**, Accesibilidad WCAG 2.1 AAA, Integridad matemática. | Inmutables. Ningún agente puede alterar la regla de Jan Pen ni comparar personas con corporaciones o estados. |
+| 🟢 **CONSERVADO** | **Metáfora de altura espacial**, Scrollytelling vertical, Contrato de Abstracción, **Unidad de análisis exclusiva de Persona Natural**, Accesibilidad WCAG 2.1 AAA, Integridad matemática (*Lie Factor* = 1.0). | Inmutables. Ningún agente puede alterar la regla de Jan Pen ni comparar personas con corporaciones o estados. |
 | 🟡 **ADAPTABLE** | **Valor del escalón ($USD)**, Altura máxima de la cúspide, Captions derivados matemáticamente, Textos y titulares bilingües (ES/EN), Iconos SVG de estratos, Fechas de fuentes y versiones metodológicas (`SOURCE · PERIOD · VERSION`). | Recalibrados automáticamente por el agente ante **Data Drift** o **Semantic Drift**. |
 | 🔵 **CAMBIADO** | **Renderizado dinámico de $N$ estratos**, Desacoplamiento total del DOM, Filtro Ontológico de Entidades (`EntityFilter`), Motor de Drift en 5 ejes, Capa de Verificación Vibium (Dual: Mobile + Desktop). | Arquitectura modular en `src/` con validación en servidor local y navegador real. |
 | 🔴 **DEPRECATED** | Loops estáticos de 8 estratos fijos, Captions hardcodeados desactualizados, Entidades no naturales en la cúspide. | Eliminados por completo del codebase. |
@@ -71,11 +73,28 @@ DATA → ENTITY FILTER → CANONICAL MODEL → AI ADAPTATION → BUILD → LOCAL
 
 ---
 
+## 🗺️ Roadmap de Automatización Progresiva (Fases 0 a 7)
+
+```mermaid
+graph LR
+    F0["Fase 0: Baseline Stabilization<br><b>[ESTADO ACTUAL]</b>"] --> F1["Fase 1: Deterministic CI"]
+    F1 --> F2["Fase 2: Drift Detection"]
+    F2 --> F3["Fase 3: Agentic Adaptation"]
+    F3 --> F4["Fase 4: Closed-Loop Tuning"]
+    F4 --> F5["Fase 5: Source Research"]
+    F5 --> F6["Fase 6: Ingestion"]
+    F6 --> F7["Fase 7: DAO-Like Operation"]
+```
+
+Consulta los detalles de cada fase en [`OpenWiki/20_ROADMAP_AUTOMATIZACION_PROGRESIVA_Y_GOBERNANZA_DAO.md`](./OpenWiki/20_ROADMAP_AUTOMATIZACION_PROGRESIVA_Y_GOBERNANZA_DAO.md).
+
+---
+
 ## 🧠 Pruebas Cognitivas Pedagógicas (Efecto Contraste)
 La visualización permite contrastar la percepción subjetiva con la distribución real:
-- **Escenario A ("Soy muy rico"):** Quien tiene $\$1\text{M USD}$ descubre que su altura ($18.75\text{ m}$) está a nivel de una escalera doméstica frente a los $15,731\text{ km}$ de la órbita de Elon Musk.
-- **Escenario B ("Soy muy pobre"):** Quien tiene $\$1,700\text{ USD}$ comprende que el 40% de la población mundial comparte el estrato de $3.3\text{ cm}$ (el guijarro en el suelo).
-- **Escenario C ("Soy clase media"):** Quien tiene $\$36,000\text{ USD}$ ve que está a la altura de una silla de bar ($68\text{ cm}$), con el $99.999996\%$ de la distancia aún por encima.
+- **Escenario A ("Soy muy rico"):** Quien tiene $\$1\text{M USD}$ descubre que su altura ($18.75\text{ m}$) está a nivel de una escalera doméstica frente a los $13,828\text{ km}$ de la órbita de Elon Musk.
+- **Escenario B ("Soy muy pobre"):** Quien tiene $\$1,748\text{ USD}$ comprende que el 40.7% de la población mundial comparte el estrato de $3.3\text{ cm}$ (el guijarro en el suelo).
+- **Escenario C ("Soy clase media"):** Quien tiene $\$36,000\text{ USD}$ ve que está a la altura de una silla de bar ($67.5\text{ cm}$), con el $99.999\%$ de la distancia aún por encima.
 
 ---
 
@@ -107,7 +126,7 @@ npm install
 # Compilar e inyectar datos del SPEC
 npm run apply-spec
 
-# Ejecutar verificación completa (Contratos + Drift + 3 Escenarios + Vibium + Parallax + Robustez)
+# Ejecutar verificación completa (SPEC + Unitarios + 3 Escenarios + Vibium + Parallax + Robustez)
 npm test
 
 # Ejecutar exclusivamente la suite de verificación Vibium
@@ -117,7 +136,7 @@ npm run test:vibium
 ---
 
 ## 📚 Documentación y Gobernanza en OpenWiki
-Para consultar el registro inmutable de decisiones, bitácora de advertencias y modelos ontológicos, visita el directorio [`OpenWiki/`](./OpenWiki/README.md) con sus **16 documentos de verdad documental**.
+Para consultar el registro inmutable de decisiones, bitácora de advertencias y modelos ontológicos, visita el directorio [`OpenWiki/`](./OpenWiki/README.md) con sus **20 documentos de verdad documental**.
 
 ---
 

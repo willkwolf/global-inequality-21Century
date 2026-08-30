@@ -2,7 +2,7 @@
 
 - **Escenario:** `extreme-case-12-partially-corrupted`
 - **Estado de Verificación:** **`ABSTRACTION_LIMIT_REACHED`**
-- **Timestamp:** `2026-08-30T00:53:17.928Z`
+- **Timestamp:** `2026-08-30T01:03:55.786Z`
 - **Abstracción:** LIMIT_BREACHED
 - **Escala:** 1 escalón = `$8000 USD` (`0.15 m`)
 - **Total Estratos Renderizados:** `0`

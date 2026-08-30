@@ -12,7 +12,7 @@ Bienvenido a **OpenWiki**, la fuente única de verdad (*Single Source of Truth*)
 
 ---
 
-## 📚 Índice de Documentación y Gobernanza
+## 📚 Índice Maestro de Documentación y Gobernanza (20 Documentos)
 
 1. [01. Dominio y Abstracción Conceptual](./01_DOMINIO_Y_ABSTRACCION.md) — Definición ontológica, metáfora espacial y estabilidad de abstracción.
 2. [02. Contrato de Abstracción](./02_CONTRATO_DE_ABSTRACCION.md) — Desacoplamiento estricto entre fuentes de datos y la interfaz visual.
@@ -32,6 +32,8 @@ Bienvenido a **OpenWiki**, la fuente única de verdad (*Single Source of Truth*)
 16. [16. Contratos Pedagógicos por Sección, Gramática Visual y Principios Tufte](./16_CONTRATOS_PEDAGOGICOS_Y_GRAMATICA_VISUAL.md) — Contrato de cada sección, dinamismo de copy y principios Tufte.
 17. [17. Auditoría Metodológica de la Línea Base, Fuentes y Análisis SWOT](./17_AUDITORIA_LINEA_BASE_Y_ANALISIS_SWOT.md) — Evaluación de fuentes (UBS/Forbes), rationale de Elon Musk, análisis FODA y catálogo de riesgos.
 18. [18. Límites Epistemológicos, Metodológicos y Éticos de la Abstracción Central](./18_EPISTEMOLOGICAL_BOUNDARIES_OF_THE_ABSTRACTION.md) — Validez multidimensional, prueba de 7 invariantes, riesgo de reificación, sesgos y dictamen formal `VALID_WITH_LIMITATIONS`.
+19. [19. Baseline Oficial v0.9 y Fase 0: Estabilización de la Abstracción](./19_BASELINE_OFICIAL_Y_FASE_0_ESTABILIZACION.md) — Congelación conceptual, matriz de estabilidad, catálogo de regresiones y checklist de Fase 0.
+20. [20. Roadmap de Automatización Progresiva y Gobernanza Operacional DAO-Like](./20_ROADMAP_AUTOMATIZACION_PROGRESIVA_Y_GOBERNANZA_DAO.md) — Especificación de las 7 fases, matriz de autoridad de riesgos, principio anti-autoautorización y reversibilidad.
 
 ---
 
