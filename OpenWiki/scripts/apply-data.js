@@ -1,8 +1,8 @@
 /**
- * SPEC/scripts/apply-data.js
+ * OpenWiki/scripts/apply-data.js
  *
  * PROPÓSITO:
- * Leer `SPEC/data.json` (o dataset canónico adaptado), procesar el Story Model
+ * Leer `OpenWiki/spec/data.json` (o dataset canónico adaptado), procesar el Story Model
  * y compilar de forma quirúrgica y completamente dinámica `Escala-visual-de-riqueza-mundial.html`
  * garantizando que la unidad de análisis sea EXCLUSIVAMENTE PERSONA NATURAL y aplicando
  * los invariantes de normalización temporal (current_year()) y NumberFormatter i18n.
@@ -30,9 +30,7 @@ function logSuccess(msg) { console.log(`${GREEN}✓ ${msg}${RESET}`); }
 function logError(msg) { console.error(`${RED}${BOLD}✗ ERROR: ${msg}${RESET}`); }
 function logHeader(msg) { console.log(`\n${BOLD}${BLUE}=== ${msg} ===${RESET}`); }
 
-const DATA_PATH = fs.existsSync(path.resolve(__dirname, '../spec/data.json'))
-  ? path.resolve(__dirname, '../spec/data.json')
-  : path.resolve(__dirname, '../../SPEC/data.json');
+const DATA_PATH = path.resolve(__dirname, '../spec/data.json');
 const HTML_PATH = path.resolve(__dirname, '../../Escala-visual-de-riqueza-mundial.html');
 
 logHeader('Iniciando Compilación e Inyección Dinámica de Datos (OpenWiki/scripts)');

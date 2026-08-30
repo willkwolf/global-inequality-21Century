@@ -85,6 +85,6 @@ Todo dato ingerido se normaliza a este esquema antes de entrar al almacén:
 
 ## 5. Publicación y Despliegue en GitHub Pages
 
-1. **Compilación Determinista:** `node SPEC/scripts/apply-data.js` genera `Escala-visual-de-riqueza-mundial.html` inyectando microdatos y diccionarios i18n.
+1. **Compilación Determinista:** `node OpenWiki/scripts/apply-data.js` genera `Escala-visual-de-riqueza-mundial.html` inyectando microdatos y diccionarios i18n.
 2. **Verificación Vibium:** Se ejecutan los tests de regresión visual y funcional en Mobile y Desktop.
 3. **Pipeline CI/CD:** GitHub Actions compila y despliega los archivos estáticos en `https://willkwolf.github.io/global-inequality-21Century/`.

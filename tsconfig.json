@@ -10,7 +10,7 @@
     "skipLibCheck": true
   },
   "include": [
-    "SPEC/scripts/**/*.js",
+    "OpenWiki/scripts/**/*.js",
     "tests/**/*.mjs"
   ]
 }

@@ -45,7 +45,7 @@ graph TD
 
 ## 3. Aislamiento de Pruebas y Protección de la Línea Base
 
-Para prevenir que suites sintéticas o generadores aleatorios sobrescriban silenciosamente la línea base oficial (`SPEC/data.json` y `Escala-visual-de-riqueza-mundial.html`):
+Para prevenir que suites sintéticas o generadores aleatorios sobrescriban silenciosamente la línea base oficial (`OpenWiki/spec/data.json` y `Escala-visual-de-riqueza-mundial.html`):
 
 1. **Restauración Obligatoria:** Todas las suites de robustez implementan bloques `finally` que restauran los archivos originales de forma incondicional.
-2. **Sincronización Inmediata:** Tras cualquier ciclo de pruebas, el pipeline ejecuta `node SPEC/scripts/apply-data.js` para asegurar que el HTML compilado refleje con exactitud la línea base oficial (Elon Musk, UBS 2024, 8 estratos canónicos).
+2. **Sincronización Inmediata:** Tras cualquier ciclo de pruebas, el pipeline ejecuta `node OpenWiki/scripts/apply-data.js` para asegurar que el HTML compilado refleje con exactitud la línea base oficial (Elon Musk, UBS 2024, 8 estratos canónicos).

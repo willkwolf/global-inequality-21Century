@@ -1,8 +1,8 @@
 /**
- * validate-data.js
+ * OpenWiki/scripts/validate-data.js
  *
  * PROPÓSITO:
- * Validar la integridad metodológica y de traducciones del archivo `SPEC/data.json`.
+ * Validar la integridad metodológica y de traducciones del archivo `OpenWiki/spec/data.json`.
  * Este validador no tiene dependencias npm externas para asegurar portabilidad total.
  *
  * COMPROBACIONES:
@@ -34,14 +34,9 @@ function logWarning(msg) { console.log(`${YELLOW}⚠ ${msg}${RESET}`); }
 function logError(msg) { console.error(`${RED}${BOLD}✗ ERROR: ${msg}${RESET}`); }
 function logHeader(msg) { console.log(`\n${BOLD}${BLUE}=== ${msg} ===${RESET}`); }
 
-// Rutas de archivos con soporte para OpenWiki/spec y fallback a SPEC/
-const DATA_PATH = fs.existsSync(path.resolve(__dirname, '../spec/data.json'))
-  ? path.resolve(__dirname, '../spec/data.json')
-  : path.resolve(__dirname, '../../SPEC/data.json');
-
-const SCHEMA_PATH = fs.existsSync(path.resolve(__dirname, '../spec/schema.json'))
-  ? path.resolve(__dirname, '../spec/schema.json')
-  : path.resolve(__dirname, '../../SPEC/schema.json');
+// Rutas de archivos
+const DATA_PATH = path.resolve(__dirname, '../spec/data.json');
+const SCHEMA_PATH = path.resolve(__dirname, '../spec/schema.json');
 
 logHeader('Iniciando Validación del SPEC de Datos (OpenWiki)');
 

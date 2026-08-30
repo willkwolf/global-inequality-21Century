@@ -126,7 +126,7 @@ export class InflationAdjuster {
 
   /**
    * Genera el modelo completo de datos para ambos modos (Nominal y Valor Presente).
-   * @param {Object} rawData Dataset canónico de SPEC/data.json
+   * @param {Object} rawData Dataset canónico de OpenWiki/spec/data.json
    * @param {number} targetYear Año objetivo de normalización
    * @returns {Object} { nominal, present_value, factor, target_year, source_year }
    */

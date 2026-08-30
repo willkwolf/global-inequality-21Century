@@ -18,7 +18,7 @@ Para resolver este balance sin imponer una única interpretación rígida, el vi
 
 ```mermaid
 graph TD
-    A["SPEC/data.json<br>(Nominal 2024 Inmutable)"] --> B["InflationAdjuster.buildDualModel()"]
+    A["OpenWiki/spec/data.json<br>(Nominal 2024 Inmutable)"] --> B["InflationAdjuster.buildDualModel()"]
     B --> C1["<b>MODO NOMINAL (OFF)</b><br>• Factor = 1.0<br>• Prefijo: 'USD'<br>• Sin asterisco (*)<br>• Badge: 'UBS · dic 2024 · Nominal'"]
     B --> C2["<b>MODO VALOR PRESENTE (ON)</b><br>• Factor = 1.0537 (+5.4% CPI-U)<br>• Prefijo: 'USD*'<br>• Asterisco dinámico (*)<br>• Badge: 'UBS · dic 2024 · * Valor presente (2026)'"]
     C1 --> D["Escala-visual-de-riqueza-mundial.html<br>(togglePresentValue(false))"]

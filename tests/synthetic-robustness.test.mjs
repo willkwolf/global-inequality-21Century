@@ -7,7 +7,7 @@
  * sin errores en cualquier escenario posible de datos válidos futuros.
  * 
  * PRINCIPIO DE AISLAMIENTO CHAMPION / CHALLENGER:
- * - El Champion en producción (SPEC/data.json y Escala-visual-de-riqueza-mundial.html) NUNCA
+ * - El Champion en producción (OpenWiki/spec/data.json y Escala-visual-de-riqueza-mundial.html) NUNCA
  *   se modifica ni se sobrescribe durante las iteraciones de prueba.
  * - Toda compilación de prueba (Challenger) se realiza en memoria / sandbox aislado mediante
  *   HtmlCompiler y StoryModel.
@@ -43,9 +43,7 @@ function logError(msg) { console.error(`${RED}${BOLD}✗ ERROR: ${msg}${RESET}`)
 function logHeader(msg) { console.log(`\n${BOLD}${BLUE}=== ${msg} ===${RESET}`); }
 
 // Rutas de archivos
-const DATA_PATH = fs.existsSync(path.resolve(__dirname, '../OpenWiki/spec/data.json'))
-  ? path.resolve(__dirname, '../OpenWiki/spec/data.json')
-  : path.resolve(__dirname, '../SPEC/data.json');
+const DATA_PATH = path.resolve(__dirname, '../OpenWiki/spec/data.json');
 const HTML_PATH = path.resolve(__dirname, '../Escala-visual-de-riqueza-mundial.html');
 
 // Helper para dar formato a alturas centralizado con NumberFormatter

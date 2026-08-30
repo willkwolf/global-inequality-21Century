@@ -11,9 +11,9 @@ on:
         default: 'false'
   push:
     branches:
-      - main
+      - master
     paths:
-      - 'SPEC/data.json'
+      - 'OpenWiki/spec/data.json'
       - 'src/**'
 
 permissions:
@@ -51,7 +51,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           echo "=== Ejecutando Motor de Adaptación y Drift con Gemini ==="
-          node SPEC/scripts/apply-data.js
+          node OpenWiki/scripts/apply-data.js
 
       - name: 5. Execute Mathematical & Structural Invariant Tests
         run: |
@@ -96,7 +96,7 @@ jobs:
           git config --local user.name "AI Governance Agent"
           git add OpenWiki/ README.md
           git diff-index --quiet HEAD || git commit -m "docs(governance): update ledger and documentation [skip ci]"
-          git push origin main || echo "No changes to push"
+          git push origin master || echo "No changes to push"
         continue-on-error: true
 
       - name: 11. Setup GitHub Pages

@@ -53,7 +53,7 @@ La visualización estructura la brecha en 8 secciones de Snap de pantalla comple
 
 1.  **Diseña el alcance desde casos de uso reales:** La interfaz no se abstrae en métricas incomprensibles como índices Gini puros. Muestra casos tangibles: "¿A qué altura de una casa te encuentras con tus ahorros?".
 2.  **Diseño internacional desde el inicio:** El visualizador está completamente internacionalizado y soporta traducción ES/EN mediante el objeto estructurado `STRINGS` y un autovalidador en consola que detecta claves faltantes. La maquetación CSS con variables de fuente responsivas (`clamp()`) evita que el texto se solape o desborde en pantallas de diferentes tamaños debido a variaciones en la longitud de las palabras traducidas.
-3.  **Haz que lo simple sea trivial y lo complejo posible:** Para el usuario promedio, es una página web estática con scroll fluido y parallax. Para el análisis avanzado, toda la información está tipada y estructurada semánticamente en `SPEC/data.json` y respaldada por scripts de validación con tests de propiedad rápida (PBT) con la librería `fast-check`.
+3.  **Haz que lo simple sea trivial y lo complejo posible:** Para el usuario promedio, es una página web estática con scroll fluido y parallax. Para el análisis avanzado, toda la información está tipada y estructurada semánticamente en `OpenWiki/spec/data.json` y respaldada por scripts de validación con tests de propiedad rápida (PBT) con la librería `fast-check`.
 4.  **Evita dependencias rígidas:** El sitio web interactivo corre en **un solo archivo HTML** sin necesidad de bundlers, Webpack, React o Tailwind. Puede abrirse directamente en cualquier navegador moderno sin servidor de desarrollo y es 100% portable.
 5.  **Respeta la naturaleza distribuida de la web:** El archivo es extremadamente ligero (<40 KB) y no realiza peticiones HTTP externas en tiempo de ejecución (ni fuentes remotas pesadas, ni trackers, ni analytics). Esto garantiza que cargue al instante incluso en redes móviles deficientes o sin conexión.
 6.  **Estructura de datos JSON-LD y Linked Open Data:** Los datos de riqueza global están estructurados en un formato JSON-LD semánticamente enriquecido (visto en `schema.json`), lo que permite que otras computadoras o motores de búsqueda los entiendan en un contexto mundial enlazado.
@@ -68,13 +68,13 @@ La visualización estructura la brecha en 8 secciones de Snap de pantalla comple
 
 Cuando sea necesario actualizar los datos (por ejemplo, con el reporte UBS 2027 o cambios significativos de Forbes):
 1.  **NO edites** directamente `Escala-visual-de-riqueza-mundial.html` a mano para actualizar los datos.
-2.  Modifica los datos estructurados en `SPEC/data.json`.
+2.  Modifica los datos estructurados en `OpenWiki/spec/data.json`.
 3.  Ejecuta la validación automática:
     ```bash
-    node SPEC/scripts/validate-data.js
+    node OpenWiki/scripts/validate-data.js
     ```
 4.  Aplica e inyecta los datos al archivo HTML interactivo:
     ```bash
-    node SPEC/scripts/apply-data.js
+    node OpenWiki/scripts/apply-data.js
     ```
 5.  El script actualizará el i18n, los atributos de accesibilidad y los valores de altura física en el HTML de forma limpia y consistente.

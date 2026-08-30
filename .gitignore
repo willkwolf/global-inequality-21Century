@@ -4,6 +4,7 @@ node_modules/
 # Editor / IDE
 .vscode/
 .idea/
+.kiro/
 
 # OS
 .DS_Store

@@ -2,7 +2,7 @@
 
 > **"EL CHAMPION EN PRODUCCIÓN ES SAGRADO E INMUTABLE HASTA QUE UN CHALLENGER DEMUESTRE EXCELENCIA TOTAL EN UN SANDBOX AISLADO."**
 > 
-> *Regla de Oro de Fase 0:* **NINGUNA SUITE DE PRUEBAS NI SIMULACIÓN SINTÉTICA PUEDE ESCRIBIR DIRECTAMENTE SOBRE LOS ARTEFACTOS DE PRODUCCIÓN (`SPEC/data.json` Y `Escala-visual-de-riqueza-mundial.html`).**
+> *Regla de Oro de Fase 0:* **NINGUNA SUITE DE PRUEBAS NI SIMULACIÓN SINTÉTICA PUEDE ESCRIBIR DIRECTAMENTE SOBRE LOS ARTEFACTOS DE PRODUCCIÓN (`OpenWiki/spec/data.json` Y `Escala-visual-de-riqueza-mundial.html`).**
 
 ---
 
@@ -13,7 +13,7 @@ En la arquitectura de gobernanza y despliegue del sistema:
 ```mermaid
 graph TD
     subgraph "PRODUCCIÓN (VIVA & INMUTABLE)"
-        Champion["<b>CHAMPION (Línea Base Oficial)</b><br>• SPEC/data.json (UBS 2024 / Forbes 2026)<br>• Escala-visual-de-riqueza-mundial.html (Elon Musk, Órbita MEO)<br>• Totalmente estable y verificado en GitHub Pages"]
+        Champion["<b>CHAMPION (Línea Base Oficial)</b><br>• OpenWiki/spec/data.json (UBS 2024 / Forbes 2026)<br>• Escala-visual-de-riqueza-mundial.html (Elon Musk, Órbita MEO)<br>• Totalmente estable y verificado en GitHub Pages"]
     end
 
     subgraph "SANDBOX CHALLENGER (AISLADO & PARALELO)"
@@ -62,8 +62,8 @@ Cuando el mundo exterior sufre cambios macroeconómicos o estadísticos drástic
 
 1. **[`tests/synthetic-robustness.test.mjs`](file:///c:/Dev/Igualdad-Economica-2025/tests/synthetic-robustness.test.mjs):**
    - Ejecuta 25 iteraciones de estrés sintético de forma 100% aislada en memoria.
-   - Cero escrituras en `SPEC/data.json` o `Escala-visual-de-riqueza-mundial.html`.
-2. **[`SPEC/scripts/apply-data.js`](file:///c:/Dev/Igualdad-Economica-2025/SPEC/scripts/apply-data.js):**
-   - Es el único script autorizado para sincronizar el Champion canónico de producción desde `SPEC/data.json`.
+   - Cero escrituras en `OpenWiki/spec/data.json` o `Escala-visual-de-riqueza-mundial.html`.
+2. **[`OpenWiki/scripts/apply-data.js`](file:///c:/Dev/Igualdad-Economica-2025/OpenWiki/scripts/apply-data.js):**
+   - Es el único script autorizado para sincronizar el Champion canónico de producción desde `OpenWiki/spec/data.json`.
 3. **[`src/assets/icon-inventory.js`](file:///c:/Dev/Igualdad-Economica-2025/src/assets/icon-inventory.js):**
    - Garantiza que los elementos visuales del Champion (Satélite, Cohete, Rascacielos, Escalera, Casa, Silla, Escalón, Roca) permanezcan inalterables.
