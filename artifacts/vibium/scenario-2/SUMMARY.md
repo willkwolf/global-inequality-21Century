@@ -2,7 +2,7 @@
 
 - **Escenario:** `scenario-2`
 - **Estado de Verificación:** **`PASS_WITH_ADAPTATION`**
-- **Timestamp:** `2026-08-30T05:46:20.752Z`
+- **Timestamp:** `2026-08-30T06:37:36.005Z`
 - **Abstracción:** WITHIN_LIMITS
 - **Escala:** 1 escalón = `$15000 USD` (`0.15 m`)
 - **Total Estratos Renderizados:** `6`

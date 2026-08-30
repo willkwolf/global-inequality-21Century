@@ -12,7 +12,7 @@ Bienvenido a **OpenWiki**, la fuente única de verdad (*Single Source of Truth*)
 
 ---
 
-## 📚 Índice Maestro de Documentación y Gobernanza (23 Documentos)
+## 📚 Índice Maestro de Documentación y Gobernanza (25 Documentos)
 
 1. [01. Dominio y Abstracción Conceptual](./01_DOMINIO_Y_ABSTRACCION.md) — Definición ontológica, metáfora espacial y estabilidad de abstracción.
 2. [02. Contrato de Abstracción](./02_CONTRATO_DE_ABSTRACCION.md) — Desacoplamiento estricto entre fuentes de datos y la interfaz visual.
@@ -38,6 +38,7 @@ Bienvenido a **OpenWiki**, la fuente única de verdad (*Single Source of Truth*)
 22. [22. Inventario Canónico de Assets Visuales y Guardrails de Iconos SVG](./22_INVENTARIO_DE_ASSETS_VISUALES_Y_GUARDRAILS_DE_ICONOS.md) — Inventario inmutable de iconos vectoriales, reutilización obligatoria y protección de assets visuales.
 23. [23. Arquitectura Champion / Challenger y Sandboxes Aislados de Prueba](./23_ARQUITECTURA_CHAMPION_CHALLENGER_Y_SANDBOX_DE_PRUEBAS.md) — Paradigma Champion/Challenger (A/B), aislamiento total de producción en pruebas y retención ante conceptual drifts extremos.
 24. [24. Toggle Estético de Valor Presente (UI Frosted Glass) y Normalización Inflacionaria](./24_TOGGLE_VALOR_PRESENTE_Y_NORMALIZACION_INFLACIONARIA.md) — Conmutación dinámica entre datos nominales de la fuente original y valor presente ajustado por inflación CPI-U con asterisco dinámico USD*.
+25. [25. Auditoría Epistemológica, Matemática y Arquitectónica del Escalón Patrón](./25_AUDITORIA_EPISTEMOLOGICA_DEL_ESCALON_PATRON_Y_CALIBRACION_DINAMICA.md) — Separación ontológica (Constante física 15 cm vs Dato empírico contingente), análisis SWOT, 6 métodos de calibración, pruebas de estrés y atemporalidad de la escala.
 
 ---
 
