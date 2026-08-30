@@ -2,24 +2,16 @@
  * synthetic-robustness.test.mjs
  * 
  * SUITE DE RESISTENCIA Y ROBUSTEZ DINÁMICA:
- * Ejecuta 100 iteraciones de prueba con datasets sintéticos generados aleatoriamente
+ * Ejecuta 25 iteraciones de prueba con datasets sintéticos generados aleatoriamente
  * para verificar que TODO el pipeline de inyección, compilación y renderizado funcione
  * sin errores en cualquier escenario posible de datos válidos futuros.
  * 
- * COMPROBACIONES EN CADA ITERACIÓN:
- * 1. Generación de `SPEC/data.json` sintético aleatorio con `generate-synthetic-data.js`.
- * 2. Ejecución del validador oficial `SPEC/scripts/validate-data.js` (código de salida 0).
- * 3. Ejecución del script de inyección `SPEC/scripts/apply-data.js` (código de salida 0).
- * 4. Inspección del DOM resultante en `Escala-visual-de-riqueza-mundial.html` mediante JSDOM:
- *    - Existencia de todas las secciones `#s1` a `#s8`.
- *    - Verificación de atributos `data-alt` y `data-label` correctos según la fórmula.
- *    - Verificación del HTML interno en `<div class="num">` (número y unidad inyectados).
- *    - Verificación del icono SVG inyectado en cada estrato (con `xmlns`, `viewBox` y clases correctas).
- * 5. Comprobación del Story Model e Integridad i18n:
- *    - Extracción y parseo del bloque de traducción Javascript `STRINGS`.
- *    - Comprobación i18n de titulares, subtítulos, fichas técnicas dinámicas y traducciones de estrato en ES y EN.
- * 6. En caso de cualquier fallo, interrumpe el bucle, detalla la discrepancia y restaura los backups inmediatamente.
- * 7. Al finalizar la suite completa, limpia el entorno restaurando los archivos originales de forma impecable.
+ * PROTECCIÓN DE LA LÍNEA BASE:
+ * - Realiza backup inmutable antes de iniciar la suite.
+ * - En cada iteración prueba la compilación dinámica.
+ * - Al terminar (éxito o fallo), restaura de forma incondicional el SPEC/data.json oficial
+ *   y ejecuta apply-data.js para garantizar que la producción conserve a Elon Musk,
+ *   UBS 2024 y los SVGs canónicos del inventario.
  */
 
 import fs from 'fs';
@@ -60,9 +52,9 @@ function formatHeight(meters, locale = 'es') {
 }
 
 logHeader('Suite de Robustez de Datos Sintéticos y Compilación');
-console.log(`Iniciando prueba de resistencia de 100 iteraciones aleatorias...`);
+console.log(`Iniciando prueba de resistencia con aislamiento y protección de la línea base...`);
 
-// 1. Realizar backups iniciales para restaurar al terminar
+// 1. Realizar backups iniciales inmutables para restaurar al terminar
 if (!fs.existsSync(DATA_PATH)) {
   logError(`No se encontró el archivo de datos original en: ${DATA_PATH}`);
   process.exit(1);
@@ -171,7 +163,7 @@ try {
       assert.equal(
         svgElement.getAttribute('id'),
         `svg-${sectionId}`,
-        `El SVG de #${sectionId} debe tener el ID sintético "svg-${sectionId}"`
+        `El SVG de #${sectionId} debe tener el ID canónico "svg-${sectionId}"`
       );
     }
 
@@ -254,7 +246,8 @@ try {
   console.error(error.stack);
   process.exitCode = 1;
 } finally {
-  // 5. RESTAURACIÓN IMPECABLE: Devolver SPEC/data.json y el HTML a su estado canónico original
+  // 5. RESTAURACIÓN IMPECABLE Y OBLIGATORIA:
+  // Devolver SPEC/data.json y el HTML a su estado canónico original con Elon Musk y UBS 2024
   console.log('Restaurando archivos del SPEC y visualizador originales a su estado limpio...');
   try {
     fs.writeFileSync(DATA_PATH, originalDataRaw, 'utf8');

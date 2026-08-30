@@ -4,20 +4,21 @@
  * PROPÓSITO:
  * Generar datos sintéticos aleatorios pero matemáticamente consistentes y lingüísticamente válidos
  * para simular encuestas de riqueza globales futuras (ej. años 2028, 2030, 2032).
- * Representa EXCLUSIVAMENTE a Personas Naturales adultas.
+ * Representa EXCLUSIVAMENTE a Personas Naturales adultas y utiliza el inventario canónico de iconos SVG.
  *
  * REGLAS DE CONSISTENCIA:
  * 1. 1 escalón = $8,000 USD = 15 cm (constantes de escala fijas).
  * 2. Alturas estrictamente descendentes (s1 > s2 > s3 ... > s8).
  * 3. Consistencia de la Mediana s7: Patrimonio entre $8,600 y $9,200 USD para mantener el escalón de ~17cm.
  * 4. Fórmulas de altura aplicadas de forma exacta: Altura = (Patrimonio / step_usd) * step_height.
- * 5. Generación de SVGs válidos e inyectables con parámetros variables.
+ * 5. Reutilización de SVGs canónicos del inventario de assets (icon-inventory.js).
  * 6. Diccionario de traducciones bilingües completo y estructurado en ES y EN.
  */
 
 import fs from 'fs';
 import path from 'path';
 import { NumberFormatter } from '../../src/i18n/number-formatter.js';
+import { ICON_INVENTORY } from '../../src/assets/icon-inventory.js';
 
 // Nombres de personas naturales sintéticas futuras (Exclusivamente personas naturales)
 const WEALTH_HOLDERS = [
@@ -31,67 +32,71 @@ const WEALTH_HOLDERS = [
   { name_es: 'Françoise Bettencourt Meyers', name_en: 'Françoise Bettencourt Meyers', type: 'natural_person' }
 ];
 
-// Helper para obtener un número entero aleatorio en un rango
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export function generateSyntheticData() {
-  const step_usd_value = 8000;
-  const step_physical_height_meters = 0.15;
+function randomFloat(min, max, decimals = 2) {
+  const factor = Math.pow(10, decimals);
+  return Math.round((Math.random() * (max - min) + min) * factor) / factor;
+}
 
-  // 1. Definir metadatos aleatorios del futuro
+export function generateSyntheticData() {
+  // 1. Metadatos generales aleatorios
   const surveyYear = randomInt(2028, 2038);
   const ubsReportDate = `${surveyYear - 1}-12-31`;
   const forbesBillionairesDate = `${surveyYear}-05-01`;
 
-  const totalAdults = randomInt(5400, 6200); // 5.4B a 6.2B adultos
-  const totalBillionaires = randomInt(2900, 3900); // 2900 a 3900 billonarios
-
   const topHolder = WEALTH_HOLDERS[randomInt(0, WEALTH_HOLDERS.length - 1)];
+  const totalBillionaires = randomInt(3000, 4500);
+  const totalAdults = randomInt(5500, 6500); // En millones de personas (ej. 5700M)
 
-  // 2. Generar cifras de riqueza coherentes y descendentes
-  // s1: Top Riqueza ($650B - $1.4T)
-  const s1_min = randomInt(650, 750) * 1000000000;
-  const s1_max = randomInt(900, 1400) * 1000000000;
+  // 2. Parámetros monetarios consistentes y estrictamente descendentes
+  // Constantes de fórmula estándar
+  const step_usd_value = 8000;
+  const step_physical_height_meters = 0.15;
+
+  // s1: Multibillonario individual cúspide ($500B - $1,400B)
+  const s1_min = randomInt(500, 750) * 1000000000;
+  const s1_max = s1_min + randomInt(200, 600) * 1000000000;
   const s1_avg = Math.round((s1_min + s1_max) / 2);
 
-  // s2: Billonarios ($1B base)
+  // s2: Billonarios ($1,000M - $10,000M)
   const s2_min = 1000000000;
-  const s2_max = null;
-  const s2_avg = null;
+  const s2_max = randomInt(1500, 3000) * 1000000;
+  const s2_avg = s2_min;
 
-  // s3: Millonarios Promedio ($2.5M - $4.8M)
+  // s3: Millonarios ($1M - $50M, promedio $3.0M - $4.5M)
   const s3_min = 1000000;
-  const s3_max = 1000000000;
-  const s3_avg = randomInt(25, 48) * 100000;
+  const s3_max = randomInt(30, 80) * 1000000;
+  const s3_avg = randomInt(3200, 4400) * 1000;
 
-  // s4: Umbral Millonario ($1M fijo)
+  // s4: Umbral Millonario ($1,000,000 fijo)
   const s4_min = 1000000;
   const s4_max = 1000000;
   const s4_avg = 1000000;
 
-  // s5: Clase Media Alta ($180k - $360k)
+  // s5: Clase Media Alta ($100k - $1M, promedio $250k - $350k)
   const s5_min = 100000;
   const s5_max = 1000000;
-  const s5_avg = randomInt(18, 36) * 10000;
+  const s5_avg = randomInt(260, 340) * 1000;
 
-  // s6: Mayoría promedio ($22k - $49k)
+  // s6: Clase Media Global ($10k - $100k, promedio $30k - $45k)
   const s6_min = 10000;
   const s6_max = 100000;
-  const s6_avg = randomInt(22, 49) * 1000;
+  const s6_avg = randomInt(32, 42) * 1000;
 
-  // s7: Mediana global (anclada entre $8,600 y $9,200 USD para mantener el escalón de ~17cm)
+  // s7: Mediana Mundial ($8,600 - $9,200 para mantener el anclaje del escalón de 16-17 cm)
   const s7_min = randomInt(8600, 8800);
   const s7_max = randomInt(9000, 9200);
   const s7_avg = Math.round((s7_min + s7_max) / 2);
 
-  // s8: Base mundial ($1k - $2.8k)
+  // s8: Base del Mundo ($0 - $10k, promedio $1,400 - $2,100)
   const s8_min = 0;
-  const s8_max = s7_min;
-  const s8_avg = randomInt(10, 28) * 100;
+  const s8_max = 10000;
+  const s8_avg = randomInt(1500, 2100);
 
-  // 3. Helper de alturas exactas basadas en la fórmula de escala
+  // 3. Fórmulas de cálculo de altura física
   function calculateHeight(value) {
     return (value / step_usd_value) * step_physical_height_meters;
   }
@@ -104,6 +109,7 @@ export function generateSyntheticData() {
   const s6_height = calculateHeight(s6_avg);
   const s7_height = calculateHeight(s7_avg);
   const s8_height = calculateHeight(s8_avg);
+
   // Helper para formatear alturas para textos bilingües con NumberFormatter
   function formatHeightLabel(meters) {
     const hEs = NumberFormatter.formatHeight(meters, 'es');
@@ -116,20 +122,7 @@ export function generateSyntheticData() {
     return NumberFormatter.formatMagnitude(value, locale);
   }
 
-  // Generar iconos SVG sintéticos variables para verificar parsing robusto
-  function makeRandomIcon(id) {
-    const rx = randomInt(15, 35);
-    const ry = randomInt(15, 35);
-    const strokeWidth = randomInt(3, 5);
-    return `<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="${strokeWidth}" id="svg-${id}">
-  <!-- Círculo dinámico de robustez sintética -->
-  <circle cx="60" cy="60" r="${rx}" opacity=".5" stroke-dasharray="3 5" />
-  <ellipse cx="60" cy="60" rx="${rx}" ry="${ry}" fill="currentColor" opacity=".22" />
-  <path d="M20 100 h80 M60 20 v80" stroke-linecap="round" />
-</svg>`;
-  }
-
-  // 4. Estructurar estratos y traducciones
+  // 4. Estructurar estratos y traducciones utilizando los iconos canónicos
   const strata = [
     {
       id: 's1',
@@ -147,16 +140,16 @@ export function generateSyntheticData() {
       translations: {
         es: {
           headline: `${topHolder.name_es} vive en órbita`,
-          caption: `Menos de 1 de cada 10 millones · USD $${formatMoneyB(s1_min)}B–$${formatMoneyB(s1_max)}B`,
+          caption: `Menos de 1 de cada 10 millones · USD $${formatMoneyB(s1_min, 'es')}–$${formatMoneyB(s1_max, 'es')}`,
           aria: `${topHolder.name_es} en órbita: ${formatHeightLabel(s1_height).es}`
         },
         en: {
           headline: `${topHolder.name_en} lives in orbit`,
-          caption: `Fewer than 1 in 10 million · USD $${formatMoneyB(s1_min)}B–$${formatMoneyB(s1_max)}B`,
+          caption: `Fewer than 1 in 10 million · USD $${formatMoneyB(s1_min, 'en')}–$${formatMoneyB(s1_max, 'en')}`,
           aria: `${topHolder.name_en} in orbit: ${formatHeightLabel(s1_height).en}`
         }
       },
-      svg_icon: makeRandomIcon('s1')
+      svg_icon: ICON_INVENTORY.satellite_orbit.svg
     },
     {
       id: 's2',
@@ -183,7 +176,7 @@ export function generateSyntheticData() {
           aria: `Billionaires: ${formatHeightLabel(s2_height).en}`
         }
       },
-      svg_icon: makeRandomIcon('s2')
+      svg_icon: ICON_INVENTORY.rocket_stratosphere.svg
     },
     {
       id: 's3',
@@ -210,7 +203,7 @@ export function generateSyntheticData() {
           aria: `Millionaires: ${formatHeightLabel(s3_height).en}`
         }
       },
-      svg_icon: makeRandomIcon('s3')
+      svg_icon: ICON_INVENTORY.skyscraper_building.svg
     },
     {
       id: 's4',
@@ -237,7 +230,7 @@ export function generateSyntheticData() {
           aria: `Millionaire threshold: ${formatHeightLabel(s4_height).en}`
         }
       },
-      svg_icon: makeRandomIcon('s4')
+      svg_icon: ICON_INVENTORY.staircase_ladder.svg
     },
     {
       id: 's5',
@@ -264,7 +257,7 @@ export function generateSyntheticData() {
           aria: `Upper middle class: ${formatHeightLabel(s5_height).en}`
         }
       },
-      svg_icon: makeRandomIcon('s5')
+      svg_icon: ICON_INVENTORY.house_twostory.svg
     },
     {
       id: 's6',
@@ -291,7 +284,7 @@ export function generateSyntheticData() {
           aria: `The majority: ${formatHeightLabel(s6_height).en}`
         }
       },
-      svg_icon: makeRandomIcon('s6')
+      svg_icon: ICON_INVENTORY.bar_stool.svg
     },
     {
       id: 's7',
@@ -318,7 +311,7 @@ export function generateSyntheticData() {
           aria: `World median: ${formatHeightLabel(s7_height).en}`
         }
       },
-      svg_icon: makeRandomIcon('s7')
+      svg_icon: ICON_INVENTORY.stair_step.svg
     },
     {
       id: 's8',
@@ -345,7 +338,7 @@ export function generateSyntheticData() {
           aria: `Base: ${formatHeightLabel(s8_height).en}`
         }
       },
-      svg_icon: makeRandomIcon('s8')
+      svg_icon: ICON_INVENTORY.pebble_rock.svg
     }
   ];
 
@@ -394,11 +387,4 @@ export function generateSyntheticData() {
     },
     strata
   };
-}
-
-// Permitir ejecución directa del script
-if (process.argv[1] && process.argv[1].endsWith('generate-synthetic-data.js')) {
-  const data = generateSyntheticData();
-  fs.writeFileSync('SPEC/data.json', JSON.stringify(data, null, 2), 'utf8');
-  console.log('Successfully generated and saved a random synthetic data.json!');
 }

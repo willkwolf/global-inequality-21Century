@@ -12,7 +12,7 @@ Bienvenido a **OpenWiki**, la fuente única de verdad (*Single Source of Truth*)
 
 ---
 
-## 📚 Índice Maestro de Documentación y Gobernanza (21 Documentos)
+## 📚 Índice Maestro de Documentación y Gobernanza (22 Documentos)
 
 1. [01. Dominio y Abstracción Conceptual](./01_DOMINIO_Y_ABSTRACCION.md) — Definición ontológica, metáfora espacial y estabilidad de abstracción.
 2. [02. Contrato de Abstracción](./02_CONTRATO_DE_ABSTRACCION.md) — Desacoplamiento estricto entre fuentes de datos y la interfaz visual.
@@ -35,6 +35,7 @@ Bienvenido a **OpenWiki**, la fuente única de verdad (*Single Source of Truth*)
 19. [19. Baseline Oficial v0.9 y Fase 0: Estabilización de la Abstracción](./19_BASELINE_OFICIAL_Y_FASE_0_ESTABILIZACION.md) — Congelación conceptual, matriz de estabilidad, catálogo de regresiones y checklist de Fase 0.
 20. [20. Roadmap de Automatización Progresiva y Gobernanza Operacional DAO-Like](./20_ROADMAP_AUTOMATIZACION_PROGRESIVA_Y_GOBERNANZA_DAO.md) — Especificación de las 7 fases, matriz de autoridad de riesgos, principio anti-autoautorización y reversibilidad.
 21. [21. Invariantes Globales: Año Objetivo Dinámico y Formato Numérico i18n Centralizado](./21_INVARIANTES_TEMPORALES_Y_FORMATO_NUMERICO_I18N.md) — Año presente dinámico (`current_year()`), separación de cálculo y presentación, y formateo numérico localizado (ES/EN).
+22. [22. Inventario Canónico de Assets Visuales y Guardrails de Iconos SVG](./22_INVENTARIO_DE_ASSETS_VISUALES_Y_GUARDRAILS_DE_ICONOS.md) — Inventario inmutable de iconos vectoriales, reutilización obligatoria y protección de assets visuales.
 
 ---
 
